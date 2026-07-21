@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>UroDynaMic Tutor - Curso interactivo</title>
     <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="styles.css?v=20260721-pressure-physics-v1" />
+    <link rel="stylesheet" href="styles.css?v=20260721-course-cover-v1" />
   </head>
   <body>
     <div class="app-shell">
       <aside class="side-rail" aria-label="Navegación del curso">
         <div class="side-rail-top">
-          <div class="brand">
+          <button type="button" id="openCover" class="brand" aria-label="Ir a la portada del curso">
             <div class="brand-mark">UD</div>
             <div>
-              <h1>UroDynaMic Tutor</h1>
+              <strong>UroDynaMic Tutor</strong>
               <p>Curso interactivo</p>
             </div>
-          </div>
+          </button>
           <div class="side-rail-actions">
             <button
               type="button"
@@ -117,7 +117,85 @@
       </aside>
 
       <main class="main-stage">
-        <header class="stage-header">
+        <section class="course-cover view-panel" id="courseCover" data-view-panel="cover">
+          <div class="cover-hero">
+            <div class="cover-copy">
+              <p class="overline">Curso interactivo de razonamiento urodinámico</p>
+              <h1>UroDynaMic Tutor</h1>
+              <p class="cover-thesis">Aprender a pensar antes de nombrar curvas.</p>
+              <p class="cover-summary">
+                De una pregunta clínica a una interpretación funcional mediante lecciones breves,
+                laboratorios visuales y trazados sintéticos.
+              </p>
+              <div class="cover-actions">
+                <button type="button" id="startCourse" class="primary-action">
+                  <span id="coverStartLabel">Comenzar el curso</span>
+                  <span aria-hidden="true">→</span>
+                </button>
+                <button type="button" id="browseChapters" class="secondary-action">Ver capítulos</button>
+              </div>
+              <p class="cover-resume" id="coverResume">10 capítulos · 47 casos · 3 modos de aprendizaje</p>
+            </div>
+
+            <figure class="cover-trace" aria-labelledby="coverTraceTitle">
+              <figcaption>
+                <span>Del evento a la interpretación</span>
+                <strong id="coverTraceTitle">Una señal solo adquiere sentido dentro de su contexto</strong>
+              </figcaption>
+              <svg viewBox="0 0 760 330" role="img" aria-label="Trazado docente con presión vesical, abdominal y detrusoriana">
+                <g class="cover-trace-grid" aria-hidden="true">
+                  <line x1="70" y1="55" x2="730" y2="55"></line>
+                  <line x1="70" y1="140" x2="730" y2="140"></line>
+                  <line x1="70" y1="225" x2="730" y2="225"></line>
+                  <line x1="70" y1="295" x2="730" y2="295"></line>
+                  <line x1="180" y1="34" x2="180" y2="295"></line>
+                  <line x1="290" y1="34" x2="290" y2="295"></line>
+                  <line x1="400" y1="34" x2="400" y2="295"></line>
+                  <line x1="510" y1="34" x2="510" y2="295"></line>
+                  <line x1="620" y1="34" x2="620" y2="295"></line>
+                </g>
+                <g class="cover-trace-labels">
+                  <text x="16" y="67">Pves</text>
+                  <text x="16" y="152">Pabd</text>
+                  <text x="16" y="237">Pdet</text>
+                  <text x="16" y="307">Flujo</text>
+                </g>
+                <rect class="cover-event-band" x="330" y="34" width="62" height="261" rx="4"></rect>
+                <text class="cover-event-label" x="361" y="26" text-anchor="middle">tos</text>
+                <path class="cover-line pves" d="M70 73 C150 72 220 70 300 72 L330 72 L342 41 L351 85 L360 44 L370 84 L380 47 L392 73 C465 71 530 72 600 70 C645 68 686 65 730 62"></path>
+                <path class="cover-line pabd" d="M70 158 C160 157 235 159 330 157 L342 126 L351 169 L360 129 L370 168 L380 132 L392 158 C500 158 610 159 730 157"></path>
+                <path class="cover-line pdet" d="M70 242 C180 241 275 241 390 242 C480 242 560 238 620 220 C657 208 692 210 730 214"></path>
+                <path class="cover-line flow" d="M70 300 L540 300 C570 299 598 291 620 275 C650 253 690 257 730 282"></path>
+              </svg>
+              <div class="cover-trace-note">
+                <span>Evento</span>
+                <strong>Pves y Pabd ascienden juntas; Pdet no genera el pico.</strong>
+              </div>
+            </figure>
+          </div>
+
+          <section class="cover-principles" aria-label="Principios del curso">
+            <header>
+              <p class="overline">Tres principios</p>
+              <h2>Una rutina antes de cualquier etiqueta</h2>
+            </header>
+            <ol>
+              <li><span>01</span><div><strong>Pregunta</strong><p>Qué intenta responder el estudio.</p></div></li>
+              <li><span>02</span><div><strong>Señal</strong><p>Qué midió realmente el equipo.</p></div></li>
+              <li><span>03</span><div><strong>Contexto</strong><p>Qué ocurrió y qué no puede concluirse.</p></div></li>
+            </ol>
+          </section>
+
+          <section class="cover-next" aria-label="Inicio de la ruta docente">
+            <div>
+              <span>Primera ruta</span>
+              <strong>Capítulo 1 · Cómo pensar una urodinamia</strong>
+            </div>
+            <p>Antes de interpretar curvas, aprende a separar señal, inferencia y límite.</p>
+          </section>
+        </section>
+
+        <header class="stage-header" id="stageHeader" hidden>
           <div>
             <p class="overline" id="stageBlock">Bloque I · Fundamentos antes de interpretar curvas</p>
             <h2 id="chapterTitle">Cómo pensar una urodinamia</h2>
@@ -129,7 +207,7 @@
           </div>
         </header>
 
-        <nav class="workspace-tabs" aria-label="Modo de aprendizaje">
+        <nav class="workspace-tabs" id="workspaceTabs" aria-label="Modo de aprendizaje" hidden>
           <button type="button" class="active" data-view="lesson" aria-pressed="true">
             <span>1</span>
             <div><strong>Lección</strong><small>Comprender la idea</small></div>
@@ -144,23 +222,14 @@
           </button>
         </nav>
 
-        <div class="view-panel lesson-view" data-view-panel="lesson">
-          <section class="clinical-compass" aria-label="Brújula clínica del curso">
-            <div class="compass-intro">
-              <p class="overline">La visión del curso</p>
-              <h3>La tecnología registra señales. La clínica decide qué significan.</h3>
-              <a href="vision-clinica.html">Leer el manifiesto completo</a>
-            </div>
-            <ol class="compass-steps">
-              <li><span>1</span><div><strong>Proteger</strong><p>Considerar primero lo grave y estructural.</p></div></li>
-              <li><span>2</span><div><strong>Medir</strong><p>Entender qué registró realmente el instrumento.</p></div></li>
-              <li><span>3</span><div><strong>Integrar</strong><p>Leer relaciones, fases, contexto y límites.</p></div></li>
-              <li><span>4</span><div><strong>Traducir</strong><p>Responder una pregunta clínicamente útil.</p></div></li>
-            </ol>
-          </section>
-
+        <div class="view-panel lesson-view" id="lessonView" data-view-panel="lesson" hidden>
           <section class="lesson-layout">
-            <article class="lesson-panel">
+            <article class="lesson-panel" id="lessonPanel">
+              <div class="chapter-opening-marker" id="chapterOpeningMarker" hidden>
+                <span id="chapterNumberLarge">01</span>
+                <p>Inicio del capítulo</p>
+              </div>
+
               <div class="screen-toolbar">
                 <div>
                   <p class="overline" id="screenKicker">Capítulo 1</p>
@@ -168,14 +237,34 @@
                 </div>
               </div>
 
+              <div class="key-idea">
+                <span id="keyIdeaLabel">Idea clave</span>
+                <strong id="keyIdea"></strong>
+              </div>
+
               <p class="lesson-text" id="screenText"></p>
 
               <div class="lesson-prompt" id="lessonPrompt"></div>
 
-              <div class="key-idea">
-                <span>Idea clave</span>
-                <strong id="keyIdea"></strong>
-              </div>
+              <details class="context-panel" id="contextPanel">
+                <summary>
+                  <span>Marco mental del capítulo</span>
+                  <strong id="mentalModelTitle">Evaluación funcional controlada</strong>
+                </summary>
+                <div class="context-panel-body">
+                  <p id="mentalModelText"></p>
+                  <div class="compare-grid">
+                    <div>
+                      <span>No es</span>
+                      <strong id="notThis">Una copia exacta de la micción diaria</strong>
+                    </div>
+                    <div>
+                      <span>Sí es</span>
+                      <strong id="isThis">Un examen funcional con pregunta</strong>
+                    </div>
+                  </div>
+                </div>
+              </details>
 
               <div class="lesson-footer">
                 <div class="lesson-navigation" aria-label="Navegación entre lecciones">
@@ -188,22 +277,6 @@
                 </button>
               </div>
             </article>
-
-            <aside class="context-panel">
-              <p class="overline">Marco mental</p>
-              <h3 id="mentalModelTitle">Evaluación funcional controlada</h3>
-              <p id="mentalModelText"></p>
-              <div class="compare-grid">
-                <div>
-                  <span>No es</span>
-                  <strong id="notThis">Una copia exacta de la micción diaria</strong>
-                </div>
-                <div>
-                  <span>Sí es</span>
-                  <strong id="isThis">Un examen funcional con pregunta</strong>
-                </div>
-              </div>
-            </aside>
           </section>
         </div>
 
@@ -286,6 +359,6 @@
       </main>
     </div>
 
-    <script src="app.js?v=20260721-pressure-physics-v1"></script>
+    <script src="app.js?v=20260721-course-cover-v1"></script>
   </body>
 </html>
