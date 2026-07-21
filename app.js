@@ -1,4 +1,4 @@
-const BUILD_REVISION = "20260721-course-cover-v1";
+const BUILD_REVISION = "20260721-course-cover-v2";
 
 const chapters = {
   thinking: {

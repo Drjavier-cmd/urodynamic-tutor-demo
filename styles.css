@@ -5701,8 +5701,13 @@ html[data-theme="dark"] .cover-event-label {
 }
 
 @media (max-width: 1600px) {
+  .cover-hero {
+    grid-template-columns: minmax(300px, 0.85fr) minmax(400px, 1.15fr);
+    gap: 30px;
+  }
+
   .cover-copy h1 {
-    font-size: 56px;
+    font-size: 48px;
   }
 }
 
