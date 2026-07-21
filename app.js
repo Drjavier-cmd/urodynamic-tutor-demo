@@ -1,4 +1,4 @@
-const BUILD_REVISION = "20260721-coordination-v2";
+const BUILD_REVISION = "20260721-storage-v1";
 
 const chapters = {
   thinking: {
@@ -306,50 +306,140 @@ const chapters = {
     block: "Bloque II · Interpretación funcional",
     number: "Capítulo 6",
     title: "Trastornos de almacenamiento",
-    mentalModelTitle: "Almacenar es una tarea coordinada",
+    mentalModelTitle: "Cuatro objetivos y un resultado",
     mentalModelText:
-      "La lectura práctica se organiza en tres dimensiones relacionadas: sensibilidad, acomodación vesical y competencia del mecanismo de salida.",
-    notThis: "Separar vejiga y salida como compartimentos independientes",
-    isThis: "Preguntar qué relación dejó de cumplir el objetivo de almacenar",
-    labId: "accommodation",
+      "Presión baja, detrusor estable, salida competente y sensibilidad útil permiten almacenar. La capacidad resulta de la interacción entre esas dimensiones.",
+    notThis: "Convertir una capacidad o una curva llamativa en diagnóstico",
+    isThis: "Identificar qué objetivo del reservorio falló y en qué condiciones",
+    labId: "storageMap",
     labDescription:
-      "Explora la relación cualitativa entre volumen, capacidad de distensión y presión antes de pasar a patrones de almacenamiento.",
+      "Compara patrones sintéticos de sensibilidad, actividad detrusoriana, presión-volumen y fuga; observa cómo curvas parecidas exigen preguntas diferentes.",
     screens: [
       {
-        title: "El almacenamiento tiene objetivos",
+        title: "Almacenar no es simplemente no orinar",
         text:
-          "Antes de nombrar un trastorno, recuerda qué debería lograr esta fase: almacenar volumen progresivo a baja presión, sin contracciones involuntarias, sin fuga y con sensibilidad útil.",
-        key: "La patología se entiende mejor como falla de un objetivo normal."
+          "La vejiga debe ganar volumen con poca presión, el detrusor permanecer estable, la salida conservar continencia y la sensibilidad informar el llenado de forma gradual. La cistometría estudia esas relaciones y las circunstancias de una eventual fuga.",
+        key: "Almacenar exige ganar volumen sin pagar presión, sin contracciones involuntarias, sin fuga y con sensibilidad útil.",
+        prompt: "¿Qué objetivo del reservorio dejó de cumplirse?"
       },
       {
         title: "Cuatro preguntas iniciales",
         text:
-          "En almacenamiento conviene preguntar: ¿la presión se mantiene baja?, ¿el detrusor permanece estable?, ¿la salida contiene?, ¿la sensibilidad progresa de manera coherente con el llenado?",
-        key: "Presión, estabilidad, salida y sensibilidad ordenan el capítulo."
+          "Pregunta si la presión se mantiene baja, si el detrusor permanece estable, si la salida contiene y si la sensibilidad progresa coherentemente. La capacidad aparece como resultado de la interacción entre esas cuatro dimensiones.",
+        key: "Una capacidad reducida no explica por sí sola cuál dimensión está fallando.",
+        prompt: "¿Por qué terminó realmente el llenado?"
       },
       {
-        title: "Contracción durante llenado",
+        title: "Síntoma, signo y hallazgo no son sinónimos",
         text:
-          "Una elevación de Pdet durante llenado puede representar actividad detrusoriana si la señal es confiable y Pabd no explica el cambio. Primero se verifica técnica y fase; después se discute el fenómeno docente.",
-        key: "No toda subida de Pves es detrusor; Pdet y Pabd deciden la prudencia."
+          "Urgencia, frecuencia o pérdida con esfuerzo pertenecen a la experiencia cotidiana. Hiperactividad detrusoriana, sensibilidad aumentada, baja complacencia e incontinencia urodinámica de esfuerzo son observaciones obtenidas bajo las condiciones del estudio.",
+        key: "El síntoma plantea la pregunta; la urodinamia intenta reproducir y caracterizar el mecanismo.",
+        prompt: "¿Estoy describiendo lo que el paciente vive o lo que el examen demostró?"
       },
       {
-        title: "Baja complacencia",
+        title: "Vejiga hiperactiva no equivale a detrusor hiperactivo",
         text:
-          "La baja complacencia no se enseña como un pico aislado, sino como una relación anómala entre volumen y presión detrusoriana. El problema es que el reservorio deja de mantenerse a baja presión.",
-        key: "Complacencia es relación presión-volumen, no un dibujo bonito."
+          "La vejiga hiperactiva es un síndrome clínico basado en urgencia, habitualmente con frecuencia y nocturia, con o sin incontinencia de urgencia. La hiperactividad detrusoriana es una contracción observada durante el llenado; puede aparecer con o sin sensación o fuga.",
+        key: "No demostrar una contracción durante el examen no descarta el síndrome clínico.",
+        prompt: "¿El síntoma habitual fue reproducido y qué ocurrió con Pdet?"
       },
       {
-        title: "Fuga durante almacenamiento",
+        title: "La sensibilidad es una secuencia",
         text:
-          "Una fuga en llenado no significa automáticamente hiperactividad detrusoriana. Puede relacionarse con incompetencia del mecanismo de cierre, esfuerzo abdominal, baja resistencia de salida o una combinación.",
-        key: "La fuga obliga a preguntar por salida, presión y evento."
+          "Primera conciencia de llenado, deseos progresivos, deseo intenso, urgencia, dolor o sensaciones atípicas no son intercambiables. Los volúmenes ayudan, pero la señal proviene de lo que el paciente comunica, no de un sensor del equipo.",
+        key: "La sensibilidad es un dato del paciente registrado dentro del examen.",
+        prompt: "¿La sensación progresó y se parece a la experiencia cotidiana del paciente?"
       },
       {
-        title: "Patrón docente, no diagnóstico final",
+        title: "Sensibilidad aumentada, reducida o ausente",
         text:
-          "Una conclusión útil responde qué dimensión del almacenamiento parece alterada, en qué condiciones apareció y qué límites tiene la observación. El diagnóstico clínico requiere integrar historia, examen, técnica y contexto.",
-        key: "Describir el patrón sirve solo si ayuda a comprender el problema clínico."
+          "Sensaciones tempranas con deseo intenso a bajo volumen y Pdet estable orientan a sobresensibilidad. La percepción también puede ser tardía, disminuida, ausente o expresarse como presión, distensión o síntomas vegetativos. Comprensión, atención, neurología y velocidad de llenado modifican la interpretación.",
+        key: "Urgencia sin aumento de Pdet orienta primero a un fenómeno sensitivo, no a una contracción demostrada.",
+        prompt: "¿La sensación cambió sin que cambiara la presión detrusoriana?"
+      },
+      {
+        title: "La referencia de 500 mL no es una meta universal",
+        text:
+          "La terminología ICS utiliza una capacidad esperable de aproximadamente 500 mL como referencia al definir sensación ausente durante cistometría. No debe transformarse en un umbral universal de normalidad ni forzar el llenado si la seguridad o el objetivo del estudio indican detenerlo.",
+        key: "Una definición terminológica no reemplaza el contexto clínico ni la seguridad del paciente.",
+        prompt: "¿Qué información permite afirmar ausencia sensitiva sin sobredistender la vejiga?"
+      },
+      {
+        title: "Hiperactividad detrusoriana: demostrar el origen",
+        text:
+          "Una o más contracciones de Pdet durante el llenado pueden ser espontáneas o provocadas, fásicas o terminales, controlables o no. Antes de nombrarlas, confirma que Pabd no explica el cambio y descarta tos, Valsalva, movimiento, actividad rectal, deriva o desplazamiento del catéter.",
+        key: "Primero se demuestra de dónde nace la presión; después se nombra el hallazgo.",
+        prompt: "¿Pdet aumenta con una señal técnicamente coherente durante la fase de llenado?"
+      },
+      {
+        title: "Describir la contracción, no solo etiquetarla",
+        text:
+          "Registra volumen de aparición, espontánea o provocada, forma, duración, percepción, urgencia, inhibición, fuga, presión asociada y reproducción del síntoma. La contracción visible y la experiencia del paciente son datos distintos.",
+        key: "«Presenta hiperactividad» es menos útil que describir qué ocurrió, cuándo y con qué consecuencia.",
+        prompt: "¿La contracción reprodujo el problema habitual y qué efecto tuvo?"
+      },
+      {
+        title: "Contexto neurológico y presión segura",
+        text:
+          "La hiperactividad detrusoriana se denomina neurogénica cuando existe una alteración neurológica clínicamente relevante. En esos pacientes importa además si la contracción o la baja complacencia generan almacenamiento de alta presión y comprometen la protección de la vía urinaria superior.",
+        key: "Una contracción no demuestra por sí sola origen neurológico ni resume el riesgo del reservorio.",
+        prompt: "¿Qué presión alcanza y cómo se comporta el resto del almacenamiento?"
+      },
+      {
+        title: "Complacencia: cuánto cuesta ganar volumen",
+        text:
+          "La complacencia expresa la relación ΔV / ΔPdet. La acomodación es la idea fisiológica de recibir volumen sin elevar demasiado la presión; la complacencia es la forma urodinámica de describir esa relación.",
+        key: "Cuanto más volumen se incorpora con poco cambio de Pdet, mejor se comporta el reservorio.",
+        prompt: "¿Cuánto volumen ganó la vejiga y cuánto cambió realmente Pdet?"
+      },
+      {
+        title: "La baja complacencia no es un pico",
+        text:
+          "Se reconoce por elevación progresiva o sostenida de la presión basal con el volumen, no por una contracción aislada. Los puntos del cálculo deben excluir contracciones y segmentos con artefacto; velocidad alta de llenado, deriva o Pabd inestable pueden fabricar una falsa baja complacencia.",
+        key: "Una cifra calculable no es fisiológicamente válida si las señales de entrada son defectuosas.",
+        prompt: "¿El aumento persiste con el volumen y sobrevive al control técnico?"
+      },
+      {
+        title: "Estable no significa seguro",
+        text:
+          "Una vejiga puede no presentar contracciones involuntarias y aun así almacenar con presión progresivamente elevada. En especial en neuro-urología, proteger la vía urinaria superior puede ser más importante que demostrar continencia.",
+        key: "Una vejiga seca no es necesariamente una vejiga segura.",
+        prompt: "¿La continencia se logró manteniendo un reservorio de baja presión?"
+      },
+      {
+        title: "La capacidad es un resultado, no una explicación",
+        text:
+          "La capacidad puede quedar limitada por sensibilidad, urgencia, contracción, fuga, baja complacencia, dolor, velocidad de infusión, ansiedad o decisión técnica. También puede ser alta por sensibilidad reducida, conducta habitual o gran capacidad funcional.",
+        key: "La capacidad dice dónde terminó el llenado; no siempre dice por qué terminó.",
+        prompt: "¿Qué sensación, presión o evento determinó el final del llenado?"
+      },
+      {
+        title: "La fuga se interpreta por su relación",
+        text:
+          "Relaciona toda pérdida con fase, evento, Pabd, Pves, Pdet, volumen y posición. Con aumento abdominal y Pdet estable orienta a incontinencia urodinámica de esfuerzo; con contracción de Pdet, a hiperactividad con fuga; con presión basal progresiva, a almacenamiento de alta presión.",
+        key: "La fuga es un evento; el mecanismo se deduce de presión, fase y contexto.",
+        prompt: "¿Qué cambió inmediatamente antes de la pérdida?"
+      },
+      {
+        title: "La presión de fuga tiene condiciones",
+        text:
+          "La presión abdominal de fuga depende del volumen, posición, maniobra, catéter, detección y técnica. Describe las condiciones en que apareció una pérdida, pero no resume por sí sola la gravedad clínica ni determina automáticamente tratamiento.",
+        key: "La presión de fuga no debe usarse aislada para graduar severidad.",
+        prompt: "¿La cifra está acompañada por las condiciones que permiten interpretarla?"
+      },
+      {
+        title: "Los mecanismos pueden coexistir",
+        text:
+          "Sensibilidad alterada, hiperactividad, baja complacencia e incompetencia de salida pueden combinarse. El examen puede reproducir solo una parte de una historia mixta; el hallazgo más llamativo no siempre explica el síntoma principal.",
+        key: "Jerarquiza por reproducción del problema, condiciones y consecuencias funcionales.",
+        prompt: "¿Qué hallazgo explica el problema principal y qué parte de la historia quedó abierta?"
+      },
+      {
+        title: "Una lectura ordenada del almacenamiento",
+        text:
+          "Confirma calidad y pregunta clínica; revisa sensibilidad, relación presión-volumen, actividad detrusoriana, salida y motivo del final del llenado. Luego vuelve a la pregunta y declara qué dimensión falló, qué se reprodujo y qué no se demostró.",
+        key: "Solo después de reconstruir la relación funcional corresponde nombrar el patrón.",
+        prompt: "¿La conclusión explica qué objetivo del reservorio falló y conserva sus límites?"
       }
     ]
   },
@@ -711,6 +801,63 @@ const scenarios = {
       ["Toda fuga es hiperactividad detrusoriana", false, "No. Puede ser mecanismo de cierre, evento abdominal u otra combinación."],
       ["La fuga no tiene valor docente", false, "Sí tiene valor, pero solo si se contextualiza con los canales y eventos."],
       ["Borrar el evento porque confunde", false, "Al contrario: el evento es una ancla de interpretación."]
+    ]
+  },
+  storageOversensitivity: {
+    title: "Sensaciones tempranas con Pdet estable",
+    eventLabel: "urgencia precoz sin cambio de Pdet",
+    event: {
+      type: "storage",
+      title: "El paciente siente antes de que la presión cambie",
+      label: "sensibilidad durante llenado",
+      timing: "a bajo volumen relativo",
+      reading: "El paciente comunica deseo intenso o urgencia mientras Pdet permanece estable y no se demuestra una contracción.",
+      caution: "El volumen aislado no diagnostica; importa la progresión, la experiencia habitual y la calidad del registro."
+    },
+    question: "¿Qué dimensión del almacenamiento debe analizarse primero?",
+    answers: [
+      ["Sensibilidad vesical aumentada durante este llenado", true, "Correcto. La sensación cambia sin una elevación anormal de Pdet."],
+      ["Hiperactividad detrusoriana demostrada", false, "No se registró una contracción de Pdet."],
+      ["Baja complacencia demostrada", false, "La presión basal no aumenta progresivamente con el volumen."],
+      ["Incontinencia urodinámica de esfuerzo", false, "No existe una fuga asociada a aumento abdominal."]
+    ]
+  },
+  detrusorLeak: {
+    title: "Contracción detrusoriana asociada a fuga",
+    eventLabel: "Pdet aumenta + fuga",
+    event: {
+      type: "leak",
+      title: "La fuga aparece durante una contracción",
+      label: "actividad detrusoriana con pérdida",
+      timing: "durante el llenado",
+      reading: "Pves y Pdet aumentan sin una elevación equivalente de Pabd; la fuga coincide temporalmente con la contracción.",
+      caution: "Debe describirse sensación, volumen, presión, inhibición y reproducción del síntoma habitual."
+    },
+    question: "¿Qué relación explica mejor la fuga observada?",
+    answers: [
+      ["Fuga asociada a actividad detrusoriana durante el llenado", true, "Correcto. La pérdida coincide con una contracción de Pdet y no con un esfuerzo abdominal."],
+      ["Incontinencia de esfuerzo porque toda fuga depende de la salida", false, "La secuencia no muestra un aumento abdominal como desencadenante."],
+      ["Baja complacencia por un pico aislado", false, "La complacencia se evalúa como relación progresiva presión-volumen."],
+      ["Diagnóstico clínico de vejiga hiperactiva confirmado", false, "El hallazgo urodinámico no reemplaza la definición sintomática ni la integración clínica."]
+    ]
+  },
+  storagePressureLeak: {
+    title: "Presión basal progresiva hasta la fuga",
+    eventLabel: "Pdet progresa + fuga",
+    event: {
+      type: "leak",
+      title: "El reservorio pierde mientras aumenta la presión",
+      label: "almacenamiento de alta presión",
+      timing: "al avanzar el llenado",
+      reading: "Pdet asciende progresivamente con el volumen y la fuga aparece sin una contracción fásica ni una maniobra abdominal que la explique.",
+      caution: "Debe diferenciarse de la presión abdominal de fuga y validarse contra velocidad de llenado y calidad técnica."
+    },
+    question: "¿Qué problema funcional tiene prioridad en este patrón?",
+    answers: [
+      ["La seguridad del almacenamiento y la relación presión-volumen", true, "Correcto. La continencia deja de ser la única pregunta cuando el reservorio gana presión de forma progresiva."],
+      ["La severidad clínica calculada solo por la fuga", false, "La fuga no resume el riesgo ni la gravedad del caso."],
+      ["Una tos no anotada como explicación obligatoria", false, "El patrón es progresivo y no se acompaña de Pabd."],
+      ["Hiperactividad detrusoriana fásica", false, "No existe un pico o contracción transitoria; predomina la elevación basal progresiva."]
     ]
   },
   outletResistance: {
@@ -1121,6 +1268,14 @@ const chapterPracticeCases = {
   ],
   storageDisorders: [
     {
+      ...scenarios.storageOversensitivity,
+      id: "storageSensitivity",
+      tabLabel: "Sensibilidad precoz",
+      pattern: "storageOversensitivity",
+      focus: "inference",
+      answerOffset: 1
+    },
+    {
       ...scenarios.detrusorStorage,
       id: "storageDetrusor",
       tabLabel: "Actividad detrusoriana",
@@ -1143,6 +1298,47 @@ const chapterPracticeCases = {
       pattern: "leak",
       focus: "event",
       answerOffset: 2
+    },
+    {
+      ...scenarios.detrusorLeak,
+      id: "storageDetrusorLeak",
+      tabLabel: "Contracción + fuga",
+      pattern: "detrusorLeak",
+      focus: "event",
+      answerOffset: 3
+    },
+    {
+      ...scenarios.storagePressureLeak,
+      id: "storagePressureLeak",
+      tabLabel: "Presión + fuga",
+      pattern: "pressureLeak",
+      focus: "inference",
+      answerOffset: 1
+    },
+    {
+      ...scenarios.storage,
+      id: "storageNotReproduced",
+      tabLabel: "No reproducido",
+      pattern: "storage",
+      focus: "limit",
+      answerOffset: 2,
+      title: "Síntomas habituales sin hallazgo durante el examen",
+      eventLabel: "llenado sin reproducción del síntoma",
+      event: {
+        ...scenarios.storage.event,
+        title: "La cistometría no reproduce la urgencia habitual",
+        label: "límite de representatividad",
+        timing: "durante este llenado",
+        reading: "Pdet permanece estable y el síntoma referido no aparece bajo las condiciones del estudio.",
+        caution: "No demostrar una contracción ni urgencia no descarta el síndrome clínico."
+      },
+      question: "¿Cuál es la conclusión más rigurosa?",
+      answers: [
+        ["El fenómeno no fue reproducido en las condiciones de este estudio", true, "Correcto. Describe el alcance del examen sin negar la historia clínica."],
+        ["La vejiga hiperactiva queda descartada", false, "Es un síndrome clínico y el entorno artificial puede no reproducirlo."],
+        ["El paciente no presenta urgencia", false, "La ausencia durante el registro no invalida el síntoma habitual."],
+        ["La normalidad del trazado explica todos los síntomas", false, "Un registro sin hallazgos no constituye una explicación completa."]
+      ]
     }
   ],
   voidingDisorders: [
@@ -1238,9 +1434,13 @@ const practiceTraceProfiles = {
   artifactDrift: { start: 0.25, end: 0.79, fillSlope: 8, driftAmplitude: 70 },
   artifactFlatPabd: { start: 0.6, end: 0.67, fillSlope: 10, pressureAmplitude: 56 },
   artifactBaseline: { start: 0.52, end: 0.58, fillSlope: 10, baselineAmplitude: 45 },
+  storageSensitivity: { start: 0.22, end: 0.34, fillSlope: 11, pressureAmplitude: 0, flowAmplitude: 0, sensationOnly: true },
   storageDetrusor: { start: 0.39, end: 0.56, fillSlope: 12, detrusorAmplitude: 60 },
   storageCompliance: { start: 0.31, end: 0.91, fillSlope: 9, complianceAmplitude: 94 },
   storageLeak: { start: 0.58, end: 0.69, fillSlope: 14, pressureAmplitude: 45, flowAmplitude: 52 },
+  storageDetrusorLeak: { start: 0.46, end: 0.64, fillSlope: 12, detrusorAmplitude: 64, flowAmplitude: 46, leakDelay: 0.09 },
+  storagePressureLeak: { start: 0.28, end: 0.91, fillSlope: 9, complianceAmplitude: 90, flowAmplitude: 38, leakStart: 0.78 },
+  storageNotReproduced: { start: 0.14, end: 0.87, fillSlope: 8, pressureAmplitude: 0, flowAmplitude: 0, noReproduction: true },
   voidingResistance: { start: 0.57, end: 0.92, fillSlope: 10, pressureAmplitude: 78, flowAmplitude: 18, volumeDrop: 44 },
   voidingUnderactive: { start: 0.61, end: 0.86, fillSlope: 10, pressureAmplitude: 20, flowAmplitude: 17, volumeDrop: 24 },
   voidingAbdominal: { start: 0.56, end: 0.91, fillSlope: 10, pressureAmplitude: 50, flowAmplitude: 25, volumeDrop: 38 },
@@ -1296,6 +1496,10 @@ const interactiveDemos = {
     title: "Detector de coherencia técnica",
     subtitle: "Primero describe qué canal cambió; después decide qué verificar"
   },
+  storageMap: {
+    title: "Mapa funcional del almacenamiento",
+    subtitle: "Patrones sintéticos cualitativos: sensibilidad, estabilidad, presión-volumen y mecanismo de fuga"
+  },
   pressureFlowMatrix: {
     title: "Presión y flujo: una relación, cinco lecturas",
     subtitle: "Patrones cualitativos sintéticos; no representan umbrales ni producen diagnósticos"
@@ -1319,7 +1523,10 @@ const chapterLabDemos = {
     { id: "pressureEquation", label: "Pdet derivada" }
   ],
   artifacts: [{ id: "artifactDetective", label: "Detector técnico" }],
-  storageDisorders: [{ id: "accommodation", label: "Acomodación" }],
+  storageDisorders: [
+    { id: "storageMap", label: "Mapa del almacenamiento" },
+    { id: "accommodation", label: "Acomodación" }
+  ],
   voidingDisorders: [
     { id: "pressureFlowMatrix", label: "Presión y flujo" },
     { id: "flowResistance", label: "Bomba y salida" }
@@ -1503,6 +1710,63 @@ const chapterChallenges = {
       ]
     }
   ],
+  storageDisorders: [
+    {
+      tag: "Síntoma y hallazgo",
+      title: "Urgencia habitual sin contracción durante el estudio",
+      prompt: "¿Qué conclusión mantiene separados el síndrome clínico y el hallazgo urodinámico?",
+      evidence: ["Urgencia en la vida cotidiana", "Pdet estable durante este llenado", "Síntoma no reproducido"],
+      answers: [
+        ["No se observó hiperactividad detrusoriana; el estudio no descarta vejiga hiperactiva", true, "Correcto. Se informa lo que no se reprodujo sin invalidar un síndrome definido clínicamente."],
+        ["La vejiga hiperactiva queda descartada", false, "La ausencia de contracciones durante un examen artificial no descarta el síndrome clínico."],
+        ["La urgencia demuestra hiperactividad detrusoriana", false, "El síntoma no demuestra por sí solo una contracción de Pdet durante el llenado."]
+      ]
+    },
+    {
+      tag: "Sensibilidad",
+      title: "Deseo intenso precoz con Pdet estable",
+      prompt: "¿Qué dimensión del almacenamiento está alterada primero?",
+      evidence: ["Sensación temprana", "Capacidad reducida por deseo", "Sin aumento anormal de Pdet"],
+      answers: [
+        ["La sensibilidad; el patrón orienta a sobresensibilidad vesical", true, "Correcto. La percepción aparece pronto sin una contracción detrusoriana demostrada."],
+        ["La estabilidad; existe hiperactividad detrusoriana", false, "Sin elevación de Pdet no se ha demostrado una contracción detrusoriana."],
+        ["La competencia de salida; existe incontinencia de esfuerzo", false, "No se ha descrito fuga ni una maniobra abdominal asociada."]
+      ]
+    },
+    {
+      tag: "Presión-volumen",
+      title: "Pdet basal aumenta progresivamente con el volumen",
+      prompt: "¿Qué lectura diferencia este patrón de un pico detrusoriano aislado?",
+      evidence: ["Ascenso sostenido", "Relación con volumen", "Sin contracción fásica aislada"],
+      answers: [
+        ["Patrón compatible con complacencia reducida, si los canales y la velocidad de llenado son confiables", true, "Correcto. La interpretación depende de una relación presión-volumen progresiva y de señales técnicamente válidas."],
+        ["Hiperactividad detrusoriana confirmada por cualquier aumento de Pdet", false, "Una contracción fásica y una elevación basal progresiva no representan el mismo fenómeno."],
+        ["Capacidad vesical baja como diagnóstico definitivo", false, "La capacidad es un resultado; primero debe explicarse qué limitó el llenado."]
+      ]
+    },
+    {
+      tag: "Mecanismo de fuga",
+      title: "Fuga observada durante una tos",
+      prompt: "¿Qué secuencia sostiene incontinencia urodinámica de esfuerzo?",
+      evidence: ["Pabd y Pves aumentan", "Pdet no muestra contracción", "Fuga temporalmente asociada"],
+      answers: [
+        ["Aumento abdominal con fuga y sin contracción detrusoriana", true, "Correcto. La relación entre maniobra, presiones y fuga define el hallazgo durante el estudio."],
+        ["Cualquier señal en el canal de flujo después de toser", false, "La pérdida debe observarse o confirmarse y relacionarse de forma coherente con la maniobra."],
+        ["Una elevación involuntaria de Pdet que precede la fuga", false, "Esa secuencia orientaría a fuga asociada a actividad detrusoriana, no a esfuerzo."]
+      ]
+    },
+    {
+      tag: "Capacidad",
+      title: "El llenado termina a bajo volumen",
+      prompt: "¿Qué pregunta debe responderse antes de convertir la capacidad en una etiqueta?",
+      evidence: ["Volumen final reducido", "Fin del llenado", "Mecanismo aún no definido"],
+      answers: [
+        ["Por qué terminó: urgencia, dolor, presión, fuga, técnica o decisión del operador", true, "Correcto. La capacidad indica dónde terminó el llenado, no explica por sí sola su causa."],
+        ["Qué diagnóstico corresponde automáticamente a ese volumen", false, "No existe una interpretación única sin conocer la razón del término y la representatividad."],
+        ["Qué presión de fuga gradúa mejor la gravedad", false, "La presión de fuga depende de la técnica y no explica por sí sola una capacidad reducida."]
+      ]
+    }
+  ],
   voidingDisorders: [
     {
       tag: "Relación presión-flujo",
@@ -1592,6 +1856,7 @@ const challengeAnswerOffsets = {
   tracing: [1, 2, 1],
   instrument: [2, 1, 0],
   artifacts: [1, 2, 1],
+  storageDisorders: [2, 1, 2, 1, 2],
   voidingDisorders: [2, 1, 2],
   coordinationDisorders: [1, 2, 1, 2]
 };
@@ -1613,7 +1878,8 @@ window.__urodynamicTutorDiagnostics = {
     persistentTheme: true,
     traceLocalizationChallenge: true,
     syntheticChapterTraces: true,
-    coordinationEmgLab: true
+    coordinationEmgLab: true,
+    storageMapLab: true
   },
   challengeCorrectLetters: Object.fromEntries(
     Object.entries(chapterChallenges).map(([chapterId, challenges]) => [
@@ -1713,6 +1979,7 @@ const defaultState = {
     tracePosition: 12,
     pressurePattern: "cough",
     artifactPattern: "cough",
+    storagePattern: "normal",
     voidingPattern: "efficient",
     coordinationPattern: "coordinated"
   },
@@ -1722,6 +1989,7 @@ const defaultState = {
     tracing: 0,
     instrument: 0,
     artifacts: 0,
+    storageDisorders: 0,
     voidingDisorders: 0,
     coordinationDisorders: 0
   },
@@ -1731,6 +1999,7 @@ const defaultState = {
     tracing: {},
     instrument: {},
     artifacts: {},
+    storageDisorders: {},
     voidingDisorders: {},
     coordinationDisorders: {}
   },
@@ -1740,7 +2009,7 @@ const defaultState = {
     tracing: "curveTimeline",
     instrument: "signalMap",
     artifacts: "artifactDetective",
-    storageDisorders: "accommodation",
+    storageDisorders: "storageMap",
     voidingDisorders: "pressureFlowMatrix",
     coordinationDisorders: "coordinationTimeline"
   },
@@ -2072,6 +2341,96 @@ const pressureFlowPatterns = {
     pdet: "M90 52 L610 52",
     pabd: "M90 112 L610 112",
     flow: "M90 178 L610 178"
+  }
+};
+
+const storagePatterns = {
+  normal: {
+    label: "Coordinado",
+    headline: "Volumen progresivo con Pdet baja, sin fuga",
+    dimension: "Objetivos conservados",
+    observed: "El volumen aumenta, Pdet permanece baja y las sensaciones progresan sin urgencia ni pérdida.",
+    allowed: "Patrón sintético compatible con almacenamiento coordinado en estas condiciones.",
+    boundary: "La normalidad del registro no invalida síntomas que el estudio no reprodujo.",
+    markers: [
+      { x: 350, label: "deseo", tone: "calm" },
+      { x: 515, label: "deseo intenso", tone: "calm" }
+    ],
+    pves: "M105 58 L680 52",
+    pabd: "M105 116 L680 116",
+    pdet: "M105 174 L680 174",
+    volume: "M105 252 L680 214"
+  },
+  oversensitivity: {
+    label: "Sensibilidad precoz",
+    headline: "Sensaciones tempranas con Pdet estable",
+    dimension: "Sensibilidad",
+    observed: "Conciencia, deseo y urgencia aparecen temprano mientras Pdet no muestra una contracción ni una elevación progresiva.",
+    allowed: "El patrón orienta primero a sobresensibilidad durante este llenado.",
+    boundary: "Urgencia no equivale a hiperactividad detrusoriana; debe compararse con la experiencia habitual.",
+    markers: [
+      { x: 205, label: "conciencia", tone: "early" },
+      { x: 285, label: "deseo", tone: "early" },
+      { x: 380, label: "urgencia", tone: "warn" }
+    ],
+    pves: "M105 58 L680 52",
+    pabd: "M105 116 L680 116",
+    pdet: "M105 174 L680 174",
+    volume: "M105 252 L680 214"
+  },
+  detrusorActivity: {
+    label: "Contracción",
+    headline: "Pdet aumenta durante el llenado",
+    dimension: "Estabilidad detrusoriana",
+    observed: "Pves y Pdet forman una contracción mientras Pabd permanece estable; el evento coincide con urgencia.",
+    allowed: "Si la calidad es adecuada, el patrón demuestra actividad detrusoriana durante el llenado.",
+    boundary: "La contracción puede aparecer con o sin sensación y no define por sí sola un síndrome clínico.",
+    markers: [{ x: 435, label: "urgencia", tone: "warn" }],
+    pves: "M105 58 L350 55 C375 55 390 22 425 22 L470 22 C500 22 512 54 540 54 L680 52",
+    pabd: "M105 116 L680 116",
+    pdet: "M105 174 L350 174 C375 174 390 137 425 137 L470 137 C500 137 512 174 540 174 L680 174",
+    volume: "M105 252 L680 214"
+  },
+  lowCompliance: {
+    label: "Presión progresiva",
+    headline: "El volumen comienza a costar Pdet",
+    dimension: "Complacencia",
+    observed: "Pdet asciende de manera progresiva con el volumen, sin depender de un pico fásico aislado.",
+    allowed: "El patrón obliga a evaluar complacencia y validez de los puntos presión-volumen.",
+    boundary: "Velocidad de llenado, deriva y Pabd inestable pueden fabricar una falsa pendiente.",
+    markers: [{ x: 500, label: "presión creciente", tone: "warn" }],
+    pves: "M105 58 L215 58 C300 57 410 42 535 22 L680 18",
+    pabd: "M105 116 L680 116",
+    pdet: "M105 174 L215 174 C300 173 410 157 535 137 L680 132",
+    volume: "M105 252 L680 214"
+  },
+  stressLeak: {
+    label: "Fuga con esfuerzo",
+    headline: "Pabd y Pves suben; Pdet permanece estable",
+    dimension: "Competencia de salida",
+    observed: "Una maniobra abdominal bien transmitida coincide con una fuga observada sin contracción detrusoriana.",
+    allowed: "La secuencia es compatible con incontinencia urodinámica de esfuerzo en esas condiciones.",
+    boundary: "La presión de fuga depende de volumen, posición, maniobra y técnica; no gradúa por sí sola la severidad.",
+    markers: [{ x: 430, label: "tos + fuga", tone: "leak" }],
+    leakX: 448,
+    pves: "M105 58 L390 55 L420 20 L450 55 L680 52",
+    pabd: "M105 116 L390 116 L420 80 L450 116 L680 116",
+    pdet: "M105 174 L680 174",
+    volume: "M105 252 L680 214"
+  },
+  pressureLeak: {
+    label: "Fuga a presión basal",
+    headline: "Pdet progresa con el volumen y luego aparece fuga",
+    dimension: "Seguridad + salida",
+    observed: "La presión basal aumenta gradualmente hasta que aparece pérdida, sin un esfuerzo abdominal ni una contracción fásica que la explique.",
+    allowed: "El patrón orienta a almacenamiento de alta presión con fuga y exige valorar seguridad del reservorio.",
+    boundary: "No debe confundirse con presión abdominal de fuga ni con una contracción detrusoriana aislada.",
+    markers: [{ x: 545, label: "fuga", tone: "leak" }],
+    leakX: 560,
+    pves: "M105 58 L220 58 C315 58 425 42 540 20 L680 19",
+    pabd: "M105 116 L680 116",
+    pdet: "M105 174 L220 174 C315 174 425 157 540 136 L680 135",
+    volume: "M105 252 L680 214"
   }
 };
 
@@ -2681,6 +3040,76 @@ function renderFlowResistanceDemo(demo) {
   `;
 }
 
+function renderStorageMapDemo(demo) {
+  const patternKey = storagePatterns[state.demoControls.storagePattern]
+    ? state.demoControls.storagePattern
+    : "normal";
+  const pattern = storagePatterns[patternKey];
+  const markerMarkup = pattern.markers
+    .map(
+      (marker) => `
+        <line class="storage-event-line ${marker.tone}" x1="${marker.x}" y1="28" x2="${marker.x}" y2="263" />
+        <text class="storage-event-label ${marker.tone}" x="${marker.x + 5}" y="20">${marker.label}</text>
+      `
+    )
+    .join("");
+  const leakMarkup = pattern.leakX
+    ? `<path class="storage-leak-drop" d="M${pattern.leakX} 185 C${pattern.leakX - 9} 197 ${pattern.leakX - 13} 205 ${pattern.leakX - 13} 213 C${pattern.leakX - 13} 225 ${pattern.leakX - 2} 232 ${pattern.leakX + 8} 225 C${pattern.leakX + 19} 216 ${pattern.leakX + 15} 201 ${pattern.leakX} 185 Z" />`
+    : "";
+
+  return `
+    <div class="visual-demo-head">
+      <div>
+        <p class="overline">Laboratorio de almacenamiento</p>
+        <h4>${demo.title}</h4>
+      </div>
+      <span>${demo.subtitle}</span>
+    </div>
+    <div class="demo-tabs storage-map-tabs" aria-label="Patrones funcionales de almacenamiento">
+      ${Object.entries(storagePatterns)
+        .map(([key, item]) => `<button type="button" class="${key === patternKey ? "active" : ""}" aria-pressed="${key === patternKey}" data-storage-pattern="${key}">${item.label}</button>`)
+        .join("")}
+    </div>
+    <div class="storage-map" aria-live="polite">
+      <div class="storage-map-figure">
+        <svg viewBox="0 0 720 282" role="img" aria-labelledby="storageMapTitle storageMapDesc">
+          <title id="storageMapTitle">${pattern.headline}</title>
+          <desc id="storageMapDesc">Trazado sintético cualitativo de Pves, Pabd, Pdet, volumen, sensaciones y fuga durante el llenado.</desc>
+          <rect class="storage-map-window" x="175" y="30" width="485" height="234" rx="8" />
+          ${markerMarkup}
+          <line class="storage-map-grid" x1="96" y1="58" x2="688" y2="58" />
+          <line class="storage-map-grid" x1="96" y1="116" x2="688" y2="116" />
+          <line class="storage-map-grid" x1="96" y1="174" x2="688" y2="174" />
+          <line class="storage-map-grid" x1="96" y1="242" x2="688" y2="242" />
+          <text class="storage-map-label pves" x="16" y="63">Pves</text>
+          <text class="storage-map-label pabd" x="16" y="121">Pabd</text>
+          <text class="storage-map-label pdet" x="16" y="179">Pdet</text>
+          <text class="storage-map-label volume" x="16" y="247">Volumen</text>
+          <path class="storage-map-path pves" d="${pattern.pves}" />
+          <path class="storage-map-path pabd" d="${pattern.pabd}" />
+          <path class="storage-map-path pdet" d="${pattern.pdet}" />
+          <path class="storage-map-path volume" d="${pattern.volume}" />
+          ${leakMarkup}
+          <text class="storage-map-phase" x="108" y="277">llenado progresivo</text>
+        </svg>
+      </div>
+      <div class="storage-map-summary">
+        <p class="overline">Dimensión principal</p>
+        <span>${pattern.dimension}</span>
+        <h5>${pattern.headline}</h5>
+        <div><strong>Qué se observa</strong><p>${pattern.observed}</p></div>
+        <div><strong>Qué permite decir</strong><p>${pattern.allowed}</p></div>
+        <div><strong>Límite</strong><p>${pattern.boundary}</p></div>
+      </div>
+    </div>
+    <div class="storage-map-rule">
+      <span>Rutina de cuatro preguntas</span>
+      <strong>¿Presión baja? · ¿Detrusor estable? · ¿Salida competente? · ¿Sensibilidad coherente?</strong>
+      <p>La capacidad es el resultado de esta interacción; no la explicación automática del trastorno.</p>
+    </div>
+  `;
+}
+
 function renderPressureFlowMatrixDemo(demo) {
   const patternKey = pressureFlowPatterns[state.demoControls.voidingPattern]
     ? state.demoControls.voidingPattern
@@ -3009,6 +3438,15 @@ function bindDemoControls() {
     });
   });
 
+  els.visualDemo.querySelectorAll("[data-storage-pattern]").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (!storagePatterns[button.dataset.storagePattern]) return;
+      state.demoControls.storagePattern = button.dataset.storagePattern;
+      renderVisualDemo("storageMap");
+      saveState();
+    });
+  });
+
   els.visualDemo.querySelectorAll("[data-voiding-pattern]").forEach((button) => {
     button.addEventListener("click", () => {
       if (!pressureFlowPatterns[button.dataset.voidingPattern]) return;
@@ -3087,6 +3525,7 @@ function renderVisualDemo(demoId = activeLabDemoId()) {
     pressureEquation: renderPressureEquationDemo,
     signalMap: renderSignalMapDemo,
     artifactDetective: renderArtifactDetectiveDemo,
+    storageMap: renderStorageMapDemo,
     pressureFlowMatrix: renderPressureFlowMatrixDemo,
     coordinationTimeline: renderCoordinationTimelineDemo
   };
@@ -3401,9 +3840,19 @@ function makeData() {
     const signalDrift = pattern === "signal" ? eventRamp(t, profile.start, profile.driftAmplitude || 70) : 0;
     const signalDrop = pattern === "signal" ? eventPulse(t, Math.max(profile.start, profile.end - 0.2), profile.end, 46) : 0;
     const baselineShift = pattern === "baselineShift" && t > profile.start ? profile.baselineAmplitude || 42 : 0;
-    const detrusorStorage = pattern === "detrusorStorage" ? eventPulse(t, profile.start, profile.end, profile.detrusorAmplitude || 58) : 0;
-    const lowCompliance = pattern === "lowCompliance" ? eventRamp(t, profile.start, profile.complianceAmplitude || 82) : 0;
-    const leakFlow = pattern === "leak" ? eventPulse(t, profile.start, profile.end, flowAmplitude) : 0;
+    const detrusorStorage = ["detrusorStorage", "detrusorLeak"].includes(pattern)
+      ? eventPulse(t, profile.start, profile.end, profile.detrusorAmplitude || 58)
+      : 0;
+    const lowCompliance = ["lowCompliance", "pressureLeak"].includes(pattern)
+      ? eventRamp(t, profile.start, profile.complianceAmplitude || 82)
+      : 0;
+    const detrusorLeakFlow = pattern === "detrusorLeak"
+      ? eventPulse(t, profile.start + (profile.leakDelay || 0.07), profile.end, flowAmplitude)
+      : 0;
+    const pressureLeakFlow = pattern === "pressureLeak"
+      ? eventPulse(t, profile.leakStart || 0.78, Math.min((profile.leakStart || 0.78) + 0.11, 0.96), flowAmplitude)
+      : 0;
+    const leakFlow = pattern === "leak" ? eventPulse(t, profile.start, profile.end, flowAmplitude) : detrusorLeakFlow + pressureLeakFlow;
     const leakAbdominal = pattern === "leak"
       ? eventPulse(t, Math.max(0, profile.start - 0.035), Math.max(profile.start + 0.01, profile.end - 0.025), pressureAmplitude)
       : 0;
@@ -3496,8 +3945,12 @@ function eventMarkup() {
     `;
   }
 
-  if (pattern === "leak") {
-    const dropX = Math.round(startX + width * 0.62);
+  if (["leak", "detrusorLeak", "pressureLeak"].includes(pattern)) {
+    const dropX = pattern === "pressureLeak"
+      ? Math.round(78 + (profile.leakStart || 0.78) * 900)
+      : pattern === "detrusorLeak"
+        ? Math.round(78 + (profile.start + (profile.leakDelay || 0.07)) * 900)
+        : Math.round(startX + width * 0.62);
     return `
       <rect class="event-band warn" x="${startX}" y="74" width="${width}" height="340" rx="8" />
       <text class="event-label" x="${labelX}" y="63">${scenario.eventLabel}</text>
