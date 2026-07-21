@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>UroDynaMic Tutor - Curso interactivo</title>
     <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="styles-part-1.css?v=20260720-pages-v1" />
-    <link rel="stylesheet" href="styles-part-2.css?v=20260720-pages-v1" />
+    <link rel="stylesheet" href="styles-part-1.css?v=20260720-pages-v2" />
+    <link rel="stylesheet" href="styles-part-2.css?v=20260720-pages-v2" />
+    <link rel="stylesheet" href="styles-part-3.css?v=20260720-pages-v2" />
   </head>
   <body>
     <div class="app-shell">
@@ -19,17 +20,29 @@
               <p>Curso interactivo</p>
             </div>
           </div>
-          <button
-            type="button"
-            id="courseNavToggle"
-            class="nav-toggle"
-            aria-controls="courseMap"
-            aria-expanded="false"
-            title="Mostrar capítulos"
-          >
-            <span aria-hidden="true">≡</span>
-            <span class="sr-only">Mostrar capítulos</span>
-          </button>
+          <div class="side-rail-actions">
+            <button
+              type="button"
+              id="themeToggle"
+              class="theme-toggle"
+              aria-pressed="false"
+              title="Activar modo oscuro"
+            >
+              <span id="themeIcon" aria-hidden="true">☾</span>
+              <span class="sr-only" id="themeLabel">Activar modo oscuro</span>
+            </button>
+            <button
+              type="button"
+              id="courseNavToggle"
+              class="nav-toggle"
+              aria-controls="courseMap"
+              aria-expanded="false"
+              title="Mostrar capítulos"
+            >
+              <span aria-hidden="true">≡</span>
+              <span class="sr-only">Mostrar capítulos</span>
+            </button>
+          </div>
         </div>
 
         <nav class="course-map" id="courseMap" aria-label="Capítulos">
@@ -224,6 +237,22 @@
               <div class="trace-canvas">
                 <svg id="traceSvg" viewBox="0 0 1060 470" role="img" aria-label="Trazado urodinámico docente sintético"></svg>
               </div>
+
+              <section class="trace-challenge" id="traceChallenge" aria-label="Reto de localización sobre el trazado">
+                <div class="trace-challenge-copy">
+                  <p class="overline">Reto de localización</p>
+                  <strong id="traceChallengePrompt">Encuentra el evento antes de ver la guía.</strong>
+                  <p id="traceChallengeInstructions">Activa el reto y marca directamente sobre el trazado.</p>
+                </div>
+                <div class="trace-challenge-actions">
+                  <button type="button" id="startTraceChallenge" class="secondary-action">Iniciar reto</button>
+                  <button type="button" id="noFocalEvent" class="secondary-action" hidden>No hay evento focal</button>
+                  <button type="button" id="resetTraceChallenge" class="secondary-action" hidden>Reintentar</button>
+                </div>
+                <div class="trace-challenge-feedback" id="traceChallengeFeedback" aria-live="polite">
+                  La guía permanece visible hasta que inicies el reto.
+                </div>
+              </section>
             </article>
 
             <article class="coach-panel">
@@ -237,10 +266,12 @@
       </main>
     </div>
 
-    <script src="app-part-1.js?v=20260720-pages-v1"></script>
-    <script src="app-part-2.js?v=20260720-pages-v1"></script>
-    <script src="app-part-3.js?v=20260720-pages-v1"></script>
-    <script src="app-part-4.js?v=20260720-pages-v1"></script>
-    <script src="app-part-5.js?v=20260720-pages-v1"></script>
+    <script src="app-part-1.js?v=20260720-pages-v2"></script>
+    <script src="app-part-2.js?v=20260720-pages-v2"></script>
+    <script src="app-part-3.js?v=20260720-pages-v2"></script>
+    <script src="app-part-4.js?v=20260720-pages-v2"></script>
+    <script src="app-part-5.js?v=20260720-pages-v2"></script>
+    <script src="app-part-6.js?v=20260720-pages-v2"></script>
   </body>
 </html>
+
