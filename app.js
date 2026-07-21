@@ -1,4 +1,4 @@
-const BUILD_REVISION = "20260721-coordination-v1";
+const BUILD_REVISION = "20260721-coordination-v2";
 
 const chapters = {
   thinking: {
@@ -494,6 +494,13 @@ const chapters = {
         prompt: "¿Existe una enfermedad o lesión neurológica que haga válida esta etiqueta?"
       },
       {
+        title: "La lesión orienta, pero no dicta el trazado",
+        text:
+          "Las lesiones suprapontinas suelen conservar la sinergia; las suprasacras pueden favorecer disinergia; y las sacras, de cauda equina o periféricas pueden asociarse a hipoactividad, acontractilidad o cambios de resistencia. Son asociaciones orientadoras, no reglas absolutas.",
+        key: "La neurología anticipa posibilidades; la urodinamia muestra qué ocurre en ese paciente.",
+        prompt: "¿El patrón observado coincide con el contexto sin haber sido supuesto a partir de él?"
+      },
+      {
         title: "Vaciado disfuncional",
         text:
           "En una persona sin enfermedad neurológica demostrada, una relajación inadecuada o variable del esfínter externo o del piso pélvico puede producir flujo intermitente. Puede parecerse a la disinergia, pero el contexto fisiopatológico es distinto.",
@@ -534,6 +541,13 @@ const chapters = {
           "Pujos repetidos elevan Pabd y Pves, producen pulsos de flujo y pueden activar el piso pélvico o mover los electrodos. Si Pdet no sostiene el vaciado, el patrón puede simular una alteración esfinteriana.",
         key: "Antes de culpar a la salida, identifica quién está generando el flujo.",
         prompt: "¿Cada pulso de flujo coincide con Pabd o con una contracción detrusoriana sostenida?"
+      },
+      {
+        title: "Por qué importa reconocer la mala coordinación",
+        text:
+          "Una vejiga que trabaja contra una salida activa puede vaciar con presión elevada, flujo limitado y residuo. En neuro-urología, el riesgo para la vía urinaria superior se evalúa en todo el ciclo, especialmente con presión de almacenamiento y complacencia; no se deduce de la etiqueta aislada.",
+        key: "La alteración importa por sus consecuencias funcionales, no solo por la forma de la curva.",
+        prompt: "¿Qué presión, eficiencia y comportamiento de almacenamiento acompañan el hallazgo?"
       },
       {
         title: "Integrar antes de etiquetar",
