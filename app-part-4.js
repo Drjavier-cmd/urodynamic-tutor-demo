@@ -1,573 +1,603 @@
-function activeResistancePreset() {
-  return resistancePresets[state.demoControls.resistancePattern]
-    ? state.demoControls.resistancePattern
-    : "manual";
+const readingRoutine = [
+  {
+    id: "phase",
+    label: "Fase",
+    text: "Ubica almacenamiento, maniobra, transición o vaciado antes de interpretar."
+  },
+  {
+    id: "quality",
+    label: "Calidad",
+    text: "Decide si el tramo es interpretable, parcial o no interpretable."
+  },
+  {
+    id: "signal",
+    label: "Señal",
+    text: "Separa dato medido, canal afectado y coherencia entre presiones."
+  },
+  {
+    id: "event",
+    label: "Evento",
+    text: "Relaciona tos, valsalva, posición, sensación, fuga, orden o fin de flujo."
+  },
+  {
+    id: "inference",
+    label: "Inferencia",
+    text: "Propón qué representa la señal sin convertirla todavía en diagnóstico."
+  },
+  {
+    id: "limit",
+    label: "Límite",
+    text: "Declara qué no se puede concluir con ese segmento o ese estudio."
+  }
+];
+
+const chapterFocus = {
+  thinking: "limit",
+  physiology: "phase",
+  tracing: "phase",
+  instrument: "signal",
+  artifacts: "quality",
+  storageDisorders: "inference"
+};
+
+const chapterScenarioDefaults = Object.fromEntries(
+  Object.entries(chapterPracticeCases).map(([chapterId, cases]) => [chapterId, cases[0].id])
+);
+
+const STORAGE_KEY = "urodynamicTutorState:v1";
+
+const defaultState = {
+  chapter: "thinking",
+  screen: 0,
+  view: "lesson",
+  scenario: "thinkingQuestion",
+  theme: "light",
+  layers: {
+    pves: true,
+    pabd: true,
+    pdet: true,
+    flow: true,
+    events: true
+  },
+  demoControls: {
+    accommodationVolume: 62,
+    accommodationStiffness: 28,
+    accommodationStage: "progressive",
+    outletDiameter: 78,
+    outletCompression: 8,
+    outletStiffness: 14,
+    resistancePattern: "open",
+    clinicalStage: "question",
+    functionalProgram: "storage",
+    signalChannel: "pves",
+    tracePosition: 12,
+    pressurePattern: "cough",
+    artifactPattern: "cough"
+  },
+  challengeIndex: {
+    thinking: 0,
+    physiology: 0,
+    tracing: 0,
+    instrument: 0,
+    artifacts: 0
+  },
+  challengeAnswers: {
+    thinking: {},
+    physiology: {},
+    tracing: {},
+    instrument: {},
+    artifacts: {}
+  },
+  labDemo: {
+    thinking: "clinicalReasoning",
+    physiology: "accommodation",
+    tracing: "curveTimeline",
+    instrument: "signalMap",
+    artifacts: "artifactDetective",
+    storageDisorders: "accommodation"
+  },
+  traceChallenge: {
+    active: false,
+    scenario: null,
+    position: null,
+    verdict: null,
+    noEvent: false
+  }
+};
+
+const state = loadState();
+
+const els = {
+  sideRail: document.querySelector(".side-rail"),
+  courseNavToggle: document.getElementById("courseNavToggle"),
+  themeToggle: document.getElementById("themeToggle"),
+  themeIcon: document.getElementById("themeIcon"),
+  themeLabel: document.getElementById("themeLabel"),
+  courseMap: document.getElementById("courseMap"),
+  chapterTitle: document.getElementById("chapterTitle"),
+  stageBlock: document.getElementById("stageBlock"),
+  progressLabel: document.getElementById("progressLabel"),
+  progressFill: document.getElementById("progressFill"),
+  screenKicker: document.getElementById("screenKicker"),
+  screenTitle: document.getElementById("screenTitle"),
+  screenText: document.getElementById("screenText"),
+  lessonPrompt: document.getElementById("lessonPrompt"),
+  visualDemo: document.getElementById("visualDemo"),
+  challengeLab: document.getElementById("challengeLab"),
+  labChapterTitle: document.getElementById("labChapterTitle"),
+  labChapterDescription: document.getElementById("labChapterDescription"),
+  openLab: document.getElementById("openLab"),
+  openPractice: document.getElementById("openPractice"),
+  keyIdea: document.getElementById("keyIdea"),
+  screenDots: document.getElementById("screenDots"),
+  prevScreen: document.getElementById("prevScreen"),
+  nextScreen: document.getElementById("nextScreen"),
+  mentalModelTitle: document.getElementById("mentalModelTitle"),
+  mentalModelText: document.getElementById("mentalModelText"),
+  notThis: document.getElementById("notThis"),
+  isThis: document.getElementById("isThis"),
+  practiceChapterLabel: document.getElementById("practiceChapterLabel"),
+  scenarioTabs: document.getElementById("scenarioTabs"),
+  traceTitle: document.getElementById("traceTitle"),
+  traceEventCard: document.getElementById("traceEventCard"),
+  traceSvg: document.getElementById("traceSvg"),
+  traceChallenge: document.getElementById("traceChallenge"),
+  traceChallengePrompt: document.getElementById("traceChallengePrompt"),
+  traceChallengeInstructions: document.getElementById("traceChallengeInstructions"),
+  traceChallengeFeedback: document.getElementById("traceChallengeFeedback"),
+  startTraceChallenge: document.getElementById("startTraceChallenge"),
+  noFocalEvent: document.getElementById("noFocalEvent"),
+  resetTraceChallenge: document.getElementById("resetTraceChallenge"),
+  coachQuestion: document.getElementById("coachQuestion"),
+  answerGrid: document.getElementById("answerGrid"),
+  coachFeedback: document.getElementById("coachFeedback"),
+  routineSteps: document.getElementById("routineSteps"),
+  resetProgress: document.getElementById("resetProgress")
+};
+
+function cloneDefaultState() {
+  return JSON.parse(JSON.stringify(defaultState));
 }
 
-function renderClinicalReasoningDemo(demo) {
-  const stageKey = clinicalReasoningStages[state.demoControls.clinicalStage]
-    ? state.demoControls.clinicalStage
-    : "question";
-  const stage = clinicalReasoningStages[stageKey];
-  const stageEntries = Object.entries(clinicalReasoningStages);
-  const activeIndex = stageEntries.findIndex(([key]) => key === stageKey);
-
-  return `
-    <div class="visual-demo-head">
-      <div>
-        <p class="overline">Laboratorio de razonamiento</p>
-        <h4>${demo.title}</h4>
-      </div>
-      <span>${demo.subtitle}</span>
-    </div>
-    <div class="reasoning-case-banner">
-      <span>Caso sintético</span>
-      <strong>La paciente refiere pérdida de orina al toser.</strong>
-      <p>El objetivo no es adivinar un diagnóstico, sino construir una respuesta desde una pregunta verificable.</p>
-    </div>
-    <div class="reasoning-path" aria-label="Etapas del razonamiento clínico">
-      ${stageEntries
-        .map(
-          ([key, item], index) => `
-            <button type="button" class="${key === stageKey ? "active" : ""}" aria-pressed="${key === stageKey}" data-clinical-stage="${key}">
-              <span>${index + 1}</span>
-              <strong>${item.label}</strong>
-            </button>
-          `
-        )
-        .join("")}
-    </div>
-    <div class="reasoning-progress" aria-hidden="true">
-      <span style="width:${((activeIndex + 1) / stageEntries.length) * 100}%"></span>
-    </div>
-    <div class="reasoning-focus" aria-live="polite">
-      <div class="reasoning-index">${activeIndex + 1}</div>
-      <div class="reasoning-case-detail">
-        <span>${stage.label}</span>
-        <h5>${stage.title}</h5>
-        <p>${stage.text}</p>
-        <div class="reasoning-evidence">
-          ${stage.evidence.map((item) => `<span>${item}</span>`).join("")}
-        </div>
-        <div class="reasoning-result">
-          <span>Resultado de esta etapa</span>
-          <strong>${stage.result}</strong>
-        </div>
-      </div>
-      <aside>
-        <span>Límite que debemos conservar</span>
-        <strong>${stage.boundary}</strong>
-      </aside>
-    </div>
-  `;
-}
-
-function renderProgramSwitchDemo(demo) {
-  const programKey = functionalPrograms[state.demoControls.functionalProgram]
-    ? state.demoControls.functionalProgram
-    : "storage";
-  const program = functionalPrograms[programKey];
-
-  return `
-    <div class="visual-demo-head">
-      <div>
-        <p class="overline">Laboratorio de fisiología</p>
-        <h4>${demo.title}</h4>
-      </div>
-      <span>${demo.subtitle}</span>
-    </div>
-    <div class="demo-tabs program-tabs" aria-label="Programa funcional">
-      ${Object.entries(functionalPrograms)
-        .map(
-          ([key, item]) => `<button type="button" class="${key === programKey ? "active" : ""}" aria-pressed="${key === programKey}" data-functional-program="${key}">${item.label}</button>`
-        )
-        .join("")}
-    </div>
-    <div class="program-diagram ${programKey}" aria-live="polite">
-      <div class="control-center">
-        <span>Control neurológico</span>
-        <strong>${programKey === "storage" ? "Mantiene almacenamiento" : "Autoriza vaciado"}</strong>
-      </div>
-      <div class="program-arrow"><span></span></div>
-      <div class="urinary-program">
-        <div class="program-bladder"><span>${program.system}</span></div>
-        <div class="program-outlet"><i></i><span>Salida ${program.outlet}</span></div>
-      </div>
-      <div class="program-readouts">
-        <div><span>Detrusor</span><strong>${program.detrusor}</strong></div>
-        <div><span>Salida</span><strong>${program.outlet}</strong></div>
-      </div>
-    </div>
-    <div class="demo-reading program-reading">
-      <strong>${program.goal}</strong>
-      <p>${program.prompt}</p>
-    </div>
-  `;
-}
-
-function renderSignalMapDemo(demo) {
-  const channelKey = signalChannels[state.demoControls.signalChannel]
-    ? state.demoControls.signalChannel
-    : "pves";
-  const channel = signalChannels[channelKey];
-
-  return `
-    <div class="visual-demo-head">
-      <div>
-        <p class="overline">Mapa del instrumento</p>
-        <h4>${demo.title}</h4>
-      </div>
-      <span>${demo.subtitle}</span>
-    </div>
-    <div class="demo-tabs signal-tabs" aria-label="Canales del estudio">
-      ${Object.entries(signalChannels)
-        .map(
-          ([key, item]) => `<button type="button" class="${key === channelKey ? "active" : ""}" aria-pressed="${key === channelKey}" data-signal-channel="${key}">${item.label}</button>`
-        )
-        .join("")}
-    </div>
-    <div class="signal-map-demo" aria-live="polite">
-      <div class="signal-source">
-        <span>Origen del dato</span>
-        <strong>${channel.source}</strong>
-      </div>
-      <div class="signal-transfer" aria-hidden="true"><span></span></div>
-      <div class="signal-monitor ${channelKey}">
-        <span>${channel.kind}</span>
-        <strong>${channel.label}</strong>
-        <i></i>
-      </div>
-      <div class="signal-interpretation">
-        <span>Lectura</span>
-        <p>${channel.reading}</p>
-      </div>
-    </div>
-    <div class="demo-reading">
-      <strong>Límite interpretativo</strong>
-      <p>${channel.limit}</p>
-    </div>
-  `;
-}
-
-function renderAccommodationDemo(demo) {
-  const stageKey = accommodationStages[state.demoControls.accommodationStage]
-    ? state.demoControls.accommodationStage
-    : "progressive";
-  const stage = accommodationStages[stageKey];
-
-  const tractFigure = (mode) => {
-    const altered = mode === "altered";
-    const bladderScale = altered ? stage.alteredScale : stage.normalScale;
-    const ureterWidth = altered ? stage.ureterWidth : 4;
-    const pelvisScale = altered ? stage.pelvisScale : 1;
-    const pressure = altered ? stage.alteredPressure : stage.normalPressure;
-
-    return `
-      <svg class="urinary-tract-figure ${mode}" viewBox="0 0 260 300" role="img" aria-label="${altered ? "Vejiga con acomodación alterada y representación del riesgo para la vía urinaria superior" : "Vejiga con acomodación conservada y vía urinaria superior preservada"}">
-        <g class="kidneys">
-          <path d="M44 50 C26 62 28 98 49 108 C64 115 77 101 75 82 C73 62 60 45 44 50 Z" />
-          <path d="M216 50 C234 62 232 98 211 108 C196 115 183 101 185 82 C187 62 200 45 216 50 Z" />
-        </g>
-        <g class="renal-pelvis">
-          <ellipse cx="64" cy="84" rx="${(10 * pelvisScale).toFixed(1)}" ry="${(14 * pelvisScale).toFixed(1)}" />
-          <ellipse cx="196" cy="84" rx="${(10 * pelvisScale).toFixed(1)}" ry="${(14 * pelvisScale).toFixed(1)}" />
-        </g>
-        <g class="ureters" style="--ureter-width:${ureterWidth}px;">
-          <path d="M64 97 C72 130 88 156 104 204" />
-          <path d="M196 97 C188 130 172 156 156 204" />
-        </g>
-        <g class="bladder-group" transform="translate(130 230) scale(${bladderScale}) translate(-130 -230)">
-          <path class="bladder-shape" d="M82 196 C69 221 72 259 95 276 C113 290 147 290 165 276 C188 259 191 221 178 196 C166 173 151 164 130 164 C109 164 94 173 82 196 Z" />
-          <path class="bladder-highlight" d="M99 202 C112 184 147 181 164 207" />
-        </g>
-        ${altered && stageKey !== "initial" ? '<path class="pressure-arrows" d="M110 188 L91 161 M150 188 L169 161 M130 179 L130 145" />' : ""}
-      </svg>
-      <div class="tract-readout">
-        <span>Presión de almacenamiento</span>
-        <strong>${pressure}</strong>
-      </div>
-    `;
+function normalizeDemoControls(savedControls = {}) {
+  const controls = {
+    ...defaultState.demoControls,
+    ...savedControls
   };
 
-  return `
-    <div class="visual-demo-head">
-      <div>
-        <p class="overline">Laboratorio visual</p>
-        <h4>${demo.title}</h4>
-      </div>
-      <span>${demo.subtitle}</span>
-    </div>
-    <div class="demo-tabs accommodation-stages" aria-label="Etapa de llenado">
-      ${Object.entries(accommodationStages)
-        .map(([key, item]) => `<button type="button" class="${key === stageKey ? "active" : ""}" aria-pressed="${key === stageKey}" data-accommodation-stage="${key}">${item.label}</button>`)
-        .join("")}
-    </div>
-    <div class="accommodation-comparison" aria-live="polite">
-      <article class="urinary-tract-card normal">
-        <header><span>Acomodación conservada</span><strong>Vejiga distensible</strong></header>
-        ${tractFigure("normal")}
-        <p>El reservorio aumenta su volumen manteniendo una presión contenida. La vía urinaria superior se representa preservada.</p>
-      </article>
-      <article class="urinary-tract-card altered">
-        <header><span>Acomodación alterada</span><strong>El volumen cuesta presión</strong></header>
-        ${tractFigure("altered")}
-        <p>La vejiga gana menos volumen y la presión aumenta. Vía superior: ${stage.upperTract}.</p>
-      </article>
-    </div>
-    <div class="accommodation-caution">
-      <strong>Lectura correcta del esquema</strong>
-      <p>La dilatación no es una consecuencia obligatoria. Representa el riesgo que debe considerarse cuando el almacenamiento deja de mantenerse a baja presión.</p>
-    </div>
-  `;
-}
-
-function renderFlowResistanceDemo(demo) {
-  const diameter = state.demoControls.outletDiameter;
-  const compression = state.demoControls.outletCompression;
-  const stiffness = state.demoControls.outletStiffness;
-  const presetKey = activeResistancePreset();
-  const preset = resistancePresets[presetKey];
-  const effectiveOutlet = clamp(diameter - compression * 0.58 - stiffness * 0.16, 8, 92);
-  const stream = clamp(effectiveOutlet * 0.92, 8, 86);
-  const upstreamPressure = clamp(92 - effectiveOutlet + compression * 0.28 + stiffness * 0.22, 12, 96);
-  const hoseHeight = clamp(16 + effectiveOutlet * 0.32, 18, 46);
-  const pinch = clamp(100 - compression, 18, 100);
-
-  return `
-    <div class="visual-demo-head">
-      <div>
-        <p class="overline">Laboratorio visual</p>
-        <h4>${demo.title}</h4>
-      </div>
-      <span>${demo.subtitle}</span>
-    </div>
-    <div class="flow-demo">
-      <div class="pump" style="--pressure: ${upstreamPressure}%;">
-        <span></span>
-        <strong>Bomba</strong>
-        <p>Presión proximal ${pressureLabel(upstreamPressure)}</p>
-      </div>
-      <div class="hose-stage" style="--hose-height: ${hoseHeight}px; --pinch: ${pinch}%; --stream: ${stream}%;">
-        <div class="hose">
-          <span class="pinch"></span>
-        </div>
-        <div class="water-stream"></div>
-      </div>
-      <div class="flow-readout">
-        <strong>${stream > 60 ? "Flujo amplio" : stream > 32 ? "Flujo limitado" : "Flujo pobre"}</strong>
-        <p>El flujo no depende solo de la bomba: la salida también decide.</p>
-      </div>
-    </div>
-    <div class="resistance-concepts" aria-label="Conceptos de resistencia del tracto de salida">
-      <article>
-        <span>Extrínseca</span>
-        <strong>Algo aprieta desde fuera.</strong>
-        <p>En la analogía, una pinza comprime la manguera. En clínica, piensa en fuerzas externas al lumen que estrechan o angulan la salida.</p>
-      </article>
-      <article>
-        <span>Intrínseca</span>
-        <strong>La salida ofrece resistencia por sí misma.</strong>
-        <p>En la analogía, el conducto es más estrecho, rígido o poco deformable. No requiere una fuerza externa para limitar el flujo.</p>
-      </article>
-    </div>
-    <div class="resistance-presets" aria-label="Patrones docentes de resistencia">
-      <div>
-        <p class="overline">Ejercicio rápido</p>
-        <strong>¿Qué mecanismo está dominando?</strong>
-      </div>
-      <div class="preset-buttons">
-        ${Object.entries(resistancePresets)
-          .filter(([key]) => key !== "manual")
-          .map(([key, item]) => `<button type="button" class="${key === presetKey ? "active" : ""}" data-resistance-preset="${key}">${item.label}</button>`)
-          .join("")}
-      </div>
-      <p><b>${preset.title}</b> ${preset.text}</p>
-    </div>
-    <div class="demo-controls">
-      ${demo.controls.map(([id, label]) => controlMarkup(id, label)).join("")}
-    </div>
-  `;
-}
-
-function renderCurveTimelineDemo(demo) {
-  const position = clamp(state.demoControls.tracePosition, 0, 100);
-  const moment = traceMoments.find((item) => position <= item.until) || traceMoments[traceMoments.length - 1];
-  const cursorX = 58 + position * 6.04;
-
-  return `
-    <div class="visual-demo-head">
-      <div>
-        <p class="overline">Laboratorio de lectura</p>
-        <h4>${demo.title}</h4>
-      </div>
-      <span>${demo.subtitle}</span>
-    </div>
-    <div class="curve-timeline-demo">
-      <svg viewBox="0 0 720 190" role="img" aria-labelledby="timelineTitle timelineDesc">
-        <title id="timelineTitle">Trazado sintético recorrido por un cursor temporal</title>
-        <desc id="timelineDesc">Tres canales docentes muestran un evento de tos durante llenado, una transición y presión con flujo durante vaciado.</desc>
-        <rect class="timeline-phase storage" x="48" y="12" width="430" height="162" />
-        <rect class="timeline-phase transition" x="478" y="12" width="82" height="162" />
-        <rect class="timeline-phase voiding" x="560" y="12" width="120" height="162" />
-        <text class="timeline-channel-label p-abd" x="8" y="51">Pabd</text>
-        <text class="timeline-channel-label p-det" x="8" y="106">Pdet</text>
-        <text class="timeline-channel-label flow" x="8" y="161">Flujo</text>
-        <path class="timeline-path pabd" d="M55 48 L198 48 L210 48 L220 19 L231 48 L680 48" />
-        <path class="timeline-path pdet" d="M55 103 L500 103 C520 103 535 58 565 55 C600 57 615 103 650 103 L680 103" />
-        <path class="timeline-path flow" d="M55 158 L555 158 C572 158 582 124 612 121 C642 123 654 158 680 158" />
-        <line class="timeline-event" x1="220" y1="12" x2="220" y2="174" />
-        <line class="timeline-event" x1="430" y1="12" x2="430" y2="174" />
-        <line class="timeline-event" x1="520" y1="12" x2="520" y2="174" />
-        <text class="timeline-event-label" x="204" y="185">tos</text>
-        <text class="timeline-event-label" x="397" y="185">deseo</text>
-        <text class="timeline-event-label" x="486" y="185">orden</text>
-        <line class="timeline-cursor" x1="${cursorX}" y1="8" x2="${cursorX}" y2="174" />
-        <circle class="timeline-cursor-dot" cx="${cursorX}" cy="8" r="5" />
-      </svg>
-    </div>
-    <div class="timeline-moments" aria-label="Momentos del estudio">
-      ${traceMoments
-        .map(
-          (item) => `<button type="button" class="${item === moment ? "active" : ""}" aria-pressed="${item === moment}" data-trace-position="${item.position}">${item.title}</button>`
-        )
-        .join("")}
-    </div>
-    <label class="timeline-control">
-      <span>Recorre el estudio <b>${position}%</b></span>
-      <input type="range" min="0" max="100" value="${position}" data-demo-control="tracePosition" />
-    </label>
-    <div class="demo-reading" aria-live="polite">
-      <div><span>${moment.phase}</span><strong>${moment.title}</strong></div>
-      <p><b>${moment.event}.</b> ${moment.reading}</p>
-    </div>
-  `;
-}
-
-function renderPressureEquationDemo(demo) {
-  const patternKey = pressurePatterns[state.demoControls.pressurePattern] ? state.demoControls.pressurePattern : "cough";
-  const pattern = pressurePatterns[patternKey];
-  const pdet = pattern.pves - pattern.pabd;
-  const widthFor = (value) => clamp(Math.abs(value) * 2.2, 5, 100);
-
-  return `
-    <div class="visual-demo-head">
-      <div>
-        <p class="overline">Laboratorio de señales</p>
-        <h4>${demo.title}</h4>
-      </div>
-      <span>${demo.subtitle}</span>
-    </div>
-    <div class="demo-tabs" aria-label="Escenarios sintéticos de presión">
-      ${Object.entries(pressurePatterns)
-        .map(([key, item]) => `<button type="button" class="${key === patternKey ? "active" : ""}" aria-pressed="${key === patternKey}" data-pressure-pattern="${key}">${item.label}</button>`)
-        .join("")}
-    </div>
-    <div class="pressure-equation-demo" aria-label="Cálculo de Pdet">
-      <div class="pressure-channel pves">
-        <span>Pves · medida</span>
-        <strong>${pattern.pves} <small>cmH2O</small></strong>
-        <i style="--bar:${widthFor(pattern.pves)}%"></i>
-      </div>
-      <b class="equation-operator">−</b>
-      <div class="pressure-channel pabd">
-        <span>Pabd · medida</span>
-        <strong>${pattern.pabd} <small>cmH2O</small></strong>
-        <i style="--bar:${widthFor(pattern.pabd)}%"></i>
-      </div>
-      <b class="equation-operator">=</b>
-      <div class="pressure-channel pdet ${pdet < 0 ? "negative" : ""}">
-        <span>Pdet · derivada</span>
-        <strong>${pdet} <small>cmH2O</small></strong>
-        <i style="--bar:${widthFor(pdet)}%"></i>
-      </div>
-    </div>
-    <div class="measurement-legend" aria-label="Tipo de señal">
-      <span><i class="measured"></i><b>Pves y Pabd</b> son señales medidas</span>
-      <span><i class="derived"></i><b>Pdet</b> se calcula a partir de ambas</span>
-    </div>
-    <div class="demo-reading" aria-live="polite">
-      <strong>${pattern.title}</strong>
-      <p>${pattern.reading}</p>
-    </div>
-  `;
-}
-
-function renderArtifactDetectiveDemo(demo) {
-  const patternKey = artifactPatterns[state.demoControls.artifactPattern] ? state.demoControls.artifactPattern : "cough";
-  const pattern = artifactPatterns[patternKey];
-
-  return `
-    <div class="visual-demo-head">
-      <div>
-        <p class="overline">Laboratorio técnico</p>
-        <h4>${demo.title}</h4>
-      </div>
-      <span>${demo.subtitle}</span>
-    </div>
-    <div class="demo-tabs" aria-label="Patrones técnicos docentes">
-      ${Object.entries(artifactPatterns)
-        .map(([key, item]) => `<button type="button" class="${key === patternKey ? "active" : ""}" aria-pressed="${key === patternKey}" data-artifact-pattern="${key}">${item.label}</button>`)
-        .join("")}
-    </div>
-    <div class="artifact-detective-demo">
-      <svg viewBox="0 0 620 202" role="img" aria-labelledby="artifactTitle artifactDesc">
-        <title id="artifactTitle">Comparación sintética de coherencia entre canales</title>
-        <desc id="artifactDesc">Pves, Pabd y Pdet cambian según el patrón técnico seleccionado.</desc>
-        <line class="artifact-grid" x1="82" y1="48" x2="598" y2="48" />
-        <line class="artifact-grid" x1="82" y1="103" x2="598" y2="103" />
-        <line class="artifact-grid" x1="82" y1="158" x2="598" y2="158" />
-        <text class="artifact-channel-label pves" x="12" y="53">Pves</text>
-        <text class="artifact-channel-label pabd" x="12" y="108">Pabd</text>
-        <text class="artifact-channel-label pdet" x="12" y="163">Pdet</text>
-        <path class="artifact-path pves" d="${pattern.pves}" />
-        <path class="artifact-path pabd" d="${pattern.pabd}" />
-        <path class="artifact-path pdet" d="${pattern.pdet}" />
-      </svg>
-    </div>
-    <div class="artifact-route" aria-label="Secuencia de control técnico">
-      <span><b>1</b> Comparar canales</span>
-      <span><b>2</b> Relacionar el evento</span>
-      <span><b>3</b> Verificar antes de concluir</span>
-    </div>
-    <div class="artifact-analysis" aria-live="polite">
-      <div><span>Lectura de señal</span><strong class="artifact-status">${pattern.status}</strong><p>${pattern.clue}</p></div>
-      <div><span>Primero verificar</span><p>${pattern.check}</p></div>
-      <div><span>Límite</span><p>${pattern.limit}</p></div>
-    </div>
-  `;
-}
-
-function bindDemoControls() {
-  els.visualDemo.querySelectorAll("[data-lab-demo]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const demoId = button.dataset.labDemo;
-      if (!chapterLabDemos[state.chapter].some((demo) => demo.id === demoId)) return;
-      state.labDemo[state.chapter] = demoId;
-      renderVisualDemo(demoId);
-      saveState();
-    });
-  });
-
-  els.visualDemo.querySelectorAll("[data-demo-control]").forEach((input) => {
-    input.addEventListener("input", () => {
-      state.demoControls[input.dataset.demoControl] = Number(input.value);
-      if (input.dataset.demoControl.startsWith("outlet")) {
-        state.demoControls.resistancePattern = "manual";
-      }
-      renderVisualDemo();
-      saveState();
-    });
-  });
-
-  els.visualDemo.querySelectorAll("[data-accommodation-stage]").forEach((button) => {
-    button.addEventListener("click", () => {
-      if (!accommodationStages[button.dataset.accommodationStage]) return;
-      state.demoControls.accommodationStage = button.dataset.accommodationStage;
-      renderVisualDemo("accommodation");
-      saveState();
-    });
-  });
-
-  els.visualDemo.querySelectorAll("[data-resistance-preset]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const presetKey = button.dataset.resistancePreset;
-      const preset = resistancePresets[presetKey];
-      if (!preset) return;
-      Object.assign(state.demoControls, preset.values, { resistancePattern: presetKey });
-      renderVisualDemo("flowResistance");
-      saveState();
-    });
-  });
-
-  els.visualDemo.querySelectorAll("[data-pressure-pattern]").forEach((button) => {
-    button.addEventListener("click", () => {
-      if (!pressurePatterns[button.dataset.pressurePattern]) return;
-      state.demoControls.pressurePattern = button.dataset.pressurePattern;
-      renderVisualDemo("pressureEquation");
-      saveState();
-    });
-  });
-
-  els.visualDemo.querySelectorAll("[data-artifact-pattern]").forEach((button) => {
-    button.addEventListener("click", () => {
-      if (!artifactPatterns[button.dataset.artifactPattern]) return;
-      state.demoControls.artifactPattern = button.dataset.artifactPattern;
-      renderVisualDemo("artifactDetective");
-      saveState();
-    });
-  });
-
-  els.visualDemo.querySelectorAll("[data-clinical-stage]").forEach((button) => {
-    button.addEventListener("click", () => {
-      if (!clinicalReasoningStages[button.dataset.clinicalStage]) return;
-      state.demoControls.clinicalStage = button.dataset.clinicalStage;
-      renderVisualDemo("clinicalReasoning");
-      saveState();
-    });
-  });
-
-  els.visualDemo.querySelectorAll("[data-functional-program]").forEach((button) => {
-    button.addEventListener("click", () => {
-      if (!functionalPrograms[button.dataset.functionalProgram]) return;
-      state.demoControls.functionalProgram = button.dataset.functionalProgram;
-      renderVisualDemo("programSwitch");
-      saveState();
-    });
-  });
-
-  els.visualDemo.querySelectorAll("[data-signal-channel]").forEach((button) => {
-    button.addEventListener("click", () => {
-      if (!signalChannels[button.dataset.signalChannel]) return;
-      state.demoControls.signalChannel = button.dataset.signalChannel;
-      renderVisualDemo("signalMap");
-      saveState();
-    });
-  });
-
-  els.visualDemo.querySelectorAll("[data-trace-position]").forEach((button) => {
-    button.addEventListener("click", () => {
-      state.demoControls.tracePosition = Number(button.dataset.tracePosition);
-      renderVisualDemo("curveTimeline");
-      saveState();
-    });
-  });
-}
-
-function activeLabDemoId() {
-  const options = chapterLabDemos[state.chapter] || [{ id: chapters[state.chapter].labId, label: "Laboratorio" }];
-  const selected = state.labDemo[state.chapter];
-  return options.some((option) => option.id === selected) ? selected : options[0].id;
-}
-
-function renderVisualDemo(demoId = activeLabDemoId()) {
-  const demo = interactiveDemos[demoId];
-  if (!demo) {
-    els.visualDemo.hidden = true;
-    els.visualDemo.innerHTML = "";
-    return;
+  if (!savedControls.resistancePattern && ["outletDiameter", "outletCompression", "outletStiffness"].some((key) => key in savedControls)) {
+    controls.resistancePattern = "manual";
   }
 
-  els.visualDemo.hidden = false;
-  const renderers = {
-    clinicalReasoning: renderClinicalReasoningDemo,
-    programSwitch: renderProgramSwitchDemo,
-    accommodation: renderAccommodationDemo,
-    flowResistance: renderFlowResistanceDemo,
-    curveTimeline: renderCurveTimelineDemo,
-    pressureEquation: renderPressureEquationDemo,
-    signalMap: renderSignalMapDemo,
-    artifactDetective: renderArtifactDetectiveDemo
-  };
-  const labOptions = chapterLabDemos[state.chapter] || [];
-  state.labDemo[state.chapter] = demoId;
-  const labSelector = labOptions.length > 1
-    ? `<div class="lab-concept-tabs" role="tablist" aria-label="Conceptos interactivos del capítulo">
-        ${labOptions
-          .map((option) => `<button type="button" class="${option.id === demoId ? "active" : ""}" aria-selected="${option.id === demoId}" data-lab-demo="${option.id}">${option.label}</button>`)
-          .join("")}
-      </div>`
-    : "";
-  els.visualDemo.innerHTML = `${labSelector}${renderers[demoId](demo)}`;
-  bindDemoControls();
+  return controls;
 }
+
+function normalizeChallengeState(savedIndexes = {}, savedAnswers = {}) {
+  const challengeIndex = {};
+  const challengeAnswers = {};
+
+  Object.entries(chapterChallenges).forEach(([chapterId, challenges]) => {
+    const savedIndex = Number.isInteger(savedIndexes[chapterId]) ? savedIndexes[chapterId] : 0;
+    challengeIndex[chapterId] = clamp(savedIndex, 0, challenges.length - 1);
+    challengeAnswers[chapterId] =
+      savedAnswers[chapterId] && typeof savedAnswers[chapterId] === "object" && !Array.isArray(savedAnswers[chapterId])
+        ? { ...savedAnswers[chapterId] }
+        : {};
+  });
+
+  return { challengeIndex, challengeAnswers };
+}
+
+function loadState() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+    if (!saved || !chapters[saved.chapter]) {
+      return applyUrlState(cloneDefaultState());
+    }
+
+    const normalizedChallenges = normalizeChallengeState(saved.challengeIndex, saved.challengeAnswers);
+    const savedScenario = chapterPracticeCases[saved.chapter].some((practiceCase) => practiceCase.id === saved.scenario)
+      ? saved.scenario
+      : chapterScenarioDefaults[saved.chapter];
+
+    return applyUrlState({
+      chapter: saved.chapter,
+      screen: Number.isInteger(saved.screen) ? Math.max(0, Math.min(saved.screen, chapters[saved.chapter].screens.length - 1)) : 0,
+      view: ["lesson", "lab", "practice"].includes(saved.view) ? saved.view : "lesson",
+      scenario: savedScenario,
+      theme: saved.theme === "dark" ? "dark" : "light",
+      layers: {
+        ...defaultState.layers,
+        ...(saved.layers || {})
+      },
+      demoControls: normalizeDemoControls(saved.demoControls),
+      labDemo: {
+        ...defaultState.labDemo,
+        ...(saved.labDemo || {})
+      },
+      traceChallenge: {
+        ...defaultState.traceChallenge,
+        ...(saved.traceChallenge || {}),
+        active: false,
+        scenario: null,
+        position: null,
+        verdict: null,
+        noEvent: false
+      },
+      ...normalizedChallenges
+    });
+  } catch {
+    return applyUrlState(cloneDefaultState());
+  }
+}
+
+function applyUrlState(baseState) {
+  const params = new URLSearchParams(window.location.search);
+  const chapter = params.get("chapter");
+  const scenario = params.get("scenario");
+  const view = params.get("view");
+  const screen = Number(params.get("screen"));
+
+  if (chapter && chapters[chapter]) {
+    baseState.chapter = chapter;
+    baseState.screen = 0;
+    baseState.scenario = chapterScenarioDefaults[chapter];
+  }
+
+  if (Number.isInteger(screen)) {
+    baseState.screen = clamp(screen - 1, 0, chapters[baseState.chapter].screens.length - 1);
+  }
+
+  if (scenario && chapterPracticeCases[baseState.chapter].some((practiceCase) => practiceCase.id === scenario)) {
+    baseState.scenario = scenario;
+  }
+
+  if (["lesson", "lab", "practice"].includes(view)) {
+    baseState.view = view;
+  }
+
+  return baseState;
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch {
+    // The app remains fully usable if a browser blocks local persistence.
+  }
+}
+
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function resetState() {
+  const theme = state.theme;
+  Object.assign(state, cloneDefaultState());
+  state.theme = theme;
+}
+
+function applyTheme() {
+  const dark = state.theme === "dark";
+  document.documentElement.dataset.theme = dark ? "dark" : "light";
+  els.themeToggle.setAttribute("aria-pressed", String(dark));
+  els.themeToggle.title = dark ? "Activar modo claro" : "Activar modo oscuro";
+  els.themeIcon.textContent = dark ? "☀" : "☾";
+  els.themeLabel.textContent = dark ? "Activar modo claro" : "Activar modo oscuro";
+}
+
+function resetTraceChallengeState(active = false) {
+  state.traceChallenge = {
+    active,
+    scenario: active ? state.scenario : null,
+    position: null,
+    verdict: null,
+    noEvent: false
+  };
+}
+
+function traceChallengeIsCurrent() {
+  return state.traceChallenge.active && state.traceChallenge.scenario === state.scenario;
+}
+
+function pressureLabel(value) {
+  if (value < 36) return "baja";
+  if (value < 66) return "intermedia";
+  return "alta";
+}
+
+function controlMarkup(id, label) {
+  const value = state.demoControls[id];
+  return `
+    <label class="demo-control">
+      <span>${label}</span>
+      <input type="range" min="0" max="100" value="${value}" data-demo-control="${id}" />
+    </label>
+  `;
+}
+
+const resistancePresets = {
+  open: {
+    label: "Salida abierta",
+    values: { outletDiameter: 78, outletCompression: 8, outletStiffness: 14 },
+    title: "La salida acompaña a la bomba.",
+    text: "Diámetro amplio, poca compresión y baja resistencia propia permiten que la energía de la bomba se traduzca en flujo."
+  },
+  extrinsic: {
+    label: "Extrínseca",
+    values: { outletDiameter: 72, outletCompression: 78, outletStiffness: 18 },
+    title: "La salida se estrecha desde fuera.",
+    text: "La resistencia aparece porque algo externo comprime, angula o deforma el trayecto. La salida podría ser competente, pero está siendo apretada."
+  },
+  intrinsic: {
+    label: "Intrínseca",
+    values: { outletDiameter: 30, outletCompression: 8, outletStiffness: 78 },
+    title: "La salida limita por su propia estructura.",
+    text: "El problema está en el conducto: menor calibre, rigidez o baja deformabilidad. No necesitas una fuerza externa para que el flujo caiga."
+  },
+  mixed: {
+    label: "Mixta",
+    values: { outletDiameter: 38, outletCompression: 58, outletStiffness: 62 },
+    title: "Dos mecanismos pueden sumarse.",
+    text: "Una salida ya resistente puede empeorar si además recibe compresión externa. El trazado orienta, pero no adjudica causa anatómica por sí solo."
+  },
+  manual: {
+    label: "Manual",
+    values: {},
+    title: "Patrón manual.",
+    text: "Moviste los controles libremente. Interpreta el resultado como tendencia docente, no como medición clínica."
+  }
+};
+
+const clinicalReasoningStages = {
+  question: {
+    label: "Pregunta",
+    title: "¿Qué queremos observar?",
+    text: "La paciente refiere pérdida de orina al toser. Antes de mirar curvas, la pregunta debe transformar ese relato en un fenómeno que el examen pueda intentar reproducir.",
+    evidence: ["Síntoma referido: pérdida al toser", "Fenómeno buscado: fuga durante aumento abdominal registrado"],
+    result: "Pregunta definida: ¿aparece fuga asociada a la tos durante el estudio?",
+    boundary: "La pregunta orienta el examen; todavía no establece un diagnóstico."
+  },
+  conditions: {
+    label: "Condiciones",
+    title: "¿En qué condiciones se buscó?",
+    text: "El resultado solo puede entenderse si sabemos en qué fase, posición y maniobra se intentó reproducir el síntoma y si los canales transmitían adecuadamente.",
+    evidence: ["Fase de llenado", "Tos identificada como evento", "Pves y Pabd con transmisión coherente"],
+    result: "Condiciones suficientes para relacionar la maniobra con lo observado.",
+    boundary: "Un examen controlado no reproduce de manera perfecta la vida cotidiana."
+  },
+  signal: {
+    label: "Señal",
+    title: "¿Qué ocurrió en el registro?",
+    text: "Ahora se describen solamente los datos: la tos fue anotada, Pves y Pabd aumentaron de manera concordante y se registró una fuga coincidente.",
+    evidence: ["Evento: tos", "Pves y Pabd aumentan", "Fuga observada en el mismo momento"],
+    result: "Dato observado: fuga coincidente con una maniobra abdominal registrada.",
+    boundary: "El dato aún debe integrarse con la pregunta y las condiciones del estudio."
+  },
+  conclusion: {
+    label: "Conclusión",
+    title: "¿Qué podemos afirmar con prudencia?",
+    text: "La conclusión responde la pregunta original con el fenómeno que efectivamente se observó, sin atribuir al trazado más información de la que contiene.",
+    evidence: ["Pregunta respondida", "Fenómeno reproducido", "Límite declarado"],
+    result: "Durante las condiciones del estudio se observó fuga asociada a la tos registrada.",
+    boundary: "La conclusión no explica por sí sola toda la historia clínica ni reemplaza su integración."
+  }
+};
+
+const functionalPrograms = {
+  storage: {
+    label: "Almacenamiento",
+    system: "Reservorio",
+    detrusor: "relajado",
+    outlet: "cerrada",
+    goal: "Ganar volumen a baja presión y sin fuga.",
+    prompt: "¿El sistema conserva el programa de almacenamiento?"
+  },
+  voiding: {
+    label: "Vaciado",
+    system: "Bomba",
+    detrusor: "contráctil",
+    outlet: "abierta",
+    goal: "Generar flujo mediante contracción y apertura coordinadas.",
+    prompt: "¿La bomba y la salida trabajan a favor del flujo?"
+  }
+};
+
+const accommodationStages = {
+  initial: {
+    label: "Llenado inicial",
+    normalScale: 0.78,
+    alteredScale: 0.72,
+    normalPressure: "baja",
+    alteredPressure: "baja",
+    upperTract: "sin cambio visible",
+    ureterWidth: 4,
+    pelvisScale: 1
+  },
+  progressive: {
+    label: "Llenado progresivo",
+    normalScale: 0.98,
+    alteredScale: 0.8,
+    normalPressure: "se mantiene baja",
+    alteredPressure: "aumenta",
+    upperTract: "entra en zona de riesgo",
+    ureterWidth: 6,
+    pelvisScale: 1.16
+  },
+  high: {
+    label: "Llenado avanzado",
+    normalScale: 1.12,
+    alteredScale: 0.86,
+    normalPressure: "permanece contenida",
+    alteredPressure: "elevada",
+    upperTract: "dilatación representada como riesgo",
+    ureterWidth: 10,
+    pelvisScale: 1.34
+  }
+};
+
+const signalChannels = {
+  pves: {
+    label: "Pves",
+    kind: "Medida",
+    source: "Presión registrada dentro de la vejiga.",
+    reading: "Incluye la contribución vesical, la presión abdominal transmitida y posibles problemas técnicos.",
+    limit: "Aislada no equivale automáticamente a actividad detrusoriana."
+  },
+  pabd: {
+    label: "Pabd",
+    kind: "Medida",
+    source: "Estimación de la presión abdominal mediante el canal correspondiente.",
+    reading: "Permite reconocer cuánto de un cambio vesical puede explicarse por transmisión abdominal.",
+    limit: "Si el canal no transmite bien, la Pdet derivada también pierde confiabilidad."
+  },
+  pdet: {
+    label: "Pdet",
+    kind: "Derivada",
+    source: "Resultado de restar Pabd a Pves.",
+    reading: "Ayuda a separar la contribución abdominal de la presión vesical registrada.",
+    limit: "No es una tercera presión medida ni corrige canales técnicamente inválidos."
+  },
+  flow: {
+    label: "Flujo",
+    kind: "Medida",
+    source: "Salida de orina registrada en el tiempo.",
+    reading: "Muestra una consecuencia funcional que debe relacionarse con presión y fase.",
+    limit: "Flujo aislado no explica por sí solo cómo trabajaron bomba y salida."
+  },
+  volume: {
+    label: "Volumen",
+    kind: "Contexto",
+    source: "Cantidad acumulada durante llenado o evacuada durante vaciado.",
+    reading: "Ubica presiones, sensaciones y eventos dentro de la historia temporal.",
+    limit: "El volumen contextualiza una señal; no la interpreta por sí mismo."
+  }
+};
+
+const traceMoments = [
+  {
+    position: 12,
+    until: 22,
+    phase: "Almacenamiento",
+    title: "Llenado inicial",
+    event: "Sin maniobra",
+    reading: "La presión se interpreta dentro de una fase de llenado y junto al volumen acumulado."
+  },
+  {
+    position: 30,
+    until: 38,
+    phase: "Almacenamiento",
+    title: "Tos",
+    event: "Evento abdominal breve",
+    reading: "Compara Pves y Pabd antes de atribuir el pico al detrusor."
+  },
+  {
+    position: 52,
+    until: 62,
+    phase: "Almacenamiento",
+    title: "Deseo miccional",
+    event: "Sensación registrada",
+    reading: "La sensación aporta contexto temporal, pero no reemplaza la lectura de presión y volumen."
+  },
+  {
+    position: 70,
+    until: 78,
+    phase: "Transición",
+    title: "Orden de orinar",
+    event: "Cambio de programa",
+    reading: "Distingue la instrucción de la respuesta fisiológica que realmente aparece después."
+  },
+  {
+    position: 90,
+    until: 100,
+    phase: "Vaciado",
+    title: "Presión y flujo",
+    event: "Flujo presente",
+    reading: "Durante vaciado, presión y flujo se leen como una relación, no como canales aislados."
+  }
+];
+
+const pressurePatterns = {
+  baseline: {
+    label: "Basal",
+    pves: 12,
+    pabd: 10,
+    title: "Dos mediciones cercanas producen una Pdet baja.",
+    reading: "La cifra derivada refleja la diferencia entre ambos canales, no una tercera medición independiente."
+  },
+  cough: {
+    label: "Tos",
+    pves: 42,
+    pabd: 40,
+    title: "Pves y Pabd suben casi juntas.",
+    reading: "La presión transmitida se cancela en gran parte al calcular Pdet. Esto es coherente con un evento abdominal bien transmitido."
+  },
+  vesicalRise: {
+    label: "Pves asciende",
+    pves: 35,
+    pabd: 10,
+    title: "Pves aumenta sin un cambio equivalente de Pabd.",
+    reading: "Pdet aumenta por la resta. La fase, el evento y la calidad todavía deben confirmarse antes de nombrar el fenómeno."
+  },
+  isolatedPabd: {
+    label: "Pabd aislada",
+    pves: 12,
+    pabd: 32,
+    title: "Pabd cambia sin acompañamiento de Pves.",
+    reading: "El cálculo genera una Pdet negativa. Eso obliga a revisar coherencia técnica o actividad rectal; no demuestra una presión vesical negativa."
+  }
+};
+
+const artifactPatterns = {
+  cough: {
+    label: "Tos transmitida",
+    status: "Control coherente",
+    pves: "M90 48 L225 48 L242 48 L252 19 L263 48 L590 48",
+    pabd: "M90 103 L225 103 L242 103 L252 75 L263 103 L590 103",
+    pdet: "M90 158 L590 158",
+    clue: "Pves y Pabd muestran picos semejantes; Pdet permanece cerca de su línea de base.",
+    check: "Confirmar que la tos quedó registrada y que la transmisión es comparable en ambos canales.",
+    limit: "Este control no diagnostica por sí solo continencia ni actividad detrusoriana."
+  },
+  rectal: {
+    label: "Contracción rectal",
+    status: "Evento abdominal localizado",
+    pves: "M90 48 L590 48",
+    pabd: "M90 103 L270 103 C286 103 292 72 315 72 C338 72 344 103 360 103 L590 103",
+    pdet: "M90 158 L270 158 C286 158 292 188 315 188 C338 188 344 158 360 158 L590 158",
+    clue: "Pabd asciende sin un cambio equivalente de Pves y Pdet se desvía hacia valores negativos.",
+    check: "Relacionar el evento con actividad rectal y verificar la calidad y posición del canal abdominal.",
+    limit: "No interpretar la deflexión negativa de Pdet como un fenómeno propio de la vejiga."
+  },
+  pvesShift: {
+    label: "Salto de Pves",
+    status: "Cambio de línea base",
+    pves: "M90 48 L290 48 L300 29 L590 29",
+    pabd: "M90 103 L590 103",
+    pdet: "M90 158 L290 158 L300 139 L590 139",
+    clue: "Pves cambia abruptamente de nivel; Pabd permanece estable y Pdet reproduce el salto.",
+    check: "Revisar línea vesical, catéter, cero y transmisión antes de continuar interpretando.",
+    limit: "El segmento posterior puede no ser comparable con la línea de base previa hasta corregir la causa."
+  },
+  flatPabd: {
+    label: "Pabd plana",
+    status: "Canal no confiable",
+    pves: "M90 48 L225 48 L242 48 L252 19 L263 48 L590 48",
+    pabd: "M90 103 L590 103",
+    pdet: "M90 158 L225 158 L242 158 L252 129 L263 158 L590 158",
+    clue: "Pabd no responde durante una tos mientras Pves sí cambia; Pdet hereda artificialmente el pico.",
+    check: "Verificar conexión, posición, columna de líquido y transmisión del canal abdominal.",
+    limit: "Pdet derivada desde una Pabd inválida no permite interpretar fisiología con seguridad."
+  }
+};
+
 
