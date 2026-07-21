@@ -2603,6 +2603,522 @@ a.course-item {
   color: #ffffff;
 }
 
+.water-column-lab {
+  min-height: 300px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 20px 0;
+  display: grid;
+  grid-template-columns: minmax(150px, 0.7fr) minmax(150px, 1fr) minmax(190px, 0.8fr);
+  gap: 18px;
+  align-items: center;
+}
+
+.pressure-vessel {
+  display: grid;
+  justify-items: center;
+  gap: 9px;
+  text-align: center;
+}
+
+.pressure-vessel > span,
+.manometer-reading span,
+.leveling-readout > span,
+.transmission-source > span,
+.transducer-box > span,
+.transmission-monitor > span,
+.transmission-reading span {
+  color: #55707d;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.pressure-vessel > strong,
+.manometer-reading strong {
+  color: var(--ink);
+  font-size: 20px;
+}
+
+.vessel-shape {
+  width: 118px;
+  height: 128px;
+  border: 3px solid var(--teal);
+  border-radius: 44% 44% 38% 38%;
+  background: #ffffff;
+  padding: 7px;
+  display: flex;
+  align-items: end;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 4px rgba(15, 143, 143, 0.08);
+}
+
+.vessel-shape i {
+  width: 100%;
+  height: calc(24% + var(--vessel-pressure) * 66%);
+  border-radius: 34% 34% 28% 28%;
+  background: linear-gradient(180deg, #70d9e9, #168ba8);
+  transition: height 160ms ease;
+}
+
+.hydraulic-link {
+  min-height: 96px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.hydraulic-link > span {
+  width: 100%;
+  height: 12px;
+  border: 3px solid #7897a5;
+  border-radius: 999px;
+  background: #daf5fa;
+}
+
+.hydraulic-link > i {
+  position: absolute;
+  right: -2px;
+  width: 17px;
+  height: 17px;
+  border-top: 4px solid var(--cyan);
+  border-right: 4px solid var(--cyan);
+  transform: rotate(45deg);
+}
+
+.hydraulic-link small {
+  position: absolute;
+  top: calc(50% + 18px);
+  color: #587381;
+  font-size: 11px;
+  font-weight: 850;
+  text-align: center;
+}
+
+.manometer-assembly {
+  min-height: 244px;
+  display: grid;
+  grid-template-columns: 52px 42px minmax(95px, 1fr);
+  gap: 10px;
+  align-items: center;
+}
+
+.manometer-scale {
+  height: 220px;
+  position: relative;
+  border-right: 1px solid #91a7b1;
+}
+
+.manometer-scale span {
+  position: absolute;
+  top: var(--tick-y);
+  right: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 5px;
+  transform: translateY(-50%);
+  color: #607789;
+  font-size: 10px;
+}
+
+.manometer-scale i {
+  width: 9px;
+  height: 1px;
+  background: #91a7b1;
+}
+
+.manometer-tube {
+  width: 30px;
+  height: 220px;
+  align-self: center;
+  border: 3px solid #668697;
+  border-radius: 16px 16px 8px 8px;
+  background: #f4fafc;
+  padding: 4px;
+  display: flex;
+  align-items: end;
+}
+
+.manometer-tube i {
+  width: 100%;
+  min-height: 4px;
+  border-radius: 8px 8px 4px 4px;
+  background: linear-gradient(180deg, #61d5e8, #177da2);
+  transition: height 160ms ease;
+}
+
+.manometer-reading {
+  display: grid;
+  gap: 6px;
+}
+
+.physics-range {
+  display: grid;
+  gap: 8px;
+  color: #365063;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.physics-range > span {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.physics-range b {
+  color: var(--teal);
+  text-align: right;
+}
+
+.physics-range input {
+  width: 100%;
+  accent-color: var(--teal);
+}
+
+.physics-principle {
+  border-left: 4px solid var(--cyan);
+  background: #edf6fa;
+  padding: 12px 14px;
+}
+
+.physics-principle.warning {
+  border-left-color: var(--amber);
+  background: #fff6e9;
+}
+
+.physics-principle p {
+  margin: 5px 0 0;
+  color: #405e67;
+  line-height: 1.45;
+}
+
+.leveling-lab {
+  min-height: 330px;
+  display: grid;
+  grid-template-columns: minmax(330px, 1.35fr) minmax(210px, 0.65fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.leveling-stage {
+  min-height: 330px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+
+.body-reference {
+  position: absolute;
+  inset: 0 42% 0 0;
+  display: grid;
+  place-items: center;
+}
+
+.body-reference::before {
+  content: "";
+  width: 116px;
+  height: 270px;
+  border: 2px solid #9eb3bd;
+  border-radius: 54px 54px 34px 34px;
+  background: #f4f8fa;
+}
+
+.bladder-symbol {
+  position: absolute;
+  left: calc(50% - 35px);
+  top: calc(50% - 37px);
+  width: 70px;
+  height: 74px;
+  border: 3px solid var(--teal);
+  border-radius: 45% 45% 38% 38%;
+  background: #dff5f4;
+  z-index: 2;
+}
+
+.bladder-symbol i {
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+  width: 6px;
+  height: 18px;
+  background: var(--teal);
+  transform: translateX(-50%);
+}
+
+.pubic-reference {
+  position: absolute;
+  left: calc(50% + 48px);
+  top: calc(50% + 42px);
+  width: 170px;
+  color: #4f6b77;
+  font-size: 10px;
+  font-weight: 850;
+  line-height: 1.25;
+}
+
+.reference-line {
+  position: absolute;
+  left: 8%;
+  top: 50%;
+  width: 84%;
+  border-top: 2px dashed rgba(15, 143, 143, 0.5);
+}
+
+.transducer-symbol {
+  position: absolute;
+  left: 70%;
+  top: var(--sensor-top);
+  width: 124px;
+  transform: translate(-50%, -50%);
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  text-align: center;
+  transition: top 160ms ease;
+}
+
+.transducer-symbol > i {
+  width: 58px;
+  height: 42px;
+  border: 3px solid var(--blue);
+  border-radius: 7px;
+  background: #edf4fc;
+  box-shadow: inset 0 0 0 5px #ffffff;
+}
+
+.transducer-symbol strong {
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.transducer-symbol span {
+  color: #5e7480;
+  font-size: 10px;
+}
+
+.level-connector {
+  position: absolute;
+  left: 34%;
+  top: 50%;
+  width: 36%;
+  height: 2px;
+  background: #91bfc9;
+}
+
+.leveling-readout {
+  border-left: 1px solid var(--line);
+  padding-left: 18px;
+  display: grid;
+  align-content: center;
+  gap: 8px;
+}
+
+.leveling-readout > strong {
+  color: var(--ink);
+  font-size: 24px;
+}
+
+.leveling-readout > div {
+  margin-top: 8px;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+  display: grid;
+  gap: 5px;
+}
+
+.leveling-readout > div span {
+  color: #55707d;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.leveling-readout > div b {
+  color: var(--teal);
+  line-height: 1.3;
+}
+
+.physics-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.transmission-lab {
+  min-height: 230px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 22px 0;
+  display: grid;
+  grid-template-columns: minmax(130px, 0.65fr) minmax(210px, 1fr) 96px minmax(220px, 1fr);
+  gap: 14px;
+  align-items: center;
+}
+
+.transmission-source,
+.transducer-box,
+.transmission-monitor {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.transmission-source strong {
+  color: var(--ink);
+}
+
+.transmission-source i {
+  width: 56px;
+  height: 34px;
+  background: repeating-linear-gradient(90deg, transparent 0 6px, var(--amber) 7px 10px, transparent 11px 16px);
+}
+
+.transmission-line {
+  min-height: 100px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.transmission-line > span {
+  width: 100%;
+  height: 12px;
+  border: 3px solid #7694a3;
+  border-radius: 999px;
+  background: #d9f3f8;
+}
+
+.transmission-line small {
+  position: absolute;
+  top: calc(50% + 20px);
+  color: #5b7380;
+  font-size: 10px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.transmission-line .bubble,
+.transmission-line .kink,
+.transmission-line .break {
+  display: none;
+  position: absolute;
+}
+
+.transmission-lab.bubble .transmission-line .bubble {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--cyan);
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.transmission-lab.kink .transmission-line .kink {
+  display: block;
+  width: 42px;
+  height: 42px;
+  border-left: 9px solid var(--amber);
+  border-bottom: 9px solid var(--amber);
+  transform: rotate(-45deg);
+}
+
+.transmission-lab.disconnected .transmission-line .break {
+  display: block;
+  width: 34px;
+  height: 34px;
+  background: #ffffff;
+}
+
+.transmission-lab.disconnected .transmission-line .break::before,
+.transmission-lab.disconnected .transmission-line .break::after {
+  content: "";
+  position: absolute;
+  left: 15px;
+  top: 2px;
+  width: 4px;
+  height: 30px;
+  background: var(--rose);
+  transform: rotate(45deg);
+}
+
+.transmission-lab.disconnected .transmission-line .break::after {
+  transform: rotate(-45deg);
+}
+
+.transducer-box > i {
+  width: 56px;
+  height: 56px;
+  border: 3px solid var(--blue);
+  border-radius: 8px;
+  background: #edf4fc;
+  position: relative;
+}
+
+.transducer-box > i::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 2px solid var(--blue);
+  transform: rotate(45deg);
+}
+
+.transmission-monitor svg {
+  width: 100%;
+  min-height: 92px;
+  border: 1px solid #cddde4;
+  background: #f7fbfc;
+}
+
+.transmission-monitor line {
+  stroke: #c7d7de;
+  stroke-width: 1;
+}
+
+.transmission-monitor path {
+  fill: none;
+  stroke: var(--teal);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.transmission-lab.bubble .transmission-monitor path,
+.transmission-lab.kink .transmission-monitor path {
+  stroke: var(--amber);
+}
+
+.transmission-lab.disconnected .transmission-monitor path {
+  stroke: var(--rose);
+}
+
+.transmission-reading {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.5fr) minmax(150px, 0.5fr) minmax(260px, 1fr);
+  gap: 14px;
+}
+
+.transmission-reading > div {
+  border-bottom: 2px solid #d5e3e8;
+  padding: 8px 0;
+  display: grid;
+  gap: 5px;
+}
+
+.transmission-reading strong {
+  color: var(--ink);
+}
+
+.transmission-reading p {
+  margin: 0;
+  color: #405e67;
+  line-height: 1.45;
+}
+
 .pressure-equation-demo {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
@@ -3737,6 +4253,20 @@ a.course-item {
     grid-template-columns: 1fr;
   }
 
+  .leveling-lab {
+    grid-template-columns: 1fr;
+  }
+
+  .leveling-readout {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    padding: 16px 0 0;
+  }
+
+  .transmission-lab {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .program-arrow,
   .signal-transfer {
     width: 3px;
@@ -4057,6 +4587,58 @@ a.course-item {
   .pressure-equation-demo,
   .artifact-analysis {
     grid-template-columns: 1fr;
+  }
+
+  .water-column-lab,
+  .transmission-lab,
+  .transmission-reading,
+  .physics-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .hydraulic-link {
+    width: 100%;
+    min-height: 76px;
+  }
+
+  .hydraulic-link > span {
+    width: 12px;
+    height: 64px;
+  }
+
+  .hydraulic-link > i {
+    right: 50%;
+    bottom: 3px;
+    transform: translateX(50%) rotate(135deg);
+  }
+
+  .hydraulic-link small {
+    top: 50%;
+    left: calc(50% + 18px);
+    transform: translateY(-50%);
+    text-align: left;
+  }
+
+  .manometer-assembly {
+    width: min(260px, 100%);
+    margin: 0 auto;
+  }
+
+  .leveling-stage {
+    min-height: 310px;
+  }
+
+  .pubic-reference {
+    left: calc(50% + 32px);
+    width: 130px;
+  }
+
+  .transducer-symbol {
+    left: 76%;
+  }
+
+  .transmission-line {
+    width: 100%;
   }
 
   .equation-operator {
@@ -4626,4 +5208,56 @@ html[data-theme="dark"] .icon-button:disabled {
   border-color: #2d4249;
   background: #122126;
   color: #657a81;
+}
+
+html[data-theme="dark"] :is(
+  .vessel-shape,
+  .manometer-tube,
+  .transducer-symbol > i,
+  .transducer-box > i,
+  .transmission-monitor svg,
+  .transmission-line .bubble,
+  .transmission-line .break
+) {
+  border-color: #49656e;
+  background: #15272d;
+}
+
+html[data-theme="dark"] :is(.water-column-lab, .leveling-stage, .transmission-lab, .leveling-readout, .transmission-reading > div) {
+  border-color: var(--line);
+}
+
+html[data-theme="dark"] .body-reference::before {
+  border-color: #496169;
+  background: #182a30;
+}
+
+html[data-theme="dark"] :is(
+  .pressure-vessel > span,
+  .manometer-reading span,
+  .leveling-readout > span,
+  .transmission-source > span,
+  .transducer-box > span,
+  .transmission-monitor > span,
+  .transmission-reading span,
+  .hydraulic-link small,
+  .transmission-line small,
+  .pubic-reference,
+  .transducer-symbol span,
+  .physics-principle p,
+  .transmission-reading p
+) {
+  color: #aec3c9;
+}
+
+html[data-theme="dark"] :is(.pressure-vessel > strong, .manometer-reading strong, .leveling-readout > strong, .transmission-source strong, .transmission-reading strong) {
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .physics-principle {
+  background: #15282e;
+}
+
+html[data-theme="dark"] .physics-principle.warning {
+  background: #2a261d;
 }

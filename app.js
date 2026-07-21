@@ -1,4 +1,4 @@
-const BUILD_REVISION = "20260721-foundations-v1";
+const BUILD_REVISION = "20260721-pressure-physics-v1";
 
 const chapters = {
   thinking: {
@@ -432,9 +432,116 @@ const chapters = {
       }
     ]
   },
-  instrument: {
+  pressurePhysics: {
     block: "Bloque I · Fundamentos antes de interpretar curvas",
     number: "Capítulo 4",
+    title: "Principios físicos de la medición de presión",
+    mentalModelTitle: "Una presión convertida en señal",
+    mentalModelText:
+      "En un sistema externo lleno de líquido, la presión se transmite desde el paciente por una columna continua hasta un transductor. Cero, altura y fidelidad de transmisión determinan si la curva representa al paciente o al sistema de medición.",
+    notThis: "Un catéter que observa directamente músculos o contracciones",
+    isThis: "Un sistema físico que convierte presión de fluido en una señal eléctrica",
+    labId: "waterColumn",
+    labDescription:
+      "Manipula una columna de agua, cambia el cero y la altura del transductor, y compara una transmisión continua con una línea que contiene aire o está acodada.",
+    screens: [
+      {
+        title: "¿Cómo puede un equipo medir una presión?",
+        text:
+          "La pantalla no ve vejiga, detrusor, esfínter ni uretra. Recibe una señal producida por un transductor y la representa como presión a lo largo del tiempo.",
+        key: "La tecnología registra presión; el mecanismo fisiológico se interpreta después.",
+        prompt: "¿Qué parte de esta afirmación es medición y qué parte sería inferencia?",
+        visualDemoId: "waterColumn"
+      },
+      {
+        title: "Presión es fuerza distribuida sobre un área",
+        text:
+          "En términos físicos, presión es fuerza por unidad de área. El extremo del catéter responde a la presión del fluido que lo rodea; no mide directamente la fuerza del músculo detrusor.",
+        key: "El catéter detecta presión en el líquido, no fuerza muscular de forma directa.",
+        prompt: "¿Qué fenómenos distintos podrían producir la misma presión intravesical?"
+      },
+      {
+        title: "Una columna líquida transmite presión",
+        text:
+          "En los sistemas externos llenos de líquido, vejiga, catéter, tubuladura y transductor deben formar una conexión hidráulica continua. Los cambios de presión se propagan por esa columna, aunque la fidelidad dinámica depende de la línea y sus conexiones.",
+        key: "Continuidad permite transmisión; continuidad no garantiza por sí sola una señal perfecta.",
+        prompt: "¿Dónde podría perderse fidelidad entre el paciente y el transductor?",
+        visualDemoId: "waterColumn"
+      },
+      {
+        title: "La solución actúa como conexión hidráulica",
+        text:
+          "En un sistema externo lleno de líquido, la solución de la línea conecta hidráulicamente al paciente con el transductor. Aire, conexiones flojas, acodamientos y obstrucciones pueden amortiguar, retrasar o interrumpir la respuesta.",
+        key: "Una burbuja no crea fisiología: modifica la transmisión de la señal.",
+        prompt: "¿Una respuesta amortiguada pertenece al paciente o a la línea?",
+        visualDemoId: "pressureTransmission"
+      },
+      {
+        title: "No todos los sistemas transmiten igual",
+        text:
+          "La columna líquida y la nivelación descritas aquí corresponden al sistema convencional con transductor externo lleno de líquido. Los catéteres con transductor en la punta y los sistemas cargados con aire tienen otras características físicas y de control.",
+        key: "El principio debe aplicarse al sistema de medición realmente utilizado.",
+        prompt: "¿Qué tipo de transductor utiliza este equipo antes de aplicar una regla técnica?"
+      },
+      {
+        title: "¿Qué significa cmH2O?",
+        text:
+          "Un centímetro de agua expresa la presión capaz de sostener una columna de agua de esa altura. La unidad conserva una relación intuitiva con las presiones relativamente bajas del tracto urinario inferior.",
+        key: "20 cmH2O representa una presión equivalente a una columna de agua de 20 cm.",
+        prompt: "¿Qué cambia en el manómetro cuando aumenta la presión?",
+        visualDemoId: "waterColumn"
+      },
+      {
+        title: "El cero atmosférico define la referencia",
+        text:
+          "Antes de medir, el transductor externo se abre a la atmósfera y se cierra hacia el paciente. El equipo asigna cero a esa presión de referencia y luego registra diferencias respecto de ella.",
+        key: "Cero atmosférico es un procedimiento de referencia, no una ausencia absoluta de presión.",
+        prompt: "¿Qué presión está viendo el transductor en el instante de hacer cero?",
+        visualDemoId: "zeroAndLevel"
+      },
+      {
+        title: "Cero no significa ausencia de presión",
+        text:
+          "La atmósfera sigue ejerciendo presión sobre paciente, líquido y transductor. Al hacer cero eliminamos esa contribución común de la lectura para expresar cuánto se encuentra la señal por encima o por debajo de la referencia.",
+        key: "0 cmH2O significa igual a la referencia atmosférica elegida.",
+        prompt: "¿Qué ocurriría si el cero se realizara con una presión adicional aplicada?"
+      },
+      {
+        title: "La altura también genera presión",
+        text:
+          "En una columna líquida, una diferencia vertical añade una presión hidrostática. En el sistema externo convencional, el transductor se nivela con el borde superior de la sínfisis del pubis para utilizar una referencia anatómica reproducible.",
+        key: "Un error de altura modifica la línea de base aunque el paciente no cambie.",
+        prompt: "¿Qué lectura artificial esperas si el transductor queda demasiado bajo?",
+        visualDemoId: "zeroAndLevel"
+      },
+      {
+        title: "Cambiar de posición obliga a revisar el nivel",
+        text:
+          "Al sentar o poner de pie al paciente cambia la relación vertical entre vejiga y transductor. Los transductores externos deben reposicionarse respecto de la referencia anatómica antes de atribuir un salto de presión a la fisiología.",
+        key: "Un cambio postural puede mover al paciente y también mover la referencia física.",
+        prompt: "¿El salto apareció en el paciente o porque la altura dejó de ser correcta?",
+        visualDemoId: "zeroAndLevel"
+      },
+      {
+        title: "El transductor convierte deformación en electricidad",
+        text:
+          "La presión deforma mínimamente un elemento sensible del transductor. Esa deformación se convierte en una señal eléctrica, luego en un valor digital y finalmente en una curva.",
+        key: "La curva es el final de una cadena física y electrónica.",
+        prompt: "¿En qué eslabón podría originarse una señal técnicamente falsa?"
+      },
+      {
+        title: "La física precede a la fisiología",
+        text:
+          "Columna interrumpida, aire, acodamiento, cero incorrecto o altura inadecuada pueden fabricar curvas convincentes. Primero se comprueba la cadena de medición; solo después se interpreta el comportamiento vesical.",
+        key: "Si falla la física de la medición, la curva no permite juzgar la fisiología.",
+        prompt: "¿Qué condición física debes corregir antes de nombrar un hallazgo?",
+        visualDemoId: "pressureTransmission"
+      }
+    ]
+  },
+  instrument: {
+    block: "Bloque I · Fundamentos antes de interpretar curvas",
+    number: "Capítulo 5",
     title: "Qué mide realmente el equipo",
     mentalModelTitle: "Medir no es explicar",
     mentalModelText:
@@ -521,7 +628,7 @@ const chapters = {
   },
   artifacts: {
     block: "Bloque I · Fundamentos antes de interpretar curvas",
-    number: "Capítulo 5",
+    number: "Capítulo 6",
     title: "Artefactos y errores técnicos frecuentes",
     mentalModelTitle: "Primero calidad, después patología",
     mentalModelText:
@@ -582,7 +689,7 @@ const chapters = {
   },
   storageDisorders: {
     block: "Bloque II · Interpretación funcional",
-    number: "Capítulo 6",
+    number: "Capítulo 7",
     title: "Trastornos de almacenamiento",
     mentalModelTitle: "Cuatro objetivos y un resultado",
     mentalModelText:
@@ -723,7 +830,7 @@ const chapters = {
   },
   voidingDisorders: {
     block: "Bloque II · Interpretación funcional",
-    number: "Capítulo 7",
+    number: "Capítulo 8",
     title: "Trastornos del vaciado",
     mentalModelTitle: "Bomba, salida y condiciones",
     mentalModelText:
@@ -815,7 +922,7 @@ const chapters = {
   },
   coordinationDisorders: {
     block: "Bloque II · Interpretación funcional",
-    number: "Capítulo 8",
+    number: "Capítulo 9",
     title: "Coordinación detrusor-salida",
     mentalModelTitle: "Reciprocidad, tiempo y contexto",
     mentalModelText:
@@ -928,7 +1035,7 @@ const chapters = {
   },
   neuroUrology: {
     block: "Bloque III · Neuro-urología",
-    number: "Capítulo 9",
+    number: "Capítulo 10",
     title: "Neuro-urología según el sitio de la lesión",
     mentalModelTitle: "Mapa neurológico, función demostrada",
     mentalModelText:
@@ -1661,6 +1768,104 @@ const chapterPracticeCases = {
       ]
     }
   ],
+  pressurePhysics: [
+    {
+      ...scenarios.signal,
+      id: "physicsLevelLow",
+      tabLabel: "Transductor bajo",
+      pattern: "hydrostaticShift",
+      focus: "quality",
+      answerOffset: 1,
+      title: "Ambos canales cambian al descender el transductor",
+      eventLabel: "transductores por debajo de la referencia",
+      event: {
+        ...scenarios.signal.event,
+        title: "Cambio común de línea base por altura",
+        label: "presión hidrostática añadida",
+        timing: "después de modificar la altura del sistema externo",
+        reading: "Pves y Pabd aumentan de forma semejante mientras Pdet cambia poco, porque ambos transductores recibieron un desplazamiento hidrostático común.",
+        caution: "Que Pdet se conserve no vuelve correctas las presiones medidas ni reemplaza la nivelación."
+      },
+      question: "¿Qué explica mejor este cambio común?",
+      answers: [
+        ["El transductor quedó demasiado bajo y agregó una columna hidrostática", true, "Correcto. Un transductor externo más bajo que la referencia registra una presión adicional."],
+        ["Se produjo una contracción detrusoriana", false, "Una contracción no elevaría Pabd de la misma manera."],
+        ["La atmósfera dejó de ejercer presión", false, "La presión atmosférica no desaparece; se utiliza como referencia al hacer cero."]
+      ]
+    },
+    {
+      ...scenarios.signal,
+      id: "physicsLevelHigh",
+      tabLabel: "Transductor alto",
+      pattern: "hydrostaticShift",
+      focus: "quality",
+      answerOffset: 2,
+      title: "La altura reduce artificialmente las presiones medidas",
+      eventLabel: "transductores por encima de la referencia",
+      event: {
+        ...scenarios.signal.event,
+        title: "Desplazamiento común hacia una lectura menor",
+        label: "referencia anatómica perdida",
+        timing: "después de un cambio de posición",
+        reading: "Pves y Pabd descienden juntas sin un evento clínico que lo explique, mientras la resta permanece casi estable.",
+        caution: "Antes de interpretar una presión basal baja, debe comprobarse la altura de los transductores externos."
+      },
+      question: "¿Cuál es la primera verificación?",
+      answers: [
+        ["Revisar y corregir el nivel respecto del borde superior de la sínfisis del pubis", true, "Correcto. El cambio de posición obliga a reposicionar la referencia física."],
+        ["Informar una caída de la actividad abdominal", false, "El cambio común y abrupto sin evento clínico orienta primero a la referencia del sistema."],
+        ["Rehacer el diagnóstico con Pdet aislada", false, "Pdet puede ocultar un error común de ambos canales; las señales medidas siguen mal referenciadas."]
+      ]
+    },
+    {
+      ...scenarios.signal,
+      id: "physicsBubbleDamping",
+      tabLabel: "Burbuja",
+      pattern: "bubbleDamping",
+      focus: "quality",
+      answerOffset: 1,
+      title: "La tos llega amortiguada a Pabd",
+      eventLabel: "tos con transmisión abdominal amortiguada",
+      event: {
+        ...scenarios.signal.event,
+        title: "Una línea con aire deforma el evento",
+        label: "respuesta lenta y de menor amplitud",
+        timing: "durante una tos de control",
+        reading: "Pves muestra un pico breve, pero Pabd responde más tarde y con menor amplitud; Pdet hereda una falsa diferencia.",
+        caution: "Una burbuja o una línea complaciente modifica la respuesta dinámica y debe corregirse antes de interpretar."
+      },
+      question: "¿Qué conducta conserva la validez del estudio?",
+      answers: [
+        ["Purgar y revisar la línea abdominal, luego repetir la tos de control", true, "Correcto. Primero se restablece la transmisión y después se evalúa la señal derivada."],
+        ["Aceptar Pdet porque la resta fue calculada", false, "La resta matemática hereda la diferencia artificial entre las entradas."],
+        ["Diagnosticar una contracción vesical provocada por la tos", false, "La discordancia técnica debe resolverse antes de una inferencia fisiológica."]
+      ]
+    },
+    {
+      ...scenarios.signal,
+      id: "physicsWrongZero",
+      tabLabel: "Cero incorrecto",
+      pattern: "zeroError",
+      focus: "quality",
+      answerOffset: 2,
+      title: "Pves fue puesta a cero con presión aplicada",
+      eventLabel: "referencia vesical incorrecta desde el inicio",
+      event: {
+        ...scenarios.signal.event,
+        title: "Una entrada comienza con un desplazamiento artificial",
+        label: "error de cero específico de canal",
+        timing: "antes de iniciar el llenado",
+        reading: "Pves conserva un desplazamiento respecto de Pabd y Pdet reproduce esa diferencia, aunque no exista un fenómeno fisiológico equivalente.",
+        caution: "El cero debe realizarse abierto a la atmósfera y cerrado hacia el paciente."
+      },
+      question: "¿Qué afirma con precisión el cero atmosférico?",
+      answers: [
+        ["Define la atmósfera como referencia de 0 cmH2O para cada canal", true, "Correcto. No elimina la presión atmosférica; fija el punto desde el que se expresan las diferencias."],
+        ["Elimina toda presión dentro de la vejiga", false, "El cero modifica la referencia del instrumento, no la presión física del paciente."],
+        ["Compensa automáticamente cualquier error posterior de altura", false, "Cero y nivelación resuelven problemas distintos y ambos deben ser correctos."]
+      ]
+    }
+  ],
   instrument: [
     {
       ...scenarios.cough,
@@ -2126,6 +2331,10 @@ const practiceTraceProfiles = {
   tracingUrgencyStable: { start: 0.23, end: 0.37, fillSlope: 10, pressureAmplitude: 0, flowAmplitude: 0, sensationOnly: true },
   tracingDetrusor: { start: 0.41, end: 0.59, fillSlope: 12, detrusorAmplitude: 57 },
   tracingAbdominalVoiding: { start: 0.55, end: 0.9, fillSlope: 11, pressureAmplitude: 49, flowAmplitude: 29, volumeDrop: 37 },
+  physicsLevelLow: { start: 0.28, end: 0.78, fillSlope: 7, baselineAmplitude: 44, levelDirection: "low" },
+  physicsLevelHigh: { start: 0.36, end: 0.82, fillSlope: 8, baselineAmplitude: -36, levelDirection: "high" },
+  physicsBubbleDamping: { start: 0.46, end: 0.54, fillSlope: 9, pressureAmplitude: 58, dampingRatio: 0.28, dampingDelay: 0.018 },
+  physicsWrongZero: { start: 0.08, end: 0.18, fillSlope: 6, zeroAmplitude: 32, zeroChannel: "pves" },
   instrumentTransmission: { start: 0.24, end: 0.31, fillSlope: 9, pressureAmplitude: 44 },
   instrumentFlatPabd: { start: 0.46, end: 0.53, fillSlope: 9, pressureAmplitude: 48 },
   instrumentFlow: { start: 0.58, end: 0.88, fillSlope: 12, pressureAmplitude: 46, flowAmplitude: 60 },
@@ -2190,6 +2399,18 @@ const interactiveDemos = {
     title: "Recorre el trazado antes de interpretarlo",
     subtitle: "El mismo cambio adquiere significado por su fase, evento y secuencia"
   },
+  waterColumn: {
+    title: "De presión a altura de agua",
+    subtitle: "Manómetro cualitativo: 1 cmH2O corresponde a 1 cm de columna de agua"
+  },
+  zeroAndLevel: {
+    title: "Cero atmosférico y nivelación",
+    subtitle: "Sistema externo lleno de líquido; referencia anatómica en el borde superior de la sínfisis del pubis"
+  },
+  pressureTransmission: {
+    title: "Fidelidad de la transmisión",
+    subtitle: "Compara una línea continua con aire, acodamiento o desconexión"
+  },
   pressureEquation: {
     title: "Dos señales medidas, una presión derivada",
     subtitle: "Valores sintéticos para comprender la relación; no son umbrales clínicos"
@@ -2228,6 +2449,11 @@ const chapterLabDemos = {
     { id: "programSwitch", label: "Programas" }
   ],
   tracing: [{ id: "curveTimeline", label: "Secuencia temporal" }],
+  pressurePhysics: [
+    { id: "waterColumn", label: "Columna de agua" },
+    { id: "zeroAndLevel", label: "Cero y nivel" },
+    { id: "pressureTransmission", label: "Transmisión" }
+  ],
   instrument: [
     { id: "signalMap", label: "Mapa de señales" },
     { id: "pressureEquation", label: "Pdet derivada" },
@@ -2375,6 +2601,52 @@ const chapterChallenges = {
         ["Presiones y flujo leídos juntos durante la fase", true, "Correcto. La relación entre contracción, salida y flujo es más informativa que cada canal aislado."],
         ["Solo el valor máximo de flujo", false, "El flujo aislado no explica qué presión ni qué mecanismo lo acompañó."],
         ["Solo Pves porque contiene toda la información", false, "Pves incluye componentes distintos y debe leerse con Pabd, Pdet, flujo y eventos."]
+      ]
+    }
+  ],
+  pressurePhysics: [
+    {
+      tag: "Presión",
+      title: "El catéter está rodeado por líquido",
+      prompt: "¿Qué mide directamente el sistema?",
+      evidence: ["Extremo del catéter en vejiga", "Fluido en contacto", "Señal de presión"],
+      answers: [
+        ["La presión del fluido en el extremo del catéter", true, "Correcto. La fuerza muscular se infiere por sus consecuencias; no se mide directamente con este catéter."],
+        ["La fuerza del detrusor de manera directa", false, "El catéter no es un dinamómetro muscular; responde a presión dentro del fluido."],
+        ["La apertura anatómica de la uretra", false, "La apertura requiere otras señales o imagen; no está contenida directamente en una presión."]
+      ]
+    },
+    {
+      tag: "Cero atmosférico",
+      title: "El transductor está abierto a la atmósfera",
+      prompt: "¿Qué significa asignar 0 cmH2O en este momento?",
+      evidence: ["Abierto a atmósfera", "Cerrado hacia paciente", "Comando de cero"],
+      answers: [
+        ["Usar la presión atmosférica como referencia", true, "Correcto. La presión atmosférica sigue existiendo; el equipo expresa diferencias respecto de ella."],
+        ["Eliminar físicamente toda presión del sistema", false, "El procedimiento cambia la referencia electrónica, no elimina presión física."],
+        ["Corregir automáticamente cualquier error de altura", false, "Cero y nivelación resuelven problemas distintos."]
+      ]
+    },
+    {
+      tag: "Nivelación",
+      title: "El transductor queda por debajo de la referencia",
+      prompt: "¿Qué efecto físico debe esperarse primero?",
+      evidence: ["Sistema lleno de líquido", "Transductor externo", "Mayor columna vertical"],
+      answers: [
+        ["Una lectura artificialmente mayor por presión hidrostática", true, "Correcto. La altura de la columna añade presión aunque el paciente no haya cambiado."],
+        ["Una contracción detrusoriana obligatoria", false, "El error nace en la referencia física del sistema, no necesariamente en el paciente."],
+        ["Una desaparición de Pabd", false, "La altura puede desplazar la línea de base, no borrar por definición el canal."]
+      ]
+    },
+    {
+      tag: "Transmisión",
+      title: "La tos llega más pequeña y lenta a Pabd",
+      prompt: "¿Cuál es la explicación técnica prioritaria?",
+      evidence: ["Tos breve", "Pves responde rápido", "Pabd amortiguada"],
+      answers: [
+        ["Aire, acodamiento u otra alteración de la línea abdominal", true, "Correcto. La transmisión dinámica desigual puede fabricar una diferencia falsa en Pdet."],
+        ["Hiperactividad detrusoriana confirmada", false, "Primero debe corregirse la discordancia técnica revelada por la tos."],
+        ["Una propiedad normal de Pdet", false, "Pdet hereda las diferencias entre Pves y Pabd; no valida sus entradas."]
       ]
     }
   ],
@@ -2649,6 +2921,7 @@ const challengeAnswerOffsets = {
   thinking: [1, 2, 0, 2, 1],
   physiology: [2, 1, 2],
   tracing: [1, 2, 1],
+  pressurePhysics: [1, 2, 1, 2],
   instrument: [2, 1, 0],
   artifacts: [1, 2, 1],
   storageDisorders: [2, 1, 2, 1, 2],
@@ -2678,7 +2951,8 @@ window.__urodynamicTutorDiagnostics = {
     storageMapLab: true,
     neuroLesionLab: true,
     eightStepClinicalReasoning: true,
-    foundationsRewriteV1: true
+    foundationsRewriteV1: true,
+    pressurePhysicsLab: true
   },
   chapterScreenCounts: Object.fromEntries(
     Object.entries(chapters).map(([chapterId, chapter]) => [chapterId, chapter.screens.length])
@@ -2750,6 +3024,7 @@ const chapterFocus = {
   thinking: "limit",
   physiology: "phase",
   tracing: "phase",
+  pressurePhysics: "quality",
   instrument: "signal",
   artifacts: "quality",
   storageDisorders: "inference",
@@ -2790,6 +3065,10 @@ const defaultState = {
     functionalProgram: "storage",
     signalChannel: "pves",
     tracePosition: 12,
+    waterPressure: 24,
+    transducerHeight: 0,
+    zeroOffset: 0,
+    transmissionPattern: "continuous",
     pressurePattern: "cough",
     artifactPattern: "cough",
     storagePattern: "normal",
@@ -2801,6 +3080,7 @@ const defaultState = {
     thinking: 0,
     physiology: 0,
     tracing: 0,
+    pressurePhysics: 0,
     instrument: 0,
     artifacts: 0,
     storageDisorders: 0,
@@ -2812,6 +3092,7 @@ const defaultState = {
     thinking: {},
     physiology: {},
     tracing: {},
+    pressurePhysics: {},
     instrument: {},
     artifacts: {},
     storageDisorders: {},
@@ -2823,6 +3104,7 @@ const defaultState = {
     thinking: "clinicalReasoning",
     physiology: "accommodation",
     tracing: "curveTimeline",
+    pressurePhysics: "waterColumn",
     instrument: "signalMap",
     artifacts: "artifactDetective",
     storageDisorders: "storageMap",
@@ -3646,6 +3928,41 @@ const artifactPatterns = {
   }
 };
 
+const transmissionPatterns = {
+  continuous: {
+    label: "Continua",
+    status: "Transmisión fiel",
+    response: "rápida y completa",
+    issue: "Columna líquida continua y línea permeable.",
+    reading: "El transductor reproduce el evento breve con una forma y amplitud coherentes.",
+    path: "M8 72 L76 72 L88 20 L100 72 L272 72"
+  },
+  bubble: {
+    label: "Burbuja",
+    status: "Señal amortiguada",
+    response: "menor y más lenta",
+    issue: "El aire añade compresibilidad a la línea.",
+    reading: "El mismo evento llega deformado; la diferencia entre canales puede fabricar una Pdet falsa.",
+    path: "M8 72 L92 72 C104 72 110 46 128 45 C147 45 154 72 170 72 L272 72"
+  },
+  kink: {
+    label: "Acodamiento",
+    status: "Transmisión limitada",
+    response: "pequeña y retrasada",
+    issue: "Un estrechamiento aumenta la resistencia de la línea.",
+    reading: "La respuesta puede retrasarse o casi desaparecer aunque la presión del paciente sí haya cambiado.",
+    path: "M8 72 L124 72 C136 72 142 58 155 58 C168 58 176 72 190 72 L272 72"
+  },
+  disconnected: {
+    label: "Desconectada",
+    status: "Sin transmisión útil",
+    response: "ausente",
+    issue: "La continuidad hidráulica se perdió.",
+    reading: "Una línea plana no demuestra estabilidad fisiológica si el canal está desconectado.",
+    path: "M8 72 L272 72"
+  }
+};
+
 function activeResistancePreset() {
   return resistancePresets[state.demoControls.resistancePattern]
     ? state.demoControls.resistancePattern
@@ -4260,6 +4577,176 @@ function renderCurveTimelineDemo(demo) {
   `;
 }
 
+function renderWaterColumnDemo(demo) {
+  const pressure = clamp(state.demoControls.waterPressure, 0, 50);
+  const columnHeight = 8 + pressure * 1.62;
+  const ticks = [50, 40, 30, 20, 10, 0]
+    .map((tick) => `<span style="--tick-y:${100 - tick * 2}%"><b>${tick}</b><i></i></span>`)
+    .join("");
+
+  return `
+    <div class="visual-demo-head">
+      <div>
+        <p class="overline">Laboratorio de física</p>
+        <h4>${demo.title}</h4>
+      </div>
+      <span>${demo.subtitle}</span>
+    </div>
+    <div class="water-column-lab" aria-live="polite">
+      <div class="pressure-vessel">
+        <span>Presión aplicada</span>
+        <div class="vessel-shape" style="--vessel-pressure:${pressure / 50}">
+          <i></i>
+        </div>
+        <strong>${pressure} cmH2O</strong>
+      </div>
+      <div class="hydraulic-link" aria-hidden="true">
+        <span></span>
+        <i></i>
+        <small>columna líquida continua</small>
+      </div>
+      <div class="manometer-assembly">
+        <div class="manometer-scale">${ticks}</div>
+        <div class="manometer-tube">
+          <i style="height:${columnHeight}%"></i>
+        </div>
+        <div class="manometer-reading">
+          <span>Altura equivalente</span>
+          <strong>${pressure} cm</strong>
+        </div>
+      </div>
+    </div>
+    <label class="physics-range">
+      <span>Presión aplicada <b>${pressure} cmH2O</b></span>
+      <input type="range" min="0" max="50" value="${pressure}" data-demo-control="waterPressure" />
+    </label>
+    <div class="physics-principle">
+      <strong>Relación docente</strong>
+      <p>Una presión de ${pressure} cmH2O puede sostener una columna de agua de ${pressure} cm. El transductor moderno convierte esa presión en señal eléctrica, pero conserva la misma unidad.</p>
+    </div>
+  `;
+}
+
+function renderZeroAndLevelDemo(demo) {
+  const height = clamp(state.demoControls.transducerHeight, -30, 30);
+  const zeroOffset = clamp(state.demoControls.zeroOffset, -15, 15);
+  const hydrostaticOffset = -height;
+  const measuredOffset = hydrostaticOffset + zeroOffset;
+  const sensorTop = clamp(50 - height * 1.15, 12, 88);
+  const heightDescription = height === 0
+    ? "al nivel de la referencia"
+    : `${Math.abs(height)} cm ${height > 0 ? "por encima" : "por debajo"}`;
+  const status = Math.abs(height) <= 1 && zeroOffset === 0
+    ? "Referencia correcta"
+    : measuredOffset > 0
+      ? `Lectura artificial +${measuredOffset} cmH2O`
+      : measuredOffset < 0
+        ? `Lectura artificial ${measuredOffset} cmH2O`
+        : "Los errores se cancelan por azar";
+
+  return `
+    <div class="visual-demo-head">
+      <div>
+        <p class="overline">Laboratorio de referencia</p>
+        <h4>${demo.title}</h4>
+      </div>
+      <span>${demo.subtitle}</span>
+    </div>
+    <div class="leveling-lab" aria-live="polite">
+      <div class="leveling-stage" style="--sensor-top:${sensorTop}%">
+        <div class="body-reference" aria-hidden="true">
+          <div class="bladder-symbol"><i></i></div>
+          <span class="pubic-reference">borde superior de la sínfisis del pubis</span>
+          <span class="reference-line"></span>
+        </div>
+        <div class="transducer-symbol">
+          <i></i>
+          <strong>Transductor</strong>
+          <span>${heightDescription}</span>
+        </div>
+        <span class="level-connector" aria-hidden="true"></span>
+      </div>
+      <div class="leveling-readout">
+        <span>Desplazamiento por altura</span>
+        <strong>${hydrostaticOffset > 0 ? "+" : ""}${hydrostaticOffset} cmH2O</strong>
+        <span>Error añadido al hacer cero</span>
+        <strong>${zeroOffset > 0 ? "+" : ""}${zeroOffset} cmH2O</strong>
+        <div><span>Resultado cualitativo</span><b>${status}</b></div>
+      </div>
+    </div>
+    <div class="physics-controls">
+      <label class="physics-range">
+        <span>Altura del transductor <b>${heightDescription}</b></span>
+        <input type="range" min="-30" max="30" value="${height}" data-demo-control="transducerHeight" />
+      </label>
+      <label class="physics-range">
+        <span>Error de cero <b>${zeroOffset > 0 ? "+" : ""}${zeroOffset} cmH2O</b></span>
+        <input type="range" min="-15" max="15" value="${zeroOffset}" data-demo-control="zeroOffset" />
+      </label>
+    </div>
+    <div class="physics-principle warning">
+      <strong>Cero y nivel no son lo mismo</strong>
+      <p>El cero define la referencia atmosférica. La nivelación controla la presión hidrostática añadida por la altura. Deben verificarse por separado.</p>
+    </div>
+  `;
+}
+
+function renderPressureTransmissionDemo(demo) {
+  const patternKey = transmissionPatterns[state.demoControls.transmissionPattern]
+    ? state.demoControls.transmissionPattern
+    : "continuous";
+  const pattern = transmissionPatterns[patternKey];
+
+  return `
+    <div class="visual-demo-head">
+      <div>
+        <p class="overline">Laboratorio de transmisión</p>
+        <h4>${demo.title}</h4>
+      </div>
+      <span>${demo.subtitle}</span>
+    </div>
+    <div class="demo-tabs" aria-label="Condición de la línea">
+      ${Object.entries(transmissionPatterns)
+        .map(([key, item]) => `<button type="button" class="${key === patternKey ? "active" : ""}" aria-pressed="${key === patternKey}" data-transmission-pattern="${key}">${item.label}</button>`)
+        .join("")}
+    </div>
+    <div class="transmission-lab ${patternKey}" aria-live="polite">
+      <div class="transmission-source">
+        <span>Evento en el paciente</span>
+        <strong>Tos breve</strong>
+        <i></i>
+      </div>
+      <div class="transmission-line">
+        <span></span>
+        <i class="bubble"></i>
+        <i class="kink"></i>
+        <b class="break"></b>
+        <small>${pattern.issue}</small>
+      </div>
+      <div class="transducer-box">
+        <span>Transductor</span>
+        <i></i>
+      </div>
+      <div class="transmission-monitor">
+        <span>Señal recibida</span>
+        <svg viewBox="0 0 280 92" role="img" aria-label="${pattern.status}">
+          <line x1="8" y1="72" x2="272" y2="72"></line>
+          <path d="${pattern.path}"></path>
+        </svg>
+      </div>
+    </div>
+    <div class="transmission-reading">
+      <div><span>Estado</span><strong>${pattern.status}</strong></div>
+      <div><span>Respuesta</span><strong>${pattern.response}</strong></div>
+      <p>${pattern.reading}</p>
+    </div>
+    <div class="physics-principle">
+      <strong>Regla de control</strong>
+      <p>Una señal plana, pequeña o lenta solo puede interpretarse después de demostrar que el canal transmite correctamente.</p>
+    </div>
+  `;
+}
+
 function renderPressureEquationDemo(demo) {
   const patternKey = pressurePatterns[state.demoControls.pressurePattern] ? state.demoControls.pressurePattern : "cough";
   const pattern = pressurePatterns[patternKey];
@@ -4414,6 +4901,15 @@ function bindDemoControls() {
     });
   });
 
+  els.visualDemo.querySelectorAll("[data-transmission-pattern]").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (!transmissionPatterns[button.dataset.transmissionPattern]) return;
+      state.demoControls.transmissionPattern = button.dataset.transmissionPattern;
+      renderVisualDemo("pressureTransmission");
+      saveState();
+    });
+  });
+
   els.visualDemo.querySelectorAll("[data-storage-pattern]").forEach((button) => {
     button.addEventListener("click", () => {
       if (!storagePatterns[button.dataset.storagePattern]) return;
@@ -4507,6 +5003,9 @@ function renderVisualDemo(demoId = activeLabDemoId()) {
     accommodation: renderAccommodationDemo,
     flowResistance: renderFlowResistanceDemo,
     curveTimeline: renderCurveTimelineDemo,
+    waterColumn: renderWaterColumnDemo,
+    zeroAndLevel: renderZeroAndLevelDemo,
+    pressureTransmission: renderPressureTransmissionDemo,
     pressureEquation: renderPressureEquationDemo,
     signalMap: renderSignalMapDemo,
     artifactDetective: renderArtifactDetectiveDemo,
@@ -4826,6 +5325,17 @@ function makeData() {
     const signalDrift = pattern === "signal" ? eventRamp(t, profile.start, profile.driftAmplitude || 70) : 0;
     const signalDrop = pattern === "signal" ? eventPulse(t, Math.max(profile.start, profile.end - 0.2), profile.end, 46) : 0;
     const baselineShift = pattern === "baselineShift" && t > profile.start ? profile.baselineAmplitude || 42 : 0;
+    const hydrostaticShift = pattern === "hydrostaticShift" && t > profile.start
+      ? profile.baselineAmplitude || 0
+      : 0;
+    const zeroError = pattern === "zeroError" ? profile.zeroAmplitude || 32 : 0;
+    const bubbleSource = pattern === "bubbleDamping"
+      ? eventPulse(t, profile.start, profile.end, pressureAmplitude)
+      : 0;
+    const bubbleDelay = profile.dampingDelay || 0;
+    const bubbleDamped = pattern === "bubbleDamping"
+      ? eventPulse(t, profile.start + bubbleDelay, profile.end + bubbleDelay, pressureAmplitude * (profile.dampingRatio || 0.3))
+      : 0;
     const detrusorStorage = ["detrusorStorage", "detrusorLeak"].includes(pattern)
       ? eventPulse(t, profile.start, profile.end, profile.detrusorAmplitude || 58)
       : 0;
@@ -4849,9 +5359,9 @@ function makeData() {
 
     points.push({
       x,
-      pves: 214 - fillTrend - cough - flatPabdCough - abdominal - voiding - outletResistance - weakDetrusor - abdominalVoiding - coordinationDetrusor - coordinationAbdominal - signalDrift + signalDrop - baselineShift - detrusorStorage - lowCompliance - leakAbdominal,
-      pabd: 270 - cough - abdominal - abdominalVoiding - coordinationAbdominal - leakAbdominal,
-      pdet: 330 - flatPabdCough - voiding - outletResistance - weakDetrusor - coordinationDetrusor - baselineShift - detrusorStorage - lowCompliance - (pattern === "signal" ? signalDrift * 0.55 - signalDrop : 0),
+      pves: 214 - fillTrend - cough - flatPabdCough - abdominal - voiding - outletResistance - weakDetrusor - abdominalVoiding - coordinationDetrusor - coordinationAbdominal - signalDrift + signalDrop - baselineShift - hydrostaticShift - zeroError - bubbleSource - detrusorStorage - lowCompliance - leakAbdominal,
+      pabd: 270 - cough - abdominal - abdominalVoiding - coordinationAbdominal - hydrostaticShift - bubbleDamped - leakAbdominal,
+      pdet: 330 - flatPabdCough - voiding - outletResistance - weakDetrusor - coordinationDetrusor - baselineShift - zeroError - (bubbleSource - bubbleDamped) - detrusorStorage - lowCompliance - (pattern === "signal" ? signalDrift * 0.55 - signalDrop : 0),
       flow: 398 - flowRise - coordinationFlow - leakFlow,
       volume: 426 - t * 78 + voidingVolumeChange,
       emg: 430 - coordinationEmg
@@ -4903,7 +5413,7 @@ function eventMarkup() {
     `;
   }
 
-  if (pattern === "signal") {
+  if (["signal", "hydrostaticShift", "bubbleDamping", "zeroError"].includes(pattern)) {
     return `
       <rect class="event-band warn" x="${startX}" y="74" width="${width}" height="340" rx="8" />
       <text class="event-label" x="${labelX}" y="63">${scenario.eventLabel}</text>
