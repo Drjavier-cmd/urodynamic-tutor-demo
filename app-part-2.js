@@ -1,3 +1,158 @@
+const scenarios = {
+  storage: {
+    title: "Llenado docente: baja presión",
+    eventLabel: "almacenamiento: presión baja",
+    event: {
+      type: "storage",
+      title: "Vida real: llenado silencioso",
+      label: "sin maniobra provocativa",
+      timing: "evento largo",
+      reading: "La vejiga debería aceptar volumen con presión baja y salida cerrada.",
+      caution: "Analogía docente: el trazado no reemplaza historia ni examen."
+    },
+    question: "Durante almacenamiento normal, ¿qué combinación esperas?",
+    answers: [
+      ["Detrusor relajado, salida cerrada y presión baja", true, "Correcto. Esa es la lógica funcional del almacenamiento."],
+      ["Contracción detrusoriana y salida abierta", false, "Eso corresponde al programa de vaciado, no al almacenamiento."],
+      ["Pves aislada como único dato relevante", false, "Pves sola no basta. Debes mirar Pabd, Pdet, eventos y contexto."],
+      ["Conclusión automática por el aspecto de la curva", false, "No. La curva orienta, pero se interpreta con pregunta, técnica y contexto."]
+    ]
+  },
+  cough: {
+    title: "Tos: evento abdominal",
+    eventLabel: "tos breve: Pves y Pabd suben",
+    event: {
+      type: "cough",
+      title: "Vida real: tos",
+      label: "pico breve y rápido",
+      timing: "milisegundos a pocos segundos",
+      reading: "Pabd y Pves suben casi juntas; Pdet no debe inventar detrusor si la transmisión es coherente.",
+      caution: "La tos prueba transmisión y puede gatillar fuga de esfuerzo, pero no es Valsalva."
+    },
+    question: "Si Pves y Pabd suben juntas durante una tos, ¿qué lectura es más prudente?",
+    answers: [
+      ["Contracción detrusoriana segura", false, "No saltes. Si Pabd acompaña a Pves, primero piensa en evento abdominal."],
+      ["Evento abdominal o artefacto fisiológico del examen", true, "Correcto. La tos ayuda a reconocer transmisión de presión y evita sobrerreaccionar."],
+      ["Vaciado coordinado", false, "No hay flujo ni cambio voluntario de programa."],
+      ["Baja acomodación vesical", false, "No se concluye por un pico breve asociado a Pabd."]
+    ]
+  },
+  voiding: {
+    title: "Vaciado: bomba y salida",
+    eventLabel: "orden miccional + flujo",
+    event: {
+      type: "voiding",
+      title: "Vida real: permiso para orinar",
+      label: "cambio de programa",
+      timing: "fase de vaciado",
+      reading: "El flujo aparece cuando contracción detrusoriana y apertura de salida se alinean.",
+      caution: "Flujo sin presión y presión sin flujo cuentan historias incompletas."
+    },
+    question: "¿Qué combinación apoya mejor un vaciado coordinado?",
+    answers: [
+      ["Pdet efectiva con aparición de flujo", true, "Bien. La curva sugiere contracción útil con salida abierta."],
+      ["Pves aislada", false, "Pves aislada no permite separar abdomen, detrusor y contexto."],
+      ["Flujo sin presión ni eventos", false, "El flujo ayuda, pero no explica por sí solo la coordinación."],
+      ["Pabd subiendo como dato principal", false, "Eso puede ser esfuerzo abdominal, no necesariamente vaciado coordinado."]
+    ]
+  },
+  abdominal: {
+    title: "Esfuerzo abdominal: presión transmitida",
+    eventLabel: "Valsalva/de pie: Pabd sostenida",
+    event: {
+      type: "valsalva",
+      title: "Vida real: Valsalva / de pie",
+      label: "presión sostenida",
+      timing: "segundos, no pico instantáneo",
+      reading: "Pabd sube de forma sostenida y puede arrastrar Pves; la lectura prudente depende de Pdet y del evento anotado.",
+      caution: "Tos y Valsalva no son equivalentes: una es explosiva y breve; la otra puede sostenerse."
+    },
+    question: "Si Pabd sube de forma sostenida y Pves la acompaña, ¿qué debes hacer antes de hablar de detrusor?",
+    answers: [
+      ["Mirar Pdet y revisar si el evento fue abdominal", true, "Correcto. Si Pdet no sube proporcionalmente, la explicación abdominal gana fuerza."],
+      ["Nombrar hiperactividad detrusoriana", false, "Prematuro. Primero separa abdomen de detrusor y revisa eventos."],
+      ["Ignorar Pabd porque solo importa Pves", false, "Ese es un error central. Pabd existe precisamente para evitar esa confusión."],
+      ["Concluir obstrucción", false, "Obstrucción se discute en vaciado con relación presión-flujo, no por Pabd aislada."]
+    ]
+  },
+  signal: {
+    title: "Señal deficiente: límite interpretativo",
+    eventLabel: "señal inestable: revisar canal y línea base",
+    event: {
+      type: "signal",
+      title: "Vida real: señal que no coopera",
+      label: "línea base dudosa",
+      timing: "tramo contaminado",
+      reading: "Si el canal deriva o transmite mal, el segmento puede no responder la pregunta clínica.",
+      caution: "No hay virtud docente en interpretar una señal que no merece confianza."
+    },
+    question: "Si la línea base deriva o un canal pierde transmisión, ¿cuál es la conclusión más rigurosa?",
+    answers: [
+      ["El tramo puede ser no interpretable para esa pregunta", true, "Correcto. Reconocer límite técnico es mejor que inventar una fisiología."],
+      ["Mientras haya curva, siempre se interpreta", false, "No. Una señal puede existir y aun así no ser confiable."],
+      ["Es una patología rara", false, "Primero descarta problema técnico. Lo raro no debe ser el refugio de una mala señal."],
+      ["Usar solo el canal que se ve bonito", false, "No. La interpretación multicanal exige coherencia entre señales."]
+    ]
+  },
+  detrusorStorage: {
+    title: "Detrusor en llenado: actividad posible",
+    eventLabel: "Pdet sube sin Pabd equivalente",
+    event: {
+      type: "detrusor",
+      title: "Vida real: urgencia durante llenado",
+      label: "Pdet sube sin Pabd equivalente",
+      timing: "evento vesical posible",
+      reading: "Si la calidad es buena y Pabd no explica el cambio, se discute actividad detrusoriana durante almacenamiento.",
+      caution: "Primero calidad y fase; después patrón funcional."
+    },
+    question: "Durante llenado, Pves sube y Pabd no acompaña. ¿Cuál es la lectura docente más ordenada?",
+    answers: [
+      ["Revisar calidad y, si Pdet sube, discutir actividad detrusoriana durante almacenamiento", true, "Correcto. La señal sugiere falla de estabilidad, siempre con control técnico primero."],
+      ["Concluir diagnóstico clínico definitivo", false, "No. El curso enseña patrón funcional docente, no diagnóstico final automático."],
+      ["Ignorar Pabd porque el fenómeno está en Pves", false, "No. Pabd es el canal que permite separar abdomen de detrusor."],
+      ["Llamarlo obstrucción", false, "Obstrucción se razona principalmente en vaciado con relación presión-flujo."]
+    ]
+  },
+  lowCompliance: {
+    title: "Complacencia baja: presión que sube con volumen",
+    eventLabel: "Pdet sube con el volumen",
+    event: {
+      type: "compliance",
+      title: "Vida real: reservorio rígido",
+      label: "presión progresiva",
+      timing: "durante el llenado",
+      reading: "El problema docente no es un pico aislado, sino perder la relación volumen-presión de baja presión.",
+      caution: "Complacencia es comportamiento del reservorio, no una etiqueta por forma bonita."
+    },
+    question: "Si Pdet aumenta progresivamente durante el llenado, ¿qué concepto debe aparecer primero?",
+    answers: [
+      ["Relación presión-volumen y complacencia", true, "Correcto. La pregunta no es solo si hay un pico, sino si el reservorio mantiene baja presión."],
+      ["Tos no registrada", false, "Una tos suele ser breve y acompaña Pves/Pabd; aquí el patrón es progresivo."],
+      ["Vaciado coordinado", false, "No hay fase de vaciado ni flujo miccional coordinado."],
+      ["Conclusión terapéutica inmediata", false, "El curso debe declarar límites antes de sugerir consecuencias clínicas."]
+    ]
+  },
+  leak: {
+    title: "Fuga en almacenamiento: salida bajo prueba",
+    eventLabel: "Fuga",
+    event: {
+      type: "leak",
+      title: "Vida real: fuga con esfuerzo",
+      label: "gota alineada al evento",
+      timing: "durante maniobra o llenado",
+      reading: "La fuga se interpreta con presión, evento y fase: puede hablar de salida, abdomen, detrusor o combinación.",
+      caution: "Representa incontinencia de esfuerzo como posibilidad funcional, no como diagnóstico automático."
+    },
+    question: "Aparece fuga durante almacenamiento. ¿Qué pregunta evita una conclusión prematura?",
+    answers: [
+      ["Qué presión y qué evento acompañan la fuga", true, "Correcto. La fuga debe leerse junto a Pabd, Pdet, fase y maniobra."],
+      ["Toda fuga es hiperactividad detrusoriana", false, "No. Puede ser mecanismo de cierre, evento abdominal u otra combinación."],
+      ["La fuga no tiene valor docente", false, "Sí tiene valor, pero solo si se contextualiza con los canales y eventos."],
+      ["Borrar el evento porque confunde", false, "Al contrario: el evento es una ancla de interpretación."]
+    ]
+  }
+};
+
 const chapterPracticeCases = {
   thinking: [
     {
@@ -284,278 +439,4 @@ const practiceCaseMap = Object.fromEntries(
     .map((practiceCase) => [practiceCase.id, practiceCase])
 );
 
-const interactiveDemos = {
-  clinicalReasoning: {
-    title: "Del síntoma referido a una conclusión defendible",
-    subtitle: "Caso sintético: una paciente refiere pérdida al toser"
-  },
-  programSwitch: {
-    title: "La vejiga cambia de programa",
-    subtitle: "Almacenamiento y vaciado exigen conductas coordinadas opuestas"
-  },
-  accommodation: {
-    title: "Acomodación: mismo llenado, distinta respuesta",
-    subtitle: "Comparación anatómica cualitativa; no representa umbrales clínicos"
-  },
-  flowResistance: {
-    title: "Flujo: bomba, salida y resistencia",
-    subtitle: "Analogía docente: bomba + manguera para separar resistencia extrínseca e intrínseca",
-    controls: [
-      ["outletDiameter", "Diámetro de salida"],
-      ["outletCompression", "Compresión extrínseca"],
-      ["outletStiffness", "Resistencia intrínseca"]
-    ]
-  },
-  curveTimeline: {
-    title: "Recorre el trazado antes de interpretarlo",
-    subtitle: "El mismo cambio adquiere significado por su fase, evento y secuencia"
-  },
-  pressureEquation: {
-    title: "Dos señales medidas, una presión derivada",
-    subtitle: "Valores sintéticos para comprender la relación; no son umbrales clínicos"
-  },
-  signalMap: {
-    title: "Qué ve el equipo y qué debe inferir el operador",
-    subtitle: "Selecciona un canal para seguir su origen y su límite"
-  },
-  artifactDetective: {
-    title: "Detector de coherencia técnica",
-    subtitle: "Primero describe qué canal cambió; después decide qué verificar"
-  }
-};
-
-const chapterLabDemos = {
-  thinking: [{ id: "clinicalReasoning", label: "Razonamiento" }],
-  physiology: [
-    { id: "accommodation", label: "Acomodación" },
-    { id: "flowResistance", label: "Flujo y salida" },
-    { id: "programSwitch", label: "Programas" }
-  ],
-  tracing: [{ id: "curveTimeline", label: "Secuencia temporal" }],
-  instrument: [
-    { id: "signalMap", label: "Mapa de señales" },
-    { id: "pressureEquation", label: "Pdet derivada" }
-  ],
-  artifacts: [{ id: "artifactDetective", label: "Detector técnico" }],
-  storageDisorders: [{ id: "accommodation", label: "Acomodación" }]
-};
-
-const chapterChallenges = {
-  thinking: [
-    {
-      tag: "Dato vs inferencia",
-      title: "Dos canales responden a una tos",
-      prompt: "¿Cuál es la descripción más defendible antes de explicar el fenómeno?",
-      evidence: ["Evento: tos", "Pves aumenta", "Pabd aumenta"],
-      answers: [
-        ["Pves y Pabd aumentaron durante el evento registrado", true, "Correcto. Eso describe lo observado sin transformar todavía la señal en una explicación."],
-        ["Se demostró una contracción detrusoriana", false, "Eso ya es una inferencia y no se sostiene solo porque Pves aumentó."],
-        ["La tos explica por completo los síntomas del paciente", false, "El evento ayuda a contextualizar la señal, pero no explica por sí solo el caso clínico."]
-      ]
-    },
-    {
-      tag: "Límite del estudio",
-      title: "El síntoma no apareció durante el examen",
-      prompt: "¿Qué conclusión conserva mejor la honestidad interpretativa?",
-      evidence: ["Pregunta clínica definida", "Técnica aceptable", "Síntoma no reproducido"],
-      answers: [
-        ["No se demostró el fenómeno en las condiciones del estudio", true, "Correcto. Delimita lo observado sin invalidar el síntoma ni inventar una explicación alternativa."],
-        ["El paciente no tiene el problema", false, "No reproducir un fenómeno en un entorno controlado no demuestra su ausencia en la vida cotidiana."],
-        ["El examen demuestra otra fisiopatología", false, "La ausencia de un hallazgo no prueba automáticamente una hipótesis distinta."]
-      ]
-    },
-    {
-      tag: "Calidad antes de significado",
-      title: "La tos no aparece en Pabd",
-      prompt: "¿Cuál debe ser el siguiente paso antes de interpretar Pdet?",
-      evidence: ["Evento: tos", "Pves responde", "Pabd permanece plana"],
-      answers: [
-        ["Verificar el canal abdominal y su transmisión", true, "Correcto. Si Pabd no representa bien el evento, la presión derivada pierde confiabilidad fisiológica."],
-        ["Concluir actividad detrusoriana", false, "La discordancia durante una tos obliga primero a revisar la medición."],
-        ["Ignorar Pabd y usar solo Pves", false, "Eso elimina justamente el control que permite separar presión abdominal de actividad vesical."]
-      ]
-    }
-  ],
-  physiology: [
-    {
-      tag: "Programa funcional",
-      title: "El sistema está almacenando",
-      prompt: "¿Qué relación funcional corresponde a esta fase?",
-      evidence: ["Volumen aumenta", "Sin orden de vaciar", "Salida competente"],
-      answers: [
-        ["Detrusor relajado y salida cerrada", true, "Correcto. El sistema funciona como reservorio de baja presión con la salida cerrada."],
-        ["Detrusor contráctil y salida abierta", false, "Esa relación corresponde al programa de vaciado."],
-        ["Detrusor contráctil y salida cerrada", false, "Esa combinación no representa el programa coordinado de almacenamiento."]
-      ]
-    },
-    {
-      tag: "Cambio de programa",
-      title: "Aparece la decisión de vaciar",
-      prompt: "¿Qué cambio coordinado permite que aparezca flujo?",
-      evidence: ["Orden miccional", "Inicio de vaciado", "Se espera flujo"],
-      answers: [
-        ["El detrusor se contrae y la salida se abre", true, "Correcto. Bomba y salida deben cambiar de programa de forma coordinada."],
-        ["El detrusor se relaja y la salida se cierra", false, "Eso mantiene el programa de almacenamiento."],
-        ["Solo aumenta la presión abdominal", false, "El aumento abdominal aislado no define el programa fisiológico coordinado de vaciado."]
-      ]
-    },
-    {
-      tag: "Coordinación",
-      title: "La bomba actúa contra una salida cerrada",
-      prompt: "Sin asignar todavía un diagnóstico, ¿qué relación funcional está fallando?",
-      evidence: ["Detrusor contráctil", "Salida cerrada", "Flujo limitado"],
-      answers: [
-        ["La coordinación entre bomba y salida", true, "Correcto. Primero se reconoce la relación ineficiente; la etiqueta diagnóstica requiere más contexto."],
-        ["La sensibilidad vesical necesariamente", false, "Los datos mostrados describen bomba y salida; no permiten concluir una alteración sensitiva."],
-        ["La fase de almacenamiento normal", false, "El escenario describe un intento de vaciado, no un almacenamiento normal."]
-      ]
-    }
-  ],
-  tracing: [
-    {
-      tag: "Evento y curva",
-      title: "Un pico coincide con una tos",
-      prompt: "¿Qué lectura debe hacerse primero?",
-      evidence: ["Fase: llenado", "Marcador: tos", "Pico de presión"],
-      answers: [
-        ["Comparar Pves y Pabd y relacionarlas con el marcador", true, "Correcto. El evento y la coherencia entre canales preceden a cualquier etiqueta fisiológica."],
-        ["Nombrar el pico como contracción detrusoriana", false, "La forma aislada no basta, especialmente cuando existe un evento abdominal registrado."],
-        ["Saltar directamente al diagnóstico clínico", false, "Antes faltan calidad, canales, evento e integración con la pregunta clínica."]
-      ]
-    },
-    {
-      tag: "Secuencia temporal",
-      title: "Una presión cambia sin anotación",
-      prompt: "¿Qué información debes reconstruir antes de interpretarla?",
-      evidence: ["Cambio de presión", "Sin evento anotado", "Momento incierto"],
-      answers: [
-        ["Fase, calidad, canales y contexto inmediatamente anterior", true, "Correcto. Un trazado es una historia temporal; el cambio aislado no se interpreta solo."],
-        ["Solo la altura máxima del pico", false, "La amplitud sin fase, canales y contexto ofrece una lectura incompleta."],
-        ["El diagnóstico más frecuente", false, "La frecuencia clínica no sustituye la lectura ordenada del registro concreto."]
-      ]
-    },
-    {
-      tag: "Presión y flujo",
-      title: "Comienza el flujo tras la orden miccional",
-      prompt: "¿Qué combinación permite leer el vaciado como fenómeno funcional?",
-      evidence: ["Orden de vaciar", "Cambio de presión", "Aparece flujo"],
-      answers: [
-        ["Presiones y flujo leídos juntos durante la fase", true, "Correcto. La relación entre contracción, salida y flujo es más informativa que cada canal aislado."],
-        ["Solo el valor máximo de flujo", false, "El flujo aislado no explica qué presión ni qué mecanismo lo acompañó."],
-        ["Solo Pves porque contiene toda la información", false, "Pves incluye componentes distintos y debe leerse con Pabd, Pdet, flujo y eventos."]
-      ]
-    }
-  ],
-  instrument: [
-    {
-      tag: "Cálculo sintético",
-      title: "Pves y Pabd aumentan casi juntas",
-      prompt: "Si Pves = 42 y Pabd = 40, ¿cuál es la Pdet derivada?",
-      evidence: ["Pves: 42", "Pabd: 40", "Pdet = Pves - Pabd"],
-      answers: [
-        ["2 unidades de presión", true, "Correcto. 42 - 40 = 2. Son valores sintéticos para comprender la relación, no umbrales clínicos."],
-        ["40 unidades de presión", false, "Ese es el valor de Pabd, no el resultado de la resta."],
-        ["82 unidades de presión", false, "Pdet se deriva mediante una resta, no sumando ambos canales."]
-      ]
-    },
-    {
-      tag: "Cálculo sintético",
-      title: "Pves aumenta más que Pabd",
-      prompt: "Si Pves = 35 y Pabd = 10, ¿cuál es la Pdet derivada?",
-      evidence: ["Pves: 35", "Pabd: 10", "Pdet = Pves - Pabd"],
-      answers: [
-        ["25 unidades de presión", true, "Correcto. 35 - 10 = 25. Después del cálculo todavía corresponde evaluar calidad, fase y evento."],
-        ["45 unidades de presión", false, "Eso suma las señales; Pdet se obtiene restando Pabd a Pves."],
-        ["10 unidades de presión", false, "Ese valor corresponde a Pabd, no a la presión derivada."]
-      ]
-    },
-    {
-      tag: "Señal derivada",
-      title: "Pabd permanece plana durante una tos",
-      prompt: "¿Qué ocurre con la confianza en Pdet, aunque el equipo pueda calcularla?",
-      evidence: ["Tos registrada", "Pves responde", "Pabd no responde"],
-      answers: [
-        ["La cifra puede calcularse, pero su interpretación fisiológica no es confiable", true, "Correcto. Una resta exacta no corrige una señal de entrada que transmite mal."],
-        ["Pdet se vuelve automáticamente diagnóstica", false, "El cálculo no convierte una medición dudosa en evidencia clínica."],
-        ["Pabd deja de ser necesaria", false, "Sin una estimación abdominal confiable no puedes separar adecuadamente los componentes de Pves."]
-      ]
-    }
-  ],
-  artifacts: [
-    {
-      tag: "Prueba de transmisión",
-      title: "La tos aparece solo en Pves",
-      prompt: "¿Qué verificación tiene prioridad?",
-      evidence: ["Evento: tos", "Pves: pico", "Pabd: sin respuesta"],
-      answers: [
-        ["Revisar posición, transmisión y funcionamiento del canal Pabd", true, "Correcto. Primero se explica la discordancia técnica; después se interpreta fisiología."],
-        ["Diagnosticar una contracción detrusoriana", false, "Una tos con mala respuesta abdominal exige control técnico antes de esa inferencia."],
-        ["Eliminar el evento del registro", false, "El marcador de tos es precisamente la referencia que revela la incoherencia."]
-      ]
-    },
-    {
-      tag: "Coherencia entre canales",
-      title: "Pabd sube sola y Pdet se hace negativa",
-      prompt: "¿Cuál es la conducta interpretativa más prudente?",
-      evidence: ["Pves estable", "Pabd aumenta", "Pdet desciende"],
-      answers: [
-        ["Revisar un evento localizado o un problema de transmisión en Pabd", true, "Correcto. La discordancia orienta primero a revisar qué ocurrió en el canal abdominal."],
-        ["Concluir presión vesical negativa real", false, "Pdet es una resta. Una alteración localizada de Pabd puede fabricar ese descenso derivado."],
-        ["Usar solo Pdet porque ya corrige los otros canales", false, "Pdet hereda cualquier error de Pves o Pabd; no los corrige automáticamente."]
-      ]
-    },
-    {
-      tag: "Línea base",
-      title: "Pves cambia bruscamente sin evento clínico",
-      prompt: "¿Qué debe comprobarse antes de atribuir el cambio al paciente?",
-      evidence: ["Salto de línea base", "Sin tos ni movimiento anotado", "Cambio abrupto"],
-      answers: [
-        ["Catéter, cero, conexión y transmisión del canal", true, "Correcto. Un salto abrupto sin contexto obliga a comprobar el sistema de medición."],
-        ["Una enfermedad infrecuente", false, "Lo infrecuente no debe ser la primera explicación de una señal técnicamente sospechosa."],
-        ["La conclusión final del informe", false, "Todavía no existe base suficiente para una conclusión fisiológica o clínica."]
-      ]
-    }
-  ]
-};
-
-const challengeAnswerOffsets = {
-  thinking: [1, 2, 0],
-  physiology: [2, 1, 2],
-  tracing: [1, 2, 1],
-  instrument: [2, 1, 0],
-  artifacts: [1, 2, 1]
-};
-
-function orderedAnswers(answers, offset = 0) {
-  const withOrigin = answers.map((answer, originalIndex) => ({ answer, originalIndex }));
-  const safeOffset = ((offset % answers.length) + answers.length) % answers.length;
-  return [...withOrigin.slice(safeOffset), ...withOrigin.slice(0, safeOffset)];
-}
-
-function displayedCorrectLetter(answers, offset = 0) {
-  const correctIndex = orderedAnswers(answers, offset).findIndex(({ answer }) => answer[1]);
-  return correctIndex >= 0 ? String.fromCharCode(65 + correctIndex) : "?";
-}
-
-window.__urodynamicTutorDiagnostics = {
-  buildRevision: BUILD_REVISION,
-  challengeCorrectLetters: Object.fromEntries(
-    Object.entries(chapterChallenges).map(([chapterId, challenges]) => [
-      chapterId,
-      challenges.map((challenge, index) => displayedCorrectLetter(challenge.answers, challengeAnswerOffsets[chapterId]?.[index] || 0))
-    ])
-  ),
-  practiceCorrectLetters: Object.fromEntries(
-    Object.entries(chapterPracticeCases).map(([chapterId, cases]) => [
-      chapterId,
-      cases.map((practiceCase) => displayedCorrectLetter(practiceCase.answers, practiceCase.answerOffset || 0))
-    ])
-  ),
-  practiceTraceProfiles: Object.fromEntries(
-    Object.entries(chapterPracticeCases).map(([chapterId, cases]) => [chapterId, cases.map((practiceCase) => practiceCase.id)])
-  ),
-  traceProfileSignatures: Object.fromEntries(
-    Object.entries(practiceTraceProfiles).map(([caseId, profile]) => [caseId, JSON.stringify(profile)])
-  )
-};
 
