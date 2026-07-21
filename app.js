@@ -1,4 +1,4 @@
-const BUILD_REVISION = "20260721-storage-v1";
+const BUILD_REVISION = "20260721-neuro-v1";
 
 const chapters = {
   thinking: {
@@ -645,6 +645,147 @@ const chapters = {
           "Confirma representatividad y calidad; identifica qué inició el flujo; observa la apertura de salida y su relación temporal; revisa antecedentes neurológicos y anatómicos. Luego describe y, solo si la evidencia alcanza, nombra el mecanismo.",
         key: "Primero se describe lo que la salida hizo. Después, si corresponde, se le pone un nombre.",
         prompt: "¿La evidencia permite una etiqueta o exige conservar una descripción funcional prudente?"
+      }
+    ]
+  },
+  neuroUrology: {
+    block: "Bloque III · Neuro-urología",
+    number: "Capítulo 9",
+    title: "Neuro-urología según el sitio de la lesión",
+    mentalModelTitle: "Mapa neurológico, función demostrada",
+    mentalModelText:
+      "La localización permite formular una hipótesis. La urodinamia establece cómo almacena y vacía ese paciente, a qué presión y con qué coordinación.",
+    notThis: "Asignar una vejiga fija a cada diagnóstico neurológico",
+    isThis: "Comparar el patrón esperado con la función realmente medida",
+    labId: "neuroLesionMap",
+    labDescription:
+      "Explora hipótesis funcionales por nivel de lesión y contrástalas con casos sintéticos. El mapa es una simplificación docente: orienta probabilidades, no predice individuos.",
+    screens: [
+      {
+        title: "La lesión orienta; la urodinamia demuestra",
+        text:
+          "El control vesical depende de cerebro, puente, médula sacra y nervios periféricos. Una lesión en cada nivel cambia las probabilidades, pero no determina por sí sola el trazado.",
+        key: "La lesión indica qué podríamos encontrar. La urodinamia muestra qué está ocurriendo realmente.",
+        prompt: "¿Estoy usando la localización como hipótesis o como conclusión anticipada?"
+      },
+      {
+        title: "Primero: ¿es realmente neurogénico?",
+        text:
+          "Una curva inusual, una contracción involuntaria o una retención no prueban origen neurológico. Debe existir una enfermedad o lesión relevante, descrita por nivel, extensión, evolución y completitud.",
+        key: "La forma de una curva no la convierte en neurogénica.",
+        prompt: "¿Cuál es el diagnóstico neurológico y qué vías podría comprometer?"
+      },
+      {
+        title: "Un mapa de tres niveles",
+        text:
+          "El cerebro aporta percepción, inhibición y decisión; la región pontina coordina contracción y apertura; los circuitos sacros y nervios periféricos ejecutan sensibilidad, contracción y cierre.",
+        key: "Este mapa es una simplificación útil de una red integrada y bilateral.",
+        prompt: "¿La lesión afecta inhibición, coordinación, ejecución o más de una función?"
+      },
+      {
+        title: "La regla general",
+        text:
+          "Suprapontino suele significar pérdida de inhibición con sinergia conservada. Suprasacro puede conservar contracción refleja y perder coordinación. Sacro o periférico puede alterar sensibilidad, contractilidad y competencia de salida.",
+        key: "La localización genera probabilidades, no una sentencia urodinámica.",
+        prompt: "¿Qué hallazgo esperado tendría que demostrar el estudio?"
+      },
+      {
+        title: "Lesiones suprapontinas",
+        text:
+          "El patrón clásico es hiperactividad detrusoriana neurogénica durante almacenamiento y vaciado habitualmente coordinado. Puede haber urgencia, incontinencia y capacidad funcional reducida.",
+        key: "La vejiga puede activarse antes de tiempo, pero la salida suele acompañarla.",
+        prompt: "¿La contracción es involuntaria y el vaciado conserva coordinación?"
+      },
+      {
+        title: "Suprapontino no significa simple",
+        text:
+          "Retención aguda, cognición, movilidad, medicamentos, obstrucción y enfermedades mixtas pueden modificar el patrón. Un residuo alto no debe atribuirse automáticamente a la lesión cerebral.",
+        key: "El diagnóstico neurológico no elimina las causas urológicas concomitantes.",
+        prompt: "¿Qué dato no queda explicado por el patrón suprapontino clásico?"
+      },
+      {
+        title: "Lesiones pontinas o suprasacras",
+        text:
+          "Puede conservarse la contracción refleja del detrusor mientras se pierde coordinación descendente. Son posibles hiperactividad, baja complacencia, disinergia, presión elevada, flujo limitado y residuo.",
+        key: "La vejiga puede contraerse y, aun así, encontrar una salida que no cede.",
+        prompt: "¿La presión y el flujo demuestran contracción contra resistencia funcional?"
+      },
+      {
+        title: "Continencia no equivale a seguridad",
+        text:
+          "Una salida muy resistente puede evitar la fuga y mantener presiones desfavorables. Otra persona puede ser incontinente y almacenar a baja presión. El riesgo se evalúa en todo el ciclo.",
+        key: "Una vejiga seca no es necesariamente una vejiga segura.",
+        prompt: "¿A qué presión almacena y vacía, aunque no exista fuga?"
+      },
+      {
+        title: "Shock medular: una fase, no el resultado final",
+        text:
+          "Tras una lesión aguda puede existir pérdida temporal de actividad sensitiva, motora y refleja, con retención completa e indolora. Al reaparecer reflejos, el patrón puede cambiar.",
+        key: "La primera urodinamia puede mostrar una etapa evolutiva.",
+        prompt: "¿Cuánto tiempo ha pasado desde la lesión y qué función se ha recuperado?"
+      },
+      {
+        title: "Lesiones sacras",
+        text:
+          "El compromiso de aferencias, salida parasimpática y motoneuronas somáticas puede producir sensibilidad reducida, hipoactividad o acontractilidad y debilidad esfinteriana.",
+        key: "Retención e incontinencia pueden coexistir: fallan la bomba y el cierre.",
+        prompt: "¿Están alteradas contractilidad, sensibilidad, competencia de salida o varias?"
+      },
+      {
+        title: "Cauda equina y nervios periféricos",
+        text:
+          "Cuando se interrumpen vías aferentes o eferentes pueden aparecer gran capacidad, contracción débil o ausente, micción abdominal, residuo e incompetencia esfinteriana.",
+        key: "La señal puede no llegar desde la vejiga, hacia ella o en ambas direcciones.",
+        prompt: "¿El paciente siente el llenado y puede generar una contracción efectiva?"
+      },
+      {
+        title: "La sensibilidad también informa",
+        text:
+          "Algunas personas reconocen llenado mediante plenitud abdominal, sudoración, sensación uretral, inquietud o aumento de espasticidad, sin un deseo miccional convencional.",
+        key: "Ausencia de deseo normal no equivale a ausencia total de información aferente.",
+        prompt: "¿Cómo reconoce habitualmente este paciente que su vejiga está llena?"
+      },
+      {
+        title: "Lesiones mixtas y multifocales",
+        text:
+          "Esclerosis múltiple, cono medular, espina bífida, diabetes y enfermedades neurodegenerativas pueden combinar hiperactividad, mala coordinación, hipoactividad y alteraciones sensitivas.",
+        key: "Cuando la lesión es mixta, el trazado también puede serlo.",
+        prompt: "¿Estoy forzando un patrón complejo dentro de una sola etiqueta?"
+      },
+      {
+        title: "Disreflexia autonómica: seguridad del estudio",
+        text:
+          "En lesiones medulares altas, especialmente T6 o superiores, la distensión vesical y la urodinamia pueden gatillar una respuesta autonómica peligrosa. Presión arterial y frecuencia cardíaca forman parte del examen seguro.",
+        key: "En pacientes en riesgo, monitorizar no es opcional ni un dato accesorio.",
+        prompt: "¿Existe un plan de monitorización y respuesta antes de comenzar?"
+      },
+      {
+        title: "Qué debe responder la urodinamia",
+        text:
+          "Debe precisar sensibilidad, actividad detrusoriana, complacencia, continencia, contractilidad, coordinación, flujo, residuo y presiones. La videourodinamia añade anatomía dinámica y reflujo.",
+        key: "No basta con escribir “vejiga neurogénica”: hay que describir qué falla, en qué fase y con qué consecuencia.",
+        prompt: "¿El estudio define almacenamiento, vaciado y seguridad?"
+      },
+      {
+        title: "No reducir el riesgo a un número",
+        text:
+          "El riesgo depende de presión de almacenamiento, complacencia, actividad detrusoriana, resistencia, coordinación, duración, reflujo y evolución. El detrusor leak point pressure no basta para estimarlo.",
+        key: "Un valor contribuye al análisis; no reemplaza el comportamiento completo.",
+        prompt: "¿Este sistema trabaja a presiones compatibles con seguridad a largo plazo?"
+      },
+      {
+        title: "Los síntomas pueden callar el riesgo",
+        text:
+          "La sensibilidad reducida puede ocultar distensión, retención o presión alta. La intensidad del síntoma no siempre refleja la gravedad funcional y el patrón puede cambiar con el tiempo.",
+        key: "Sentirse bien no garantiza que el tracto urinario superior esté protegido.",
+        prompt: "¿Qué seguimiento objetivo necesita este patrón y su evolución?"
+      },
+      {
+        title: "Razonar en orden",
+        text:
+          "Identifica nivel y etapa evolutiva; formula hipótesis de almacenamiento y vaciado; reconoce riesgos; compara con el trazado. Si no coincide, revisa lesión mixta, patología concomitante, técnica y representatividad.",
+        key: "El diagnóstico neurológico entrega el mapa; la urodinamia muestra cómo funciona el sistema.",
+        prompt: "¿Qué esperaba, qué observé y qué diferencia todavía debo explicar?"
       }
     ]
   }
@@ -1416,6 +1557,159 @@ const chapterPracticeCases = {
       focus: "limit",
       answerOffset: 2
     }
+  ],
+  neuroUrology: [
+    {
+      ...scenarios.detrusorStorage,
+      id: "neuroStroke",
+      tabLabel: "Suprapontina",
+      pattern: "detrusorStorage",
+      focus: "inference",
+      answerOffset: 1,
+      title: "ACV: contracción durante el llenado",
+      eventLabel: "contracción involuntaria en almacenamiento",
+      event: {
+        ...scenarios.detrusorStorage.event,
+        title: "Lesión suprapontina con activación precoz",
+        label: "caso sintético: ACV",
+        timing: "fase de almacenamiento",
+        reading: "Pdet aumenta durante el llenado; la localización hace plausible pérdida de inhibición, pero no reemplaza la demostración del mecanismo.",
+        caution: "El vaciado y las causas urológicas concomitantes todavía deben evaluarse."
+      },
+      question: "¿Cuál es la lectura inicial más rigurosa?",
+      answers: [
+        ["Contracción detrusoriana durante almacenamiento, compatible con el contexto suprapontino", true, "Correcto. El trazado demuestra el fenómeno y el contexto orienta su origen."],
+        ["Todo residuo futuro quedaría explicado por el ACV", false, "No. Obstrucción, hipoactividad, fármacos y representatividad siguen abiertos."],
+        ["La localización cerebral demuestra por sí sola el patrón", false, "La lesión formula la hipótesis; el estudio debe demostrar la función."],
+        ["El hallazgo confirma disinergia", false, "La contracción durante llenado no demuestra mala coordinación durante vaciado."]
+      ]
+    },
+    {
+      ...scenarios.neurogenicDyssynergia,
+      id: "neuroT4",
+      tabLabel: "Medular T4",
+      pattern: "neuroDyssynergia",
+      focus: "event",
+      answerOffset: 2,
+      title: "Lesión medular T4: presión y salida activa",
+      eventLabel: "contracción con actividad de salida",
+      event: {
+        ...scenarios.neurogenicDyssynergia.event,
+        title: "Contracción detrusoriana contra una salida activa",
+        label: "caso sintético: lesión T4 crónica",
+        timing: "intento de vaciado",
+        reading: "Pdet se sostiene, el flujo es limitado y la actividad perineal persiste en un contexto neurológico suprasacro.",
+        caution: "La seguridad también exige revisar presión de almacenamiento y vía urinaria superior."
+      },
+      question: "¿Qué conclusión integra mejor trazado y contexto?",
+      answers: [
+        ["Patrón compatible con disinergia detrusor-esfínter", true, "Correcto. Existe contracción, actividad de salida concomitante y una lesión neurológica relevante."],
+        ["Flujo bajo aislado sin mecanismo demostrable", false, "Aquí la relación entre Pdet, flujo, EMG y contexto aporta un mecanismo plausible."],
+        ["Vaciado disfuncional no neurogénico", false, "La lesión medular relevante cambia la terminología y la fisiopatología."],
+        ["Continencia garantizada y sistema seguro", false, "La ausencia de fuga no informa por sí sola seguridad de almacenamiento o vaciado."]
+      ]
+    },
+    {
+      ...scenarios.inhibitedVoiding,
+      id: "neuroSpinalShock",
+      tabLabel: "Shock medular",
+      pattern: "inhibitedVoiding",
+      focus: "limit",
+      answerOffset: 3,
+      title: "Lesión aguda: ausencia de contracción",
+      eventLabel: "sin evento focal de vaciado",
+      event: {
+        ...scenarios.inhibitedVoiding.event,
+        title: "Retención durante la fase aguda",
+        label: "caso sintético: shock medular",
+        timing: "etapa evolutiva temprana",
+        reading: "No aparece una contracción detrusoriana y no se genera flujo durante este registro.",
+        caution: "El patrón puede ser transitorio y no debe presentarse como resultado neurológico definitivo."
+      },
+      question: "¿Qué límite debe conservar la conclusión?",
+      answers: [
+        ["Describe una fase potencialmente transitoria que requiere reevaluación evolutiva", true, "Correcto. El tiempo desde la lesión es parte del diagnóstico funcional."],
+        ["Demuestra acontractilidad permanente", false, "Una evaluación durante shock medular no establece por sí sola el patrón definitivo."],
+        ["Descarta recuperación de reflejos", false, "Los reflejos pueden reaparecer y cambiar el comportamiento vesical."],
+        ["Permite omitir seguimiento urodinámico", false, "La evolución funcional requiere control."
+        ]
+      ]
+    },
+    {
+      ...scenarios.detrusorUnderactivity,
+      id: "neuroCauda",
+      tabLabel: "Cauda equina",
+      pattern: "weakDetrusor",
+      focus: "inference",
+      answerOffset: 1,
+      title: "Cauda equina: contracción insuficiente",
+      eventLabel: "intento de vaciado de baja fuerza",
+      event: {
+        ...scenarios.detrusorUnderactivity.event,
+        title: "Señal aferente y respuesta eferente comprometidas",
+        label: "caso sintético: cauda equina",
+        timing: "fase de vaciado",
+        reading: "Pdet aumenta poco, el flujo es bajo y el vaciamiento es limitado en un contexto compatible con lesión infrasacra.",
+        caution: "También deben evaluarse sensibilidad y competencia esfinteriana."
+      },
+      question: "¿Qué patrón es más plausible sin exceder la evidencia?",
+      answers: [
+        ["Hipoactividad detrusoriana en un contexto infrasacro", true, "Correcto. La relación presión-flujo apoya una contracción insuficiente."],
+        ["Obstrucción demostrada por flujo bajo", false, "El flujo bajo no identifica por sí solo resistencia aumentada."],
+        ["Disinergia obligatoria", false, "Las lesiones infrasacras no obligan ese patrón y el trazado no lo demuestra."],
+        ["Sensibilidad normal garantizada", false, "La sensibilidad debe interrogarse y registrarse por separado."]
+      ]
+    },
+    {
+      ...scenarios.neurogenicDyssynergia,
+      id: "neuroMultipleSclerosis",
+      tabLabel: "Esclerosis múltiple",
+      pattern: "variableOutlet",
+      focus: "limit",
+      answerOffset: 2,
+      title: "Enfermedad multifocal: patrón variable",
+      eventLabel: "flujo intermitente y salida variable",
+      event: {
+        ...scenarios.neurogenicDyssynergia.event,
+        title: "Una lesión multifocal no cabe en una sola regla",
+        label: "caso sintético: esclerosis múltiple",
+        timing: "intento de vaciado",
+        reading: "La contracción se asocia a flujo intermitente y actividad perineal variable en un contexto neurológico multifocal.",
+        caution: "Almacenamiento, contractilidad y evolución deben integrarse antes de resumir el caso."
+      },
+      question: "¿Cuál es la mejor forma de razonar este patrón?",
+      answers: [
+        ["Describir la relación observada y evaluar si coexisten mecanismos", true, "Correcto. Una enfermedad multifocal puede combinar almacenamiento, coordinación y vaciado."],
+        ["Forzarlo dentro del patrón suprapontino clásico", false, "La multifocalidad impide esa simplificación."],
+        ["Elegir una sola etiqueta por diagnóstico neurológico", false, "El diagnóstico orienta, pero el trazado puede ser mixto."],
+        ["Ignorar la fase de almacenamiento", false, "La seguridad neuro-urológica exige revisar el ciclo completo."]
+      ]
+    },
+    {
+      ...scenarios.lowCompliance,
+      id: "neuroAutonomicDysreflexia",
+      tabLabel: "Seguridad T6+",
+      pattern: "lowCompliance",
+      focus: "event",
+      answerOffset: 3,
+      title: "Lesión alta: cambio cardiovascular durante el llenado",
+      eventLabel: "aumento progresivo de presión vesical",
+      event: {
+        ...scenarios.lowCompliance.event,
+        title: "El trazado vesical no muestra toda la emergencia",
+        label: "caso sintético: lesión T6 o superior",
+        timing: "llenado con monitorización",
+        reading: "La presión de almacenamiento aumenta; en paralelo aparece un ascenso sistólico mayor de 20 mmHg respecto del basal.",
+        caution: "La presión arterial y la frecuencia cardíaca son señales de seguridad externas a estas curvas."
+      },
+      question: "¿Cuál es la prioridad inmediata?",
+      answers: [
+        ["Reconocer posible disreflexia autonómica y aplicar el protocolo de seguridad", true, "Correcto. La respuesta cardiovascular tiene prioridad sobre completar el trazado docente."],
+        ["Continuar hasta capacidad para obtener una curva más completa", false, "La seguridad del paciente precede a completar el estudio."],
+        ["Interpretar solo Pdet porque es la señal urodinámica", false, "La monitorización cardiovascular forma parte obligatoria del examen en pacientes en riesgo."],
+        ["Concluir bajo riesgo porque no hubo fuga", false, "Continencia no excluye presión desfavorable ni disreflexia."]
+      ]
+    }
   ]
 };
 
@@ -1449,7 +1743,13 @@ const practiceTraceProfiles = {
   coordinationDysfunctional: { start: 0.5, end: 0.92, flowStart: 0.56, fillSlope: 9, pressureAmplitude: 61, flowAmplitude: 47, emgAmplitude: 32, cycles: 4, volumeDrop: 72 },
   coordinationDyssynergia: { start: 0.46, end: 0.91, flowStart: 0.53, fillSlope: 9, pressureAmplitude: 76, flowAmplitude: 29, emgAmplitude: 43, cycles: 5, volumeDrop: 48 },
   coordinationAbdominalMimic: { start: 0.52, end: 0.9, flowStart: 0.54, fillSlope: 9, pressureAmplitude: 45, flowAmplitude: 38, emgAmplitude: 26, cycles: 4, volumeDrop: 58 },
-  coordinationFixedResistance: { start: 0.55, end: 0.93, flowStart: 0.59, fillSlope: 9, pressureAmplitude: 80, flowAmplitude: 20, emgAmplitude: 4, volumeDrop: 44 }
+  coordinationFixedResistance: { start: 0.55, end: 0.93, flowStart: 0.59, fillSlope: 9, pressureAmplitude: 80, flowAmplitude: 20, emgAmplitude: 4, volumeDrop: 44 },
+  neuroStroke: { start: 0.33, end: 0.51, fillSlope: 11, detrusorAmplitude: 58, neuroLevel: 1 },
+  neuroT4: { start: 0.45, end: 0.92, flowStart: 0.52, fillSlope: 8, pressureAmplitude: 82, flowAmplitude: 25, emgAmplitude: 46, cycles: 6, volumeDrop: 42, neuroLevel: 2 },
+  neuroSpinalShock: { start: 0.59, end: 0.89, fillSlope: 7, pressureAmplitude: 0, flowAmplitude: 0, volumeDrop: 0, acuteStage: true },
+  neuroCauda: { start: 0.63, end: 0.9, fillSlope: 12, pressureAmplitude: 16, flowAmplitude: 13, volumeDrop: 18, neuroLevel: 4 },
+  neuroMultipleSclerosis: { start: 0.49, end: 0.94, flowStart: 0.55, fillSlope: 10, pressureAmplitude: 57, flowAmplitude: 41, emgAmplitude: 29, cycles: 5, volumeDrop: 55, multifocal: true },
+  neuroAutonomicDysreflexia: { start: 0.27, end: 0.93, fillSlope: 8, complianceAmplitude: 88, systolicRise: 24, neuroLevel: 6 }
 };
 
 const practiceCaseMap = Object.fromEntries(
@@ -1507,6 +1807,10 @@ const interactiveDemos = {
   coordinationTimeline: {
     title: "Coordinación: quién actúa y cuándo",
     subtitle: "Relaciones temporales sintéticas; el mismo aspecto puede exigir conclusiones distintas según el contexto"
+  },
+  neuroLesionMap: {
+    title: "Del sitio de la lesión a una hipótesis funcional",
+    subtitle: "Mapa docente cualitativo: selecciona un nivel y contrástalo con la urodinamia"
   }
 };
 
@@ -1531,7 +1835,12 @@ const chapterLabDemos = {
     { id: "pressureFlowMatrix", label: "Presión y flujo" },
     { id: "flowResistance", label: "Bomba y salida" }
   ],
-  coordinationDisorders: [{ id: "coordinationTimeline", label: "Tiempo y salida" }]
+  coordinationDisorders: [{ id: "coordinationTimeline", label: "Tiempo y salida" }],
+  neuroUrology: [
+    { id: "neuroLesionMap", label: "Mapa neurológico" },
+    { id: "coordinationTimeline", label: "Coordinación" },
+    { id: "storageMap", label: "Seguridad al almacenar" }
+  ]
 };
 
 const chapterChallenges = {
@@ -1847,6 +2156,63 @@ const chapterChallenges = {
         ["Obstrucción anatómica localizada", false, "No existe información suficiente para localizar una causa anatómica."]
       ]
     }
+  ],
+  neuroUrology: [
+    {
+      tag: "Hipótesis",
+      title: "Lesión suprapontina con urgencia y contracciones en llenado",
+      prompt: "¿Qué papel cumple la localización en la conclusión?",
+      evidence: ["Lesión cerebral conocida", "Pdet aumenta durante llenado", "Vaciado aún no evaluado"],
+      answers: [
+        ["Hace plausible pérdida de inhibición, pero el trazado demuestra el fenómeno funcional", true, "Correcto. La anatomía orienta y la urodinamia especifica."],
+        ["Determina todo el patrón de almacenamiento y vaciado", false, "El patrón individual puede diferir y coexistir con enfermedad urológica."],
+        ["Confirma disinergia sin estudiar la salida", false, "La coordinación debe evaluarse durante vaciado."]
+      ]
+    },
+    {
+      tag: "Seguridad",
+      title: "Paciente con lesión T4 permanece continente a presión creciente",
+      prompt: "¿Cuál es la prioridad interpretativa?",
+      evidence: ["Sin fuga", "Pdet de almacenamiento aumenta", "Lesión medular suprasacra"],
+      answers: [
+        ["Evaluar almacenamiento de alta presión y riesgo para la vía urinaria superior", true, "Correcto. La continencia no neutraliza una presión desfavorable."],
+        ["Considerar el reservorio seguro porque permanece seco", false, "Una salida resistente puede ocultar un almacenamiento peligroso."],
+        ["Evaluar solo el residuo posmiccional", false, "El riesgo puede originarse durante el llenado antes del vaciado."]
+      ]
+    },
+    {
+      tag: "Evolución",
+      title: "Retención indolora pocos días después de una lesión medular",
+      prompt: "¿Qué error debe evitarse?",
+      evidence: ["Lesión aguda", "Sin contracción", "Fase temprana"],
+      answers: [
+        ["Presentar el patrón como acontractilidad definitiva", false, "Durante shock medular la función puede cambiar al reaparecer los reflejos."],
+        ["Describir la etapa y planificar reevaluación", true, "Correcto. El tiempo desde la lesión es parte de la interpretación."],
+        ["Asumir disinergia por el nivel de lesión", false, "La disinergia debe demostrarse cuando exista contracción y vaciado evaluable."]
+      ]
+    },
+    {
+      tag: "Sensibilidad",
+      title: "El paciente no refiere deseo, pero nota espasticidad con el llenado",
+      prompt: "¿Cómo debe registrarse esa información?",
+      evidence: ["Sin deseo convencional", "Espasticidad reproducible", "Coincide con llenado"],
+      answers: [
+        ["Como ausencia completa de aferencia", false, "Existe una señal reproducible asociada al llenado, aunque no sea deseo típico."],
+        ["Como artefacto sin valor", false, "En neuro-urología estas manifestaciones pueden ser la forma habitual de reconocer plenitud."],
+        ["Como conciencia vesical inespecífica", true, "Correcto. Debe describirse la manifestación que el paciente reconoce como llenado."]
+      ]
+    },
+    {
+      tag: "Disreflexia",
+      title: "Durante el llenado aumenta la presión sistólica 24 mmHg",
+      prompt: "¿Qué conducta conceptual corresponde en una lesión T6?",
+      evidence: ["Lesión T6", "Ascenso sistólico >20 mmHg", "Estímulo vesical en curso"],
+      answers: [
+        ["Priorizar reconocimiento y manejo de posible disreflexia autonómica", true, "Correcto. La seguridad cardiovascular precede a completar el registro."],
+        ["Esperar cefalea intensa antes de actuar", false, "La respuesta puede ser peligrosa y no requiere todos los síntomas clásicos."],
+        ["Ignorar la presión arterial porque no es un canal urodinámico", false, "En pacientes en riesgo, monitorizar presión y frecuencia cardíaca forma parte del procedimiento."]
+      ]
+    }
   ]
 };
 
@@ -1858,7 +2224,8 @@ const challengeAnswerOffsets = {
   artifacts: [1, 2, 1],
   storageDisorders: [2, 1, 2, 1, 2],
   voidingDisorders: [2, 1, 2],
-  coordinationDisorders: [1, 2, 1, 2]
+  coordinationDisorders: [1, 2, 1, 2],
+  neuroUrology: [2, 1, 0, 1, 2]
 };
 
 function orderedAnswers(answers, offset = 0) {
@@ -1879,7 +2246,8 @@ window.__urodynamicTutorDiagnostics = {
     traceLocalizationChallenge: true,
     syntheticChapterTraces: true,
     coordinationEmgLab: true,
-    storageMapLab: true
+    storageMapLab: true,
+    neuroLesionLab: true
   },
   challengeCorrectLetters: Object.fromEntries(
     Object.entries(chapterChallenges).map(([chapterId, challenges]) => [
@@ -1942,7 +2310,8 @@ const chapterFocus = {
   artifacts: "quality",
   storageDisorders: "inference",
   voidingDisorders: "inference",
-  coordinationDisorders: "event"
+  coordinationDisorders: "event",
+  neuroUrology: "inference"
 };
 
 const chapterScenarioDefaults = Object.fromEntries(
@@ -1981,7 +2350,8 @@ const defaultState = {
     artifactPattern: "cough",
     storagePattern: "normal",
     voidingPattern: "efficient",
-    coordinationPattern: "coordinated"
+    coordinationPattern: "coordinated",
+    neuroPattern: "suprapontine"
   },
   challengeIndex: {
     thinking: 0,
@@ -1991,7 +2361,8 @@ const defaultState = {
     artifacts: 0,
     storageDisorders: 0,
     voidingDisorders: 0,
-    coordinationDisorders: 0
+    coordinationDisorders: 0,
+    neuroUrology: 0
   },
   challengeAnswers: {
     thinking: {},
@@ -2001,7 +2372,8 @@ const defaultState = {
     artifacts: {},
     storageDisorders: {},
     voidingDisorders: {},
-    coordinationDisorders: {}
+    coordinationDisorders: {},
+    neuroUrology: {}
   },
   labDemo: {
     thinking: "clinicalReasoning",
@@ -2011,7 +2383,8 @@ const defaultState = {
     artifacts: "artifactDetective",
     storageDisorders: "storageMap",
     voidingDisorders: "pressureFlowMatrix",
-    coordinationDisorders: "coordinationTimeline"
+    coordinationDisorders: "coordinationTimeline",
+    neuroUrology: "neuroLesionMap"
   },
   traceChallenge: {
     active: false,
@@ -2504,6 +2877,54 @@ const coordinationPatterns = {
     pabd: "M100 120 L220 120 Q243 83 266 120 Q289 83 312 120 Q335 83 358 120 Q381 83 404 120 Q427 83 450 120 L665 120",
     flow: "M100 184 L225 184 Q248 151 271 184 Q294 151 317 184 Q340 151 363 184 Q386 151 409 184 Q432 151 455 184 L665 184",
     emg: "M100 246 L220 246 Q243 222 266 246 Q289 222 312 246 Q335 222 358 246 Q381 222 404 246 Q427 222 450 246 L665 246"
+  }
+};
+
+const neuroLesionPatterns = {
+  suprapontine: {
+    label: "Suprapontina",
+    active: ["brain"],
+    hypothesis: "Pérdida de inhibición con coordinación habitualmente conservada",
+    storage: "Hiperactividad detrusoriana neurogénica, urgencia o incontinencia pueden aparecer.",
+    voiding: "La salida suele acompañar la contracción, salvo causas concomitantes.",
+    priority: "No atribuir residuo, retención o incontinencia funcional únicamente a la lesión cerebral.",
+    caveat: "Patrón clásico, no regla individual. Cognición, movilidad, fármacos y obstrucción pueden modificarlo."
+  },
+  suprasacral: {
+    label: "Pontina / suprasacra",
+    active: ["pons", "cord"],
+    hypothesis: "Contracción refleja conservada con posible pérdida de coordinación",
+    storage: "Hiperactividad, baja complacencia y presión elevada son posibles.",
+    voiding: "Puede existir disinergia, flujo limitado, presión alta y residuo.",
+    priority: "Evaluar seguridad de almacenamiento y relación entre detrusor y salida.",
+    caveat: "La disinergia debe demostrarse; no se deduce solo del nivel medular."
+  },
+  spinalShock: {
+    label: "Shock medular",
+    active: ["cord"],
+    hypothesis: "Pérdida refleja transitoria después de una lesión aguda",
+    storage: "Sensibilidad reducida o ausente y retención indolora son esperables en esta fase.",
+    voiding: "Puede no observarse contracción ni flujo; el patrón puede cambiar al reaparecer reflejos.",
+    priority: "Registrar el tiempo desde la lesión y planificar reevaluación.",
+    caveat: "Una fase aguda no establece el comportamiento definitivo de la vejiga."
+  },
+  sacralPeripheral: {
+    label: "Sacra / periférica",
+    active: ["sacral", "nerves"],
+    hypothesis: "Falla aferente o eferente con compromiso variable de bomba y cierre",
+    storage: "Sensibilidad reducida, gran capacidad o incompetencia esfinteriana pueden coexistir.",
+    voiding: "Hipoactividad, acontractilidad, micción abdominal, residuo o retención son posibles.",
+    priority: "Evaluar sensibilidad, contractilidad y competencia de salida por separado.",
+    caveat: "Retención e incontinencia no son contradictorias cuando fallan bomba y esfínter."
+  },
+  mixed: {
+    label: "Mixta / multifocal",
+    active: ["brain", "pons", "cord", "sacral", "nerves"],
+    hypothesis: "Más de un circuito puede estar comprometido",
+    storage: "Actividad detrusoriana, sensibilidad y complacencia pueden combinar alteraciones.",
+    voiding: "Coordinación, contractilidad y resistencia pueden producir un patrón mixto.",
+    priority: "Describir cada fase sin forzar una etiqueta única.",
+    caveat: "Esclerosis múltiple, cono medular, diabetes y otras enfermedades pueden variar con el tiempo."
   }
 };
 
@@ -3230,6 +3651,85 @@ function renderCoordinationTimelineDemo(demo) {
   `;
 }
 
+function renderNeuroLesionMapDemo(demo) {
+  const patternKey = neuroLesionPatterns[state.demoControls.neuroPattern]
+    ? state.demoControls.neuroPattern
+    : "suprapontine";
+  const pattern = neuroLesionPatterns[patternKey];
+  const activeClass = (zone) => pattern.active.includes(zone) ? "active" : "";
+
+  return `
+    <div class="visual-demo-head">
+      <div>
+        <p class="overline">Mapa neuro-urológico</p>
+        <h4>${demo.title}</h4>
+      </div>
+      <span>${demo.subtitle}</span>
+    </div>
+    <div class="demo-tabs neuro-map-tabs" aria-label="Nivel neurológico orientador">
+      ${Object.entries(neuroLesionPatterns)
+        .map(([key, item]) => `<button type="button" class="${key === patternKey ? "active" : ""}" aria-pressed="${key === patternKey}" data-neuro-pattern="${key}">${item.label}</button>`)
+        .join("")}
+    </div>
+    <div class="neuro-map" aria-live="polite">
+      <div class="neuro-map-figure">
+        <svg viewBox="0 0 360 470" role="img" aria-labelledby="neuroMapTitle neuroMapDesc">
+          <title id="neuroMapTitle">${pattern.label}: ${pattern.hypothesis}</title>
+          <desc id="neuroMapDesc">Esquema docente de cerebro, puente, médula, segmentos sacros y nervios periféricos. Las zonas resaltadas corresponden a la localización seleccionada.</desc>
+          <path class="neuro-body-outline" d="M180 24 C128 24 96 58 98 104 C99 135 115 153 127 169 L127 345 C127 375 143 401 164 414 L164 449 M180 24 C232 24 264 58 262 104 C261 135 245 153 233 169 L233 345 C233 375 217 401 196 414 L196 449" />
+          <g class="neuro-zone brain ${activeClass("brain")}">
+            <path d="M132 71 C138 46 171 39 187 53 C205 40 233 54 232 78 C249 90 241 119 219 123 C210 143 178 143 166 128 C143 135 120 116 128 96 C117 87 121 75 132 71 Z" />
+            <text x="274" y="88">Cerebro</text>
+            <line x1="230" y1="84" x2="266" y2="84" />
+          </g>
+          <g class="neuro-zone pons ${activeClass("pons")}">
+            <rect x="166" y="141" width="29" height="24" rx="10" />
+            <text x="274" y="158">Puente</text>
+            <line x1="195" y1="153" x2="266" y2="153" />
+          </g>
+          <g class="neuro-zone cord ${activeClass("cord")}">
+            <path d="M172 166 C169 213 170 274 173 332 L188 332 C191 274 191 213 188 166 Z" />
+            <line class="t6-marker" x1="153" y1="222" x2="205" y2="222" />
+            <text class="t6-label" x="213" y="226">T6</text>
+            <text x="274" y="266">Médula</text>
+            <line x1="190" y1="261" x2="266" y2="261" />
+          </g>
+          <g class="neuro-zone sacral ${activeClass("sacral")}">
+            <path d="M158 332 Q180 350 202 332 L196 378 Q180 394 164 378 Z" />
+            <text x="274" y="360">Sacro</text>
+            <line x1="202" y1="356" x2="266" y2="356" />
+          </g>
+          <g class="neuro-zone nerves ${activeClass("nerves")}">
+            <path d="M172 378 C155 399 142 416 128 446 M180 382 L180 451 M189 378 C205 399 219 416 233 446" />
+            <text x="274" y="428">Nervios</text>
+            <line x1="232" y1="424" x2="266" y2="424" />
+          </g>
+        </svg>
+        <div class="neuro-map-legend">
+          <span><i></i> Zona orientadora</span>
+          <small>Esquema funcional, no neuroanatomía a escala.</small>
+        </div>
+      </div>
+      <div class="neuro-map-reasoning">
+        <p class="overline">Hipótesis seleccionada</p>
+        <h5>${pattern.hypothesis}</h5>
+        <div><span>Almacenamiento</span><p>${pattern.storage}</p></div>
+        <div><span>Vaciado</span><p>${pattern.voiding}</p></div>
+        <div class="priority"><span>Qué no olvidar</span><p>${pattern.priority}</p></div>
+        <small>${pattern.caveat}</small>
+      </div>
+    </div>
+    <div class="neuro-safety-strip">
+      <div><span>Lesión T6 o superior</span><strong>Riesgo de disreflexia autonómica</strong></div>
+      <p>En pacientes en riesgo, presión arterial y frecuencia cardíaca deben monitorizarse durante urodinamia y otros procedimientos invasivos.</p>
+    </div>
+    <div class="neuro-map-rule">
+      <strong>Regla docente</strong>
+      <p>Primero predice con el nivel. Después compara almacenamiento, vaciado, presión y coordinación con el registro real.</p>
+    </div>
+  `;
+}
+
 function renderCurveTimelineDemo(demo) {
   const position = clamp(state.demoControls.tracePosition, 0, 100);
   const moment = traceMoments.find((item) => position <= item.until) || traceMoments[traceMoments.length - 1];
@@ -3465,6 +3965,15 @@ function bindDemoControls() {
     });
   });
 
+  els.visualDemo.querySelectorAll("[data-neuro-pattern]").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (!neuroLesionPatterns[button.dataset.neuroPattern]) return;
+      state.demoControls.neuroPattern = button.dataset.neuroPattern;
+      renderVisualDemo("neuroLesionMap");
+      saveState();
+    });
+  });
+
   els.visualDemo.querySelectorAll("[data-clinical-stage]").forEach((button) => {
     button.addEventListener("click", () => {
       if (!clinicalReasoningStages[button.dataset.clinicalStage]) return;
@@ -3527,7 +4036,8 @@ function renderVisualDemo(demoId = activeLabDemoId()) {
     artifactDetective: renderArtifactDetectiveDemo,
     storageMap: renderStorageMapDemo,
     pressureFlowMatrix: renderPressureFlowMatrixDemo,
-    coordinationTimeline: renderCoordinationTimelineDemo
+    coordinationTimeline: renderCoordinationTimelineDemo,
+    neuroLesionMap: renderNeuroLesionMapDemo
   };
   const labOptions = chapterLabDemos[state.chapter] || [];
   state.labDemo[state.chapter] = demoId;
@@ -3980,7 +4490,7 @@ function renderTrace() {
   const scenario = activePracticeCase();
   const profile = activeTraceProfile();
   const data = makeData();
-  const showEmg = state.chapter === "coordinationDisorders";
+  const showEmg = ["coordinationDisorders", "neuroUrology"].includes(state.chapter);
   const grids = [92, 156, 220, 284, 348, 412]
     .map((y) => `<line class="grid-line" x1="72" y1="${y}" x2="982" y2="${y}" />`)
     .join("");
@@ -4177,7 +4687,7 @@ function renderLayerControls() {
   document.querySelectorAll("[data-layer]").forEach((input) => {
     input.checked = Boolean(state.layers[input.dataset.layer]);
   });
-  els.emgLayerControl.hidden = state.chapter !== "coordinationDisorders";
+  els.emgLayerControl.hidden = !["coordinationDisorders", "neuroUrology"].includes(state.chapter);
 }
 
 function renderCoach() {
