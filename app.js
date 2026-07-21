@@ -1,67 +1,144 @@
-const BUILD_REVISION = "20260721-neuro-v1";
+const BUILD_REVISION = "20260721-foundations-v1";
 
 const chapters = {
   thinking: {
     block: "Bloque I · Fundamentos antes de interpretar curvas",
     number: "Capítulo 1",
     title: "Cómo pensar una urodinamia",
-    mentalModelTitle: "Tecnología dentro de la clínica",
+    mentalModelTitle: "Una pregunta clínica convertida en señales",
     mentalModelText:
-      "La urodinamia agrega una medición funcional a la historia y al examen. Su valor depende de la pregunta, la técnica y el juicio con que se interpretan sus límites.",
-    notThis: "Una máquina que descubre por sí sola qué tiene el paciente",
-    isThis: "Una medición funcional interpretada dentro de la clínica",
+      "La urodinamia intenta reproducir síntomas y registrar la función del tracto urinario inferior. Su valor nace al interpretar esas señales dentro de una pregunta, una técnica y un contexto.",
+    notThis: "Una colección de curvas que entrega el diagnóstico",
+    isThis: "Una pregunta clínica transformada en señales interpretables",
     labId: "clinicalReasoning",
     labDescription:
-      "Construye una respuesta útil desde un caso sintético. En cada paso verás qué información entra, qué puedes afirmar y qué límite debes conservar.",
+      "Construye una respuesta desde el síntoma hasta la conclusión. Cada etapa separa lo observado, lo inferido y el límite que debe conservarse.",
     screens: [
       {
-        title: "La tecnología necesita una pregunta",
+        title: "Una pregunta clínica convertida en señales",
         text:
-          "La urodinamia intenta observar y registrar un ciclo miccional en condiciones controladas. No se pide para mirar qué aparece: se utiliza para responder una pregunta clínica-funcional concreta.",
-        key: "Una buena urodinamia empieza antes del trazado.",
-        prompt: "¿Qué pregunta clínica-funcional intentas responder?"
+          "La urodinamia intenta reproducir síntomas mientras mide presión, volumen, flujo y eventos. Esas señales solo adquieren significado dentro de la pregunta clínica que originó el estudio.",
+        key: "La urodinamia produce señales; no entrega respuestas por sí sola.",
+        prompt: "¿Qué mecanismo funcional intentas observar o descartar?"
       },
       {
-        title: "Controlado no significa natural",
+        title: "Controlado no significa completamente natural",
         text:
-          "El paciente está con catéter vesical, catéter rectal, sensores, infusión artificial, instrucciones externas y atención aumentada sobre sus sensaciones. Ese contexto modifica el fenómeno que se intenta estudiar.",
-        key: "Una urodinamia no es una copia perfecta de la micción cotidiana.",
-        prompt: "¿Qué parte del contexto podría modificar el fenómeno observado?"
+          "Catéteres, infusión artificial, instrucciones, posición, presencia de personal y ansiedad pueden modificar la sensibilidad o el vaciado. El examen aproxima una función cotidiana bajo condiciones controladas.",
+        key: "El estudio es funcional y controlado, pero no una copia perfecta de la vida diaria.",
+        prompt: "¿Qué condición del examen pudo modificar lo observado?"
       },
       {
-        title: "Medir no es explicar",
+        title: "La representatividad también es un resultado",
         text:
-          "El equipo registra presión, volumen, flujo y eventos. No sabe qué sintió el paciente, por qué se pidió el estudio ni bajo qué condiciones apareció cada señal. Esa integración sigue siendo clínica.",
+          "Que el paciente haya llenado u orinado durante el estudio no garantiza que haya reproducido su experiencia habitual. Sensaciones, urgencia, fuga, posición y chorro deben compararse con su vida cotidiana.",
+        key: "Una micción registrada puede ser fisiológicamente poco representativa.",
+        prompt: "¿El paciente reconoció este llenado o esta micción como habitual?"
+      },
+      {
+        title: "El operador registra el contexto",
+        text:
+          "El equipo registra señales. El operador debe documentar maniobras, posición, sensaciones, fuga, dolor, movimiento y problemas técnicos. Esa información permite reconstruir qué ocurrió.",
+        key: "El equipo registra la señal; el operador registra el contexto.",
+        prompt: "¿Qué evento clínico acompañó el cambio de la curva?"
+      },
+      {
+        title: "Una buena urodinamia empieza con una pregunta",
+        text:
+          "No se solicita para ver qué aparece. La pregunta define qué fenómeno se busca, qué maniobras deben realizarse, qué variables importan y qué podría modificar una decisión clínica.",
+        key: "La pregunta debe existir antes de comenzar el estudio.",
+        prompt: "¿Qué resultado cambiaría una decisión clínica?"
+      },
+      {
+        title: "Transformar el síntoma",
+        text:
+          "El paciente relata una experiencia: «pierdo al toser» o «no alcanzo a llegar». El urodinamista la convierte en una relación observable entre evento, presión, sensación, flujo y fuga.",
+        key: "El síntoma plantea la pregunta; el examen intenta reproducir el mecanismo.",
+        prompt: "¿Cómo convertirías este relato en una pregunta verificable?"
+      },
+      {
+        title: "Cinco niveles de información",
+        text:
+          "Síntoma, signo, medición, hallazgo urodinámico y diagnóstico clínico se relacionan, pero no son equivalentes. Saltar entre niveles produce conclusiones más específicas que la evidencia.",
         key: "La señal es un dato; su significado es una inferencia.",
-        prompt: "¿Qué es dato medido y qué todavía requiere inferencia?"
+        prompt: "¿Estás describiendo un síntoma, un signo, una medición, un hallazgo o un diagnóstico?"
       },
       {
-        title: "Primero proteger, luego interpretar",
+        title: "Qué mide el equipo",
         text:
-          "La urodinamia no reemplaza la evaluación clínica ni las puertas de seguridad. Antes de explicar una alteración funcional, deben haberse considerado las causas graves o estructurales que correspondan a la historia del paciente.",
-        key: "La interpretación funcional comienza después de una evaluación clínica responsable.",
-        prompt: "¿Qué debe haberse considerado antes de explicar la función?"
+          "Un estudio multicanal registra Pves, Pabd, flujo, volumen y eventos. Pdet se deriva de Pves y Pabd; no es una tercera presión medida de manera independiente.",
+        key: "El equipo mide señales, no hiperactividad, obstrucción ni hipoactividad.",
+        prompt: "¿Qué señal fue medida y cuál fue derivada?"
       },
       {
-        title: "La ausencia de hallazgo también tiene límites",
+        title: "Qué no puede medir",
         text:
-          "Un estudio sin hallazgos concluyentes no invalida los síntomas ni demuestra que el paciente esté sano. Tampoco prueba por sí solo otra fisiopatología: delimita lo que pudo observarse para esa pregunta y en esas condiciones.",
-        key: "No demostrar un fenómeno no equivale a explicar el caso completo.",
-        prompt: "¿Qué no pudo demostrar este estudio y bajo qué condiciones?"
+          "La máquina no conoce la pregunta clínica, la sensación exacta, la vergüenza, la inhibición, la representatividad ni la relevancia del hallazgo. Tampoco reconoce por sí sola un catéter desplazado.",
+        key: "La máquina no reemplaza la historia ni el juicio clínico.",
+        prompt: "¿Qué información esencial no está contenida en la curva?"
       },
       {
-        title: "Artefacto no es patología",
+        title: "Calidad antes de fisiología",
         text:
-          "Un cambio de presión puede corresponder a actividad detrusoriana, pero también a tos, movimiento, actividad abdominal, desplazamiento del catéter o mala transmisión. La calidad técnica define hasta dónde se puede concluir.",
-        key: "Antes de interpretar fisiología, hay que confiar en la señal.",
-        prompt: "¿La señal es confiable para responder esta pregunta?"
+          "Antes de atribuir un cambio al paciente, revisa línea de base, transmisión, respuesta a la tos, continuidad, amortiguación, catéteres, actividad rectal, movimiento y eventos registrados.",
+        key: "La primera pregunta ante una curva extraña es si la señal es confiable.",
+        prompt: "¿Este segmento permite responder la pregunta con seguridad?"
       },
       {
-        title: "La conclusión debe ser clínicamente útil",
+        title: "Tres explicaciones iniciales",
         text:
-          "Una buena conclusión no enumera canales ni busca producir un examen bonito. Responde la pregunta original, distingue dato de inferencia, explica el patrón funcional y declara con honestidad lo que el estudio no permite concluir.",
-        key: "El objetivo es orientar una decisión clínica, no decorar un informe.",
-        prompt: "¿La conclusión responde la pregunta original y declara sus límites?"
+          "Un cambio puede ser fisiológico, representar una alteración funcional o deberse a un fenómeno técnico o contextual. La altura de la curva no permite distinguirlos por sí sola.",
+        key: "Primero clasifica la naturaleza del cambio; después ponle nombre.",
+        prompt: "¿Fisiología, alteración funcional o artefacto: qué evidencia sostiene cada opción?"
+      },
+      {
+        title: "El trazado es una historia",
+        text:
+          "El significado depende de la fase, el volumen, la sensación, la posición, la maniobra, la fuga, la orden de orinar, el flujo y lo que ocurrió inmediatamente antes y después.",
+        key: "Una curva aislada de su tiempo pierde buena parte de su significado.",
+        prompt: "¿Dónde está este cambio dentro del ciclo miccional?"
+      },
+      {
+        title: "No reproducir no es negar",
+        text:
+          "Un síntoma puede no aparecer bajo las condiciones artificiales del examen. La conclusión rigurosa describe que no se demostró en ese estudio, sin invalidar la experiencia cotidiana del paciente.",
+        key: "No demostrar un fenómeno no equivale a demostrar que no existe.",
+        prompt: "¿Qué no se reprodujo y bajo qué condiciones?"
+      },
+      {
+        title: "No demostrar no autoriza a inventar",
+        text:
+          "La ausencia de hiperactividad, fuga o vaciado representativo tampoco demuestra automáticamente otra fisiopatología. El resultado delimita lo observado; no explica por sí solo el caso completo.",
+        key: "La ausencia de un hallazgo no prueba una explicación alternativa.",
+        prompt: "¿Qué hipótesis sigue abierta y cuál quedó realmente evaluada?"
+      },
+      {
+        title: "No es una bola de cristal",
+        text:
+          "La urodinamia complementa historia, examen, diario miccional, uroflujometría, residuo, imágenes, endoscopia y evaluación neurológica. Aporta una pieza funcional, no toda la explicación clínica.",
+        key: "La urodinamia no reemplaza la clínica; puede volverla funcionalmente más precisa.",
+        prompt: "¿Qué información externa necesitas para interpretar este hallazgo?"
+      },
+      {
+        title: "Cuatro elementos de una interpretación sólida",
+        text:
+          "Pregunta clínica, fisiología, instrumento y contexto deben converger. Si falta uno, aumenta el riesgo de confundir señal, artefacto y significado clínico.",
+        key: "Pregunta + fisiología + instrumento + contexto.",
+        prompt: "¿Cuál de los cuatro elementos falta antes de concluir?"
+      },
+      {
+        title: "Una rutina antes de etiquetar",
+        text:
+          "Lee siempre en el mismo orden: pregunta, fase, calidad, señal, evento, inferencia, límite y respuesta. La rutina evita saltar desde una curva llamativa directamente hacia un diagnóstico.",
+        key: "Ordenar el razonamiento reduce la sobreinterpretación.",
+        prompt: "¿En qué etapa del razonamiento estás y cuál viene después?"
+      },
+      {
+        title: "La conclusión útil",
+        text:
+          "Una buena conclusión responde la pregunta original, distingue lo observado de lo inferido y declara lo que el estudio no permite resolver. No enumera canales sin traducir su significado funcional.",
+        key: "La tecnología registra señales. La clínica decide qué significan.",
+        prompt: "¿Qué se observó, qué se infiere, qué se respondió y qué quedó abierto?"
       }
     ]
   },
@@ -69,175 +146,376 @@ const chapters = {
     block: "Bloque I · Fundamentos antes de interpretar curvas",
     number: "Capítulo 2",
     title: "Fisiología normal del tracto urinario inferior",
-    mentalModelTitle: "Dos programas funcionales",
+    mentalModelTitle: "Un sistema, dos programas",
     mentalModelText:
-      "Detrusor, tracto de salida, piso pélvico, sensibilidad y control neurológico forman un sistema. Su coordinación permite alternar almacenamiento y vaciado.",
-    notThis: "Una vejiga que se vacía solo porque está llena",
-    isThis: "Un sistema que cambia de programa de manera coordinada",
+      "La función normal depende de que vejiga, salida, piso pélvico, sensibilidad y control neurológico alternen entre almacenamiento y vaciado en el momento apropiado.",
+    notThis: "Una vejiga aislada que se llena y se contrae",
+    isThis: "Un sistema que adopta dos comportamientos recíprocos",
     labId: "accommodation",
     labDescription:
-      "Compara el mismo llenado en una vejiga con acomodación conservada y en un reservorio que gana presión. Observa también el riesgo conceptual para la vía urinaria superior.",
+      "Explora los dos programas funcionales, la acomodación y la relación entre bomba, salida y resistencia mediante analogías cualitativas.",
     screens: [
       {
-        title: "La micción no es un reflejo simple",
+        title: "Antes de buscar una alteración",
         text:
-          "La vejiga envía información, pero los centros superiores integran volumen, sensación, seguridad, oportunidad y conducta. En condiciones normales, la vejiga no decide sola.",
-        key: "La micción normal es neurológica, funcional y conductual.",
-        prompt: "¿Qué autoriza el paso desde almacenar hacia vaciar?"
+          "Almacenar y vaciar parecen funciones simples, pero requieren coordinación entre vejiga, uretra, esfínter, piso pélvico, vías sensitivas, control autonómico, somático y centros superiores.",
+        key: "Antes de reconocer lo anormal, hay que comprender lo normal.",
+        prompt: "¿Qué debería estar haciendo el sistema en esta fase?"
       },
       {
-        title: "Orinar requiere autorización",
+        title: "Un sistema, dos programas",
         text:
-          "El organismo debe poder inhibir la micción cuando no corresponde e iniciarla cuando el contexto lo permite. Esto incluye amenaza, actividad, privacidad y norma social.",
-        key: "Los centros superiores pueden autorizar o negar el paso a vaciado.",
-        prompt: "¿El contexto permite cambiar de programa?"
+          "Durante el almacenamiento, el detrusor permanece relajado y la salida conserva continencia. Durante el vaciado, disminuye la resistencia de salida y el detrusor genera la contracción necesaria.",
+        key: "Las mismas estructuras cumplen funciones distintas según el programa activo.",
+        prompt: "¿El sistema está almacenando o vaciando?",
+        visualDemoId: "programSwitch"
       },
       {
-        title: "Fase de almacenamiento",
+        title: "El momento cambia el significado",
         text:
-          "Durante el almacenamiento, el detrusor debe mantenerse relajado y la vejiga debe acomodar volumen a baja presión, mientras la salida permanece cerrada.",
-        key: "Almacenar exige reservorio de baja presión con salida cerrada.",
-        prompt: "¿La vejiga está ganando volumen sin pagar presión?",
+          "Un esfínter contraído es apropiado al almacenar y puede ser inapropiado al vaciar. Una contracción detrusoriana es necesaria al orinar, pero no durante el llenado involuntario.",
+        key: "La función depende de qué hace cada estructura y de cuándo lo hace.",
+        prompt: "¿Este comportamiento es apropiado para la fase actual?"
+      },
+      {
+        title: "Almacenamiento: cinco objetivos simultáneos",
+        text:
+          "La vejiga debe recibir volumen a baja presión, sin contracciones involuntarias, con sensación progresiva, sin fuga y manteniendo la posibilidad de postergar la micción.",
+        key: "Almacenar no es solo contener orina: es contenerla de forma segura y útil.",
+        prompt: "¿Cuál de los cinco objetivos dejó de cumplirse?"
+      },
+      {
+        title: "Acomodación: ganar volumen sin pagar presión",
+        text:
+          "La compliance expresa la relación entre cambio de volumen y cambio de Pdet. No es solo una fórmula: describe cuánto volumen acepta el reservorio antes de aumentar de forma desproporcionada su presión.",
+        key: "Una vejiga complaciente incorpora volumen con poco cambio de Pdet.",
+        prompt: "¿Cuánto volumen ganó y cuánto cambió la presión?",
         visualDemoId: "accommodation"
       },
       {
-        title: "Fase de vaciado",
+        title: "La salida también debe almacenar",
         text:
-          "Durante el vaciado, el sistema cambia de programa: el detrusor se contrae, el mecanismo de salida se relaja y aparece flujo urinario coordinado.",
-        key: "Vaciar exige bomba coordinada con salida abierta.",
-        prompt: "¿La bomba y la salida están trabajando a favor del flujo?",
+          "Cuello vesical, uretra, esfínter estriado y piso pélvico deben mantener resistencia suficiente en reposo y ante tos, esfuerzo o cambio de posición.",
+        key: "La estabilidad del detrusor permite almacenar; la competencia de la salida permite contener.",
+        prompt: "¿La salida conserva continencia frente al aumento abdominal?"
+      },
+      {
+        title: "La sensación forma parte del almacenamiento",
+        text:
+          "La percepción debería progresar desde una conciencia inicial hasta un deseo más intenso. El deseo normal informa que sería apropiado orinar, pero todavía permite postergar la micción.",
+        key: "Sentir la vejiga no obliga automáticamente a vaciarla.",
+        prompt: "¿La sensación progresó y permitió postergar?"
+      },
+      {
+        title: "Sensación no es presión",
+        text:
+          "Un paciente puede referir deseo intenso con Pdet estable, y una contracción puede aparecer con escasa percepción. La sensación se obtiene preguntando; ningún canal la mide directamente.",
+        key: "Lo que el paciente siente y lo que muestra Pdet son datos diferentes.",
+        prompt: "¿Cambió la experiencia, la presión o ambas?"
+      },
+      {
+        title: "Continencia durante una tos",
+        text:
+          "La tos eleva Pabd y transmite presión hacia Pves. Si aparece fuga sin contracción detrusoriana, el fenómeno apunta al mecanismo de cierre; si la fuga acompaña un aumento real de Pdet, el mecanismo es distinto.",
+        key: "La misma pérdida visible puede originarse por relaciones funcionales diferentes.",
+        prompt: "¿Qué ocurrió con Pabd y Pdet inmediatamente antes de la fuga?"
+      },
+      {
+        title: "Almacenamiento no significa inactividad",
+        text:
+          "El sistema recibe aferencias, inhibe el reflejo miccional, mantiene la salida, integra contexto y conserva la posibilidad de iniciar voluntariamente el vaciado.",
+        key: "La vejiga informa; el sistema nervioso decide qué hacer con esa información.",
+        prompt: "¿El contexto permite o impide cambiar de programa?"
+      },
+      {
+        title: "La transición exige una secuencia",
+        text:
+          "El individuo reconoce el deseo, autoriza la micción, reduce actividad esfinteriana y resistencia uretral, inicia la contracción, supera la presión de apertura y genera flujo.",
+        key: "Para transformar una contracción en flujo, la salida debe permitirlo.",
+        prompt: "¿Qué parte de la secuencia ocurrió primero?",
+        visualDemoId: "programSwitch"
+      },
+      {
+        title: "Presión suficiente, no necesariamente alta",
+        text:
+          "Especialmente en mujeres, una salida bien relajada puede permitir vaciamiento con mínima elevación de Pdet. La presión necesaria depende de la resistencia que debe vencerse.",
+        key: "Pdet baja no significa automáticamente mala contractilidad.",
+        prompt: "¿La presión observada fue suficiente para esa resistencia?",
         visualDemoId: "flowResistance"
       },
       {
-        title: "Coordinación",
+        title: "Vaciado: contracción útil y sostenida",
         text:
-          "No basta con que el detrusor se contraiga ni con que la salida se relaje de forma aislada. El comportamiento útil nace de la relación entre reservorio, mecanismo de salida, piso pélvico y control neurológico en cada fase.",
-        key: "El fenómeno pertenece al sistema coordinado; después se identifica qué relación falló.",
-        prompt: "¿El problema parece de fuerza, de salida o de coordinación?",
+          "El vaciado requiere inicio de contracción, relajación de salida, flujo y vaciamiento adecuado. La suficiencia depende de fuerza, duración, resistencia, volumen eliminado y residuo.",
+        key: "Pdet alta no equivale automáticamente a buena contractilidad.",
+        prompt: "¿La contracción produjo y mantuvo el flujo hasta completar el vaciamiento?"
+      },
+      {
+        title: "El flujo es el resultado",
+        text:
+          "Un flujo bajo puede reflejar fuerza insuficiente, resistencia elevada, falta de relajación, volumen pequeño, prensa abdominal, inhibición o una combinación.",
+        key: "La uroflujometría muestra el resultado; presión-flujo intenta explicar cómo se produjo.",
+        prompt: "¿Qué fuerza y qué resistencia acompañan este flujo?",
         visualDemoId: "flowResistance"
       },
       {
-        title: "Traducción hacia la curva",
+        title: "El vaciado debe ser coordinado",
         text:
-          "El trazado permite observar señales indirectas del comportamiento del sistema. Primero se entiende la función; después se interpreta la curva dentro de las limitaciones del examen.",
-        key: "Primero entender la función; después interpretar la curva.",
-        prompt: "¿Qué esperabas ver antes de mirar la curva?"
+          "Una vejiga puede contraerse con fuerza y vaciar mal si la salida no cede. También puede existir salida relajada y vaciamiento insuficiente si la contracción no se inicia o no se sostiene.",
+        key: "Vejiga y salida se interpretan como relación, no como compartimentos independientes.",
+        prompt: "¿La bomba y la salida trabajan a favor del mismo objetivo?"
+      },
+      {
+        title: "Un ciclo fisiológico, no una curva perfecta",
+        text:
+          "Al almacenar esperamos volumen creciente, Pdet baja, sensibilidad progresiva y continencia. Al vaciar esperamos autorización, salida relajada, contracción suficiente, flujo y residuo clínicamente adecuado.",
+        key: "El esquema es una referencia funcional, no una plantilla rígida.",
+        prompt: "¿El sistema cumplió su objetivo de forma segura y coordinada?"
+      },
+      {
+        title: "Normalidad no significa una cifra única",
+        text:
+          "Volúmenes, presiones, tiempos y formas varían con edad, sexo, posición, privacidad, ansiedad, velocidad de llenado, hábitos, fármacos y anatomía de salida.",
+        key: "Una curva puede ser técnicamente correcta y no ser representativa.",
+        prompt: "¿Este comportamiento se parece al habitual del paciente?"
+      },
+      {
+        title: "De la fisiología a la señal",
+        text:
+          "El equipo registra presiones, volumen, flujo, eventos y a veces EMG o imágenes. Primero se identifica la fase, luego lo esperado, después lo observado y finalmente se compara antes de nombrar un hallazgo.",
+        key: "La fisiología es el fenómeno; el trazado es una representación indirecta.",
+        prompt: "¿En qué fase está el sistema y hace lo que debería hacer?"
       }
     ]
   },
   tracing: {
     block: "Bloque I · Fundamentos antes de interpretar curvas",
     number: "Capítulo 3",
-    title: "Del ciclo miccional al trazado",
-    mentalModelTitle: "Una película temporal",
+    title: "Del ciclo miccional al trazado urodinámico",
+    mentalModelTitle: "Reconstruir una historia fisiológica",
     mentalModelText:
-      "El trazado no es una foto aislada. Es una secuencia: llenado, sensaciones, maniobras, eventos, decisión de vaciar, flujo y recuperación.",
-    notThis: "Mirar un pico y ponerle nombre",
-    isThis: "Seguir una historia por fases",
+      "La fisiología ocurre en el paciente y el equipo registra una representación parcial. Interpretar significa recorrer las señales en el tiempo e intentar reconstruir qué las produjo.",
+    notThis: "Reconocer un dibujo y asignarle un diagnóstico",
+    isThis: "Combinar secuencia temporal y comparación multicanal",
     labId: "curveTimeline",
     labDescription:
-      "Recorre la secuencia temporal y comprueba cómo fase, evento y contexto cambian la lectura de una misma señal.",
+      "Recorre el ciclo de izquierda a derecha y compara verticalmente los canales para relacionar fase, evento, secuencia y significado.",
     screens: [
       {
-        title: "El trazado ocurre en el tiempo",
+        title: "La fisiología ocurre; el equipo registra",
         text:
-          "Una curva urodinámica no se interpreta como una imagen estática. Cada punto depende de lo que venía ocurriendo antes: volumen, fase, maniobra, sensación, instrucción y contexto técnico.",
-        key: "Primero ubica el momento; después interpreta el cambio.",
-        prompt: "¿En qué momento de la historia estás mirando la señal?",
+          "El equipo no ve directamente al detrusor, al esfínter ni al sistema nervioso. Registra presiones, volumen, flujo, eventos, sensaciones comunicadas y, cuando se usa, actividad eléctrica.",
+        key: "El trazado es una representación parcial de la fisiología a lo largo del tiempo.",
+        prompt: "¿Qué fenómeno intentas reconstruir desde estas señales?",
         visualDemoId: "curveTimeline"
       },
       {
-        title: "Identificar la fase",
+        title: "El trazado es una historia",
         text:
-          "Antes de nombrar un hallazgo, pregunta en qué fase estás mirando: almacenamiento, maniobra provocativa, transición a vaciado o vaciado. El mismo cambio de presión puede tener significados distintos según la fase.",
-        key: "La fase manda la expectativa fisiológica.",
-        prompt: "¿Qué debería estar ocurriendo en esta fase?"
+          "Cada cambio depende de cuándo ocurrió, la fase, lo que hacía el paciente, qué canales cambiaron, cuál cambió primero y si hubo sensación, flujo o fuga.",
+        key: "Un punto aislado pierde la secuencia que le da significado.",
+        prompt: "¿Qué ocurrió inmediatamente antes y después?"
       },
       {
-        title: "El volumen da contexto",
+        title: "Lectura horizontal y lectura vertical",
         text:
-          "No es lo mismo un cambio al inicio del llenado que cerca de capacidad. El volumen permite relacionar presión, sensación, complacencia, deseo miccional y eventos de fuga.",
-        key: "Sin volumen, la curva pierde parte de su historia.",
-        prompt: "¿Con qué volumen apareció el cambio y qué antecedía?"
+          "Horizontalmente seguimos llenado, sensación, maniobra, permiso, flujo y fin. Verticalmente preguntamos qué ocurrió simultáneamente en Pves, Pabd, Pdet, flujo, EMG y eventos.",
+        key: "Primero ubica el momento; después compara las señales.",
+        prompt: "¿Qué muestra la secuencia y qué muestran los canales en ese instante?"
       },
       {
-        title: "Los eventos son parte del trazado",
+        title: "Dos fases y una transición",
         text:
-          "Tos, valsalva, cambio de posición, primer deseo, deseo fuerte, fuga, orden miccional y fin de flujo no son adornos. Son anclas clínicas para interpretar las señales.",
-        key: "Una curva sin eventos es una conversación incompleta.",
-        prompt: "¿Qué evento coincide con la señal que estás mirando?"
+          "La cistometría observa presión-volumen, sensibilidad y continencia durante el llenado. El estudio presión-flujo comienza con el permiso para orinar y analiza cómo se genera el vaciado.",
+        key: "Deseo, permiso, contracción e inicio del flujo no son necesariamente el mismo momento.",
+        prompt: "¿Estamos almacenando, transitando o vaciando?"
+      },
+      {
+        title: "Cada canal tiene un origen",
+        text:
+          "Pves se mide en vejiga, Pabd estima el entorno abdominal y Pdet se calcula restándolas. Flujo, volumen, EMG y eventos agregan consecuencias y contexto.",
+        key: "La calidad de Pdet nunca puede superar la calidad de Pves y Pabd.",
+        prompt: "¿Qué señal fue medida, cuál fue derivada y qué contexto falta?"
+      },
+      {
+        title: "Representar el almacenamiento normal",
+        text:
+          "Durante el llenado aumenta el volumen y Pdet debería mantenerse relativamente baja, sin una elevación involuntaria ni una pendiente inapropiada. Pequeñas oscilaciones no convierten la curva en patológica.",
+        key: "Estabilidad no significa una línea perfectamente horizontal.",
+        prompt: "¿El cambio pertenece al detrusor, al abdomen, al movimiento o a la técnica?"
+      },
+      {
+        title: "La tos enseña lectura multicanal",
+        text:
+          "Una tos bien transmitida eleva Pves y Pabd en magnitud semejante y deja Pdet relativamente estable. También puede provocar una fuga y sirve como control de calidad.",
+        key: "Antes de interpretar significado, comprueba que las señales sean confiables.",
+        prompt: "¿Pves y Pabd registraron el mismo evento abdominal?",
+        visualDemoId: "pressureEquation"
+      },
+      {
+        title: "Un posible fenómeno detrusoriano",
+        text:
+          "Si Pves aumenta y Pabd no acompaña, Pdet se eleva. Antes de llamarlo contracción hay que verificar transmisión, catéteres, fase, provocación, síntomas y fuga.",
+        key: "Primero demuestra un aumento real de Pdet; después interpreta qué representa.",
+        prompt: "¿La calidad y el contexto sostienen un origen vesical?"
+      },
+      {
+        title: "Pabd puede fabricar una falsa Pdet",
+        text:
+          "Una contracción rectal puede elevar Pabd sin modificar Pves y generar una caída artificial de Pdet. Una señal derivada puede parecer fisiológica aunque el evento se origine fuera de la vejiga.",
+        key: "Toda alteración aislada de una entrada modifica la resta.",
+        prompt: "¿El cambio de Pdet nació en Pves o en Pabd?"
+      },
+      {
+        title: "Las sensaciones deben registrarse",
+        text:
+          "Primera sensación, deseo, urgencia y dolor no aparecen automáticamente en las curvas. Son experiencias comunicadas que el operador debe anotar y relacionar con volumen y presión.",
+        key: "Urgencia no es hiperactividad detrusoriana; una es síntoma y la otra hallazgo.",
+        prompt: "¿Qué sintió el paciente y qué ocurrió simultáneamente en Pdet?"
+      },
+      {
+        title: "La fuga necesita contexto",
+        text:
+          "Una pérdida asociada a aumento abdominal y Pdet estable no representa el mismo mecanismo que una fuga durante una elevación real de Pdet. La sincronización del evento es indispensable.",
+        key: "La fuga no es solo sí o no: debe ubicarse dentro de la secuencia.",
+        prompt: "¿Qué presión y qué evento precedieron la pérdida?"
+      },
+      {
+        title: "Del permiso al flujo existe un intervalo",
+        text:
+          "Entre autorizar la micción, relajar la salida, iniciar la contracción, abrir la uretra y registrar orina en el flujómetro puede existir un retraso fisiológico y técnico.",
+        key: "No toda presión anterior al flujo demuestra obstrucción o mala relajación.",
+        prompt: "¿El desfase excede lo esperable y está corroborado?"
       },
       {
         title: "Presión y flujo se leen juntos",
         text:
-          "Durante vaciado, el flujo no debe leerse aislado y la presión tampoco. La pregunta es funcional: si hay contracción, ¿la salida se abrió? Si hay flujo bajo, ¿qué presión lo acompaña?",
-        key: "El vaciado se entiende por relación, no por un canal aislado.",
-        prompt: "¿Qué relación existe entre presión y flujo en este momento?"
+          "Una presión baja puede bastar ante poca resistencia y una presión alta puede reflejar la resistencia enfrentada. El flujo aislado tampoco identifica quién lo impulsó.",
+        key: "El estudio presión-flujo existe para analizar una relación, no dos cifras independientes.",
+        prompt: "¿Qué presión, resistencia y participación abdominal acompañan el flujo?"
       },
       {
-        title: "Del ciclo a la hipótesis",
+        title: "Pregunta qué cambió primero",
         text:
-          "La rutina inicial es simple: fase, calidad, señal, evento, inferencia y límite. Solo después de esa secuencia tiene sentido proponer un patrón funcional docente.",
-        key: "La interpretación ordenada evita etiquetas prematuras.",
-        prompt: "¿Qué inferencia permite la secuencia y cuál es su límite?"
+          "Pabd primero orienta a tos, Valsalva, movimiento o pujo. Pves sin Pabd puede orientar a vejiga. Flujo tras Pabd sugiere prensa; un salto tras aplanarse un canal obliga a revisar técnica.",
+        key: "La secuencia temporal ayuda a separar causa y consecuencia.",
+        prompt: "¿Cuál fue la primera señal en cambiar?"
+      },
+      {
+        title: "La misma forma puede tener varios significados",
+        text:
+          "Pves alta, Pdet alta, flujo bajo o una señal plana tienen explicaciones fisiológicas y técnicas diferentes. Reconocer la forma es solo el comienzo.",
+        key: "El significado nace de fase, canales, eventos, calidad y contexto.",
+        prompt: "¿Qué alternativas explican esta forma y cuál evidencia las separa?"
+      },
+      {
+        title: "Ocho pasos para leer cualquier trazado",
+        text:
+          "Vuelve a la pregunta, identifica la fase, confirma la calidad, describe la señal, relaciónala con el evento, formula una inferencia, declara el límite y responde la pregunta inicial.",
+        key: "Una conclusión prudente no debilita el informe: lo vuelve más exacto.",
+        prompt: "¿Qué paso falta antes de nombrar el hallazgo?",
+        visualDemoId: "curveTimeline"
+      },
+      {
+        title: "Cuatro ejemplos que obligan a relacionar",
+        text:
+          "Urgencia con Pdet estable, tos con presiones concordantes, ascenso vesical sin Pabd y flujo por pulsos de prensa abdominal pueden parecer sencillos, pero exigen conclusiones distintas.",
+        key: "Síntoma, señal y mecanismo no son intercambiables.",
+        prompt: "¿Qué demuestra cada ejemplo y qué permanece abierto?"
+      },
+      {
+        title: "Reconstruir antes de interpretar",
+        text:
+          "La lectura comienza con fase, evento, calidad, relación entre canales, secuencia y experiencia del paciente. Solo después se formula una inferencia proporcional.",
+        key: "El trazado no es un dibujo que reconocer; es una historia fisiológica que reconstruir.",
+        prompt: "¿Qué historia explican mejor las señales y cuál es su límite?"
       }
     ]
   },
   instrument: {
     block: "Bloque I · Fundamentos antes de interpretar curvas",
     number: "Capítulo 4",
-    title: "Qué mide el equipo: Pves, Pabd, Pdet, flujo y volumen",
-    mentalModelTitle: "El equipo mide señales",
+    title: "Qué mide realmente el equipo",
+    mentalModelTitle: "Medir no es explicar",
     mentalModelText:
-      "El aparato no ve directamente la fisiología. Registra presiones, flujo, volumen y eventos. El urodinamista convierte esas señales en inferencias prudentes.",
-    notThis: "El equipo dice el diagnóstico",
-    isThis: "El equipo entrega mediciones interpretables",
+      "El aparato registra presiones, volumen, flujo, tiempo y eventos. Los hallazgos funcionales se construyen relacionando esas señales con la fase, la calidad y el contexto.",
+    notThis: "Una pantalla que muestra diagnósticos",
+    isThis: "Un sistema de medición que produce señales directas y derivadas",
     labId: "signalMap",
     labDescription:
-      "Selecciona cada canal para separar lo medido, lo derivado y el contexto que todavía debe aportar el operador.",
+      "Sigue el origen de cada señal y prueba tos, ascenso vesical y pérdida de transmisión para observar cómo se construye Pdet.",
     screens: [
       {
-        title: "El instrumento no ve la vejiga completa",
+        title: "El puente entre fisiología y trazado",
         text:
-          "La urodinamia registra señales indirectas. El equipo no sabe si el paciente tosió, se movió, hizo fuerza, se angustió o si el catéter transmitió mal la presión. Eso lo integra el operador.",
-        key: "Medir no es lo mismo que comprender.",
-        prompt: "¿Qué parte del contexto no puede conocer el equipo?"
+          "El equipo no escribe hiperactividad, obstrucción, hipoactividad ni falta de coordinación. Mide variables desde las que el urodinamista construye una interpretación.",
+        key: "El equipo no mide diagnósticos: mide presiones, volumen, flujo y eventos.",
+        prompt: "¿Qué variable concreta respalda la afirmación que quieres hacer?"
       },
       {
-        title: "Pves: presión vesical medida",
+        title: "Una representación indirecta",
         text:
-          "Pves es la presión registrada dentro de la vejiga. Incluye efectos del detrusor, de la presión abdominal transmitida y de posibles problemas técnicos. Por eso Pves aislada puede engañar.",
-        key: "Pves no equivale automáticamente a detrusor.",
-        prompt: "¿Qué contribuciones pueden estar contenidas en Pves?"
+          "El instrumento no observa directamente contracción, relajación esfinteriana ni sensación. Registra variables que permiten aproximarse a esos fenómenos.",
+        key: "La fisiología es el fenómeno; el trazado es la manera de intentar observarlo.",
+        prompt: "¿Cómo se obtuvo esta señal y qué fenómeno intenta representar?"
       },
       {
-        title: "Pabd: el abdomen también habla",
+        title: "Pves: presión dentro de la vejiga",
         text:
-          "Pabd estima la presión abdominal, habitualmente mediante catéter rectal o vaginal según técnica. Su utilidad es separar aumentos de presión abdominal de actividad detrusoriana real.",
-        key: "Pabd no es ruido: es el control que evita sobreinterpretar.",
+          "Pves se registra mediante el catéter intravesical e incluye tanto presión de la pared vesical como presión transmitida desde el abdomen. Tos, pujo y movimiento pueden elevarla sin contracción detrusoriana.",
+        key: "Un aumento de Pves no demuestra por sí solo actividad del detrusor.",
         prompt: "¿Pabd acompaña el cambio observado en Pves?"
       },
       {
-        title: "Pdet: una presión derivada",
+        title: "Pabd: una estimación abdominal",
         text:
-          "Pdet no es una señal mágica ni independiente. Es el resultado de restar Pabd a Pves. Si Pves y Pabd suben juntas, Pdet puede permanecer estable; eso cambia completamente la lectura.",
-        key: "Pdet = Pves - Pabd.",
-        prompt: "¿Qué cambió en las señales medidas antes de mirar Pdet?",
+          "Pabd se estima habitualmente desde recto o vagina y registra cambios transmitidos hacia la vejiga. No es una medición perfecta de todo el abdomen, pero permite separar contribución abdominal y vesical.",
+        key: "Pabd es el control que evita convertir presión transmitida en falsa actividad detrusoriana.",
+        prompt: "¿El canal abdominal representa de forma creíble el evento?"
+      },
+      {
+        title: "Pdet: una resta, no un tercer sensor",
+        text:
+          "Pdet = Pves − Pabd. Si ambas suben juntas durante una tos, la resta cambia poco; si Pves sube con Pabd estable, Pdet aumenta, siempre que los canales sean confiables.",
+        key: "La calidad de Pdet depende por completo de sus dos señales de entrada.",
+        prompt: "¿Qué cambió realmente en Pves y Pabd?",
         visualDemoId: "pressureEquation"
       },
       {
-        title: "Flujo y volumen: consecuencias y contexto",
+        title: "Volumen: lo infundido no siempre es lo contenido",
         text:
-          "El flujo muestra la salida de orina en el tiempo. El volumen ayuda a ubicar cuánto se ha llenado o vaciado el sistema. Ambos deben relacionarse con presión, eventos y fase.",
-        key: "Flujo sin presión es incompleto; presión sin flujo también.",
-        prompt: "¿Qué presión, fase y evento acompañan este flujo?"
+          "Diuresis, fuga, pérdida no cuantificada, vaciamiento parcial y residuo previo pueden separar volumen infundido, capacidad cistométrica y contenido vesical real.",
+        key: "El volumen necesita relacionarse con presión, sensación, fuga, micción y residuo.",
+        prompt: "¿Qué volumen representa realmente la cifra mostrada?"
       },
       {
-        title: "Dato, inferencia y conclusión",
+        title: "Flujo: resultado visible del vaciado",
         text:
-          "El dato es la señal medida. La inferencia es lo que crees que esa señal representa. La conclusión debe reconocer límites. Confundir esos tres niveles es una fuente frecuente de errores.",
-        key: "El equipo mide; el urodinamista razona.",
-        prompt: "¿Estás describiendo un dato, proponiendo una inferencia o cerrando una conclusión?"
+          "El flujómetro registra orina por unidad de tiempo. Un flujo bajo no distingue por sí solo resistencia aumentada, contracción insuficiente, mala relajación, volumen pequeño, pujo o inhibición.",
+        key: "El flujo muestra cómo salió la orina, no por qué salió de esa manera.",
+        prompt: "¿Qué Pdet, Pabd, volumen y residuo acompañan este flujo?"
+      },
+      {
+        title: "Los eventos dan contexto",
+        text:
+          "Tos, esfuerzo, sensación, urgencia, fuga, posición, permiso, flujo, pujo y manipulación de catéteres deben quedar sincronizados con las señales.",
+        key: "Una curva sin eventos es una curva sin contexto.",
+        prompt: "¿Qué estaba ocurriendo cuando cambió la señal?"
+      },
+      {
+        title: "Separar lo medido de lo inferido",
+        text:
+          "«Pves aumentó mientras Pabd permaneció estable» describe señales. «Se produjo una contracción detrusoriana» es una inferencia que exige canales confiables, fase y contexto compatibles.",
+        key: "Una inferencia razonable sigue siendo distinta del dato que la sostiene.",
+        prompt: "¿Estás describiendo una medición o explicando un fenómeno?"
+      },
+      {
+        title: "El significado aparece en la relación",
+        text:
+          "Compara Pves con Pabd, Pdet con volumen y flujo, flujo con Pabd, señales con eventos y volumen miccionado con residuo. Ningún canal resume por sí solo el sistema.",
+        key: "Primero entendemos la señal; después interpretamos el fenómeno.",
+        prompt: "Cuando una curva cambia, ¿qué señal cambió realmente y qué podría explicarlo?",
+        visualDemoId: "signalMap"
       }
     ]
   },
@@ -1222,6 +1500,52 @@ const chapterPracticeCases = {
         ["El paciente no presenta el problema", false, "El entorno controlado puede no reproducir un fenómeno cotidiano."],
         ["La ausencia de hallazgo demuestra otra causa", false, "No observar un fenómeno no prueba automáticamente una explicación alternativa."]
       ]
+    },
+    {
+      ...scenarios.inhibitedVoiding,
+      id: "thinkingRepresentativeness",
+      tabLabel: "Micción no habitual",
+      pattern: "inhibitedVoiding",
+      focus: "limit",
+      answerOffset: 0,
+      title: "El paciente no reconoce esta micción",
+      eventLabel: "sin flujo con catéteres",
+      event: {
+        ...scenarios.inhibitedVoiding.event,
+        title: "Caso sintético: micción inhibida durante el estudio",
+        label: "representatividad",
+        reading: "No aparece contracción ni flujo con los catéteres, pero el paciente orina normalmente después de retirarlos.",
+        caution: "La fase instrumentada no permite demostrar acontractilidad."
+      },
+      question: "¿Qué conclusión respeta mejor la evidencia completa?",
+      answers: [
+        ["La micción instrumentada no fue representativa y no demuestra acontractilidad", true, "Correcto. La micción posterior obliga a incorporar inhibición y representatividad."],
+        ["La ausencia de flujo confirma obstrucción", false, "Sin una relación presión-flujo interpretable no puede demostrarse obstrucción."],
+        ["El relato posterior no modifica el trazado", false, "La experiencia del paciente y la micción posterior forman parte del contexto interpretativo."]
+      ]
+    },
+    {
+      ...scenarios.signal,
+      id: "thinkingQuality",
+      tabLabel: "Pabd defectuosa",
+      pattern: "flatPabd",
+      focus: "quality",
+      answerOffset: 1,
+      title: "La tos no se transmite en Pabd",
+      eventLabel: "Pves responde; Pabd permanece plana",
+      event: {
+        ...scenarios.signal.event,
+        title: "Caso sintético: una señal derivada engañosa",
+        label: "calidad antes de fisiología",
+        reading: "Durante una tos, Pves aumenta y Pabd permanece plana; Pdet hereda un pico artificial.",
+        caution: "Primero se corrige o limita el canal abdominal; después se interpreta fisiología."
+      },
+      question: "¿Qué debe hacerse antes de interpretar Pdet?",
+      answers: [
+        ["Verificar posición, conexión y transmisión del canal abdominal", true, "Correcto. Pdet no es confiable si una de sus señales de entrada es defectuosa."],
+        ["Informar una contracción detrusoriana", false, "La discordancia durante la tos exige primero resolver la calidad técnica."],
+        ["Usar Pves como sustituto de Pdet", false, "Pves incluye la contribución abdominal y no reemplaza la resta multicanal."]
+      ]
     }
   ],
   physiology: [
@@ -1290,6 +1614,51 @@ const chapterPracticeCases = {
       answerOffset: 1,
       title: "Presión, orden y flujo en secuencia",
       question: "¿Qué conjunto cuenta mejor la fase de vaciado?"
+    },
+    {
+      ...scenarios.storageOversensitivity,
+      id: "tracingUrgencyStable",
+      tabLabel: "Urgencia",
+      pattern: "storageOversensitivity",
+      focus: "event",
+      answerOffset: 0,
+      title: "Urgencia con Pdet estable",
+      question: "¿Qué demuestra este segmento y qué no demuestra?",
+      answers: [
+        ["Se reprodujo urgencia sin demostrar una contracción detrusoriana asociada", true, "Correcto. El síntoma ocurrió, pero Pdet permaneció estable."],
+        ["La paciente no presentó urgencia", false, "La urgencia fue comunicada y debe registrarse aunque no exista contracción."],
+        ["Se confirmó hiperactividad detrusoriana", false, "Ese hallazgo requiere una elevación real y confiable de Pdet durante el llenado."]
+      ]
+    },
+    {
+      ...scenarios.detrusorStorage,
+      id: "tracingDetrusor",
+      tabLabel: "Origen vesical",
+      pattern: "detrusorStorage",
+      focus: "signal",
+      answerOffset: 2,
+      title: "Pves asciende sin Pabd equivalente",
+      question: "¿Cuál es el siguiente paso antes de nombrar el fenómeno?",
+      answers: [
+        ["Confirmar calidad, fase y contexto del aumento real de Pdet", true, "Correcto. La relación sugiere origen vesical, pero primero debe demostrarse que las señales son confiables."],
+        ["Diagnosticar hiperactividad por la forma de Pves", false, "Pves aislada no basta y el nombre exige revisar Pabd, Pdet y contexto."],
+        ["Ignorar la experiencia del paciente", false, "Sensación, urgencia y fuga ayudan a caracterizar el evento sin sustituir la señal."]
+      ]
+    },
+    {
+      ...scenarios.abdominalVoiding,
+      id: "tracingAbdominalVoiding",
+      tabLabel: "Prensa abdominal",
+      pattern: "abdominalVoiding",
+      focus: "event",
+      answerOffset: 1,
+      title: "Flujo por pulsos después de Pabd",
+      question: "¿Qué relación temporal se observa?",
+      answers: [
+        ["Cada pulso de flujo coincide con esfuerzo abdominal, sin contracción sostenida de Pdet", true, "Correcto. Describe participación abdominal sin adjudicar todavía su causa."],
+        ["El flujo intermitente demuestra obstrucción", false, "La forma del flujo no distingue por sí sola resistencia, fuerza o estrategia miccional."],
+        ["Existe acontractilidad confirmada", false, "La participación abdominal no basta para demostrar incapacidad detrusoriana."]
+      ]
     }
   ],
   instrument: [
@@ -1345,6 +1714,36 @@ const chapterPracticeCases = {
         ["Porque no muestra por sí solo qué presión ni qué evento acompañaron la salida de orina", true, "Correcto. Flujo, presión, fase y evento forman una relación funcional."],
         ["Porque el flujo nunca aporta información", false, "Sí aporta información, pero necesita contexto para explicar el vaciado."],
         ["Porque Pves aislada reemplaza todos los demás canales", false, "Pves tampoco separa por sí sola abdomen, detrusor y contexto."]
+      ]
+    },
+    {
+      ...scenarios.detrusorStorage,
+      id: "instrumentDetrusor",
+      tabLabel: "Pdet asciende",
+      pattern: "detrusorStorage",
+      focus: "signal",
+      answerOffset: 0,
+      title: "Pves cambia y Pabd permanece estable",
+      question: "¿Qué enseña la resta en este evento?",
+      answers: [
+        ["Pdet aumenta y puede apoyar un origen vesical si ambas señales son confiables", true, "Correcto. La resta localiza la diferencia, pero fase y contexto siguen siendo necesarios."],
+        ["Pves aislada confirma una contracción", false, "Pves contiene componentes abdominales y vesicales; debe compararse con Pabd."],
+        ["Pdet mide directamente la contracción", false, "Pdet es una señal calculada, no un sensor de contracción."]
+      ]
+    },
+    {
+      ...scenarios.abdominalVoiding,
+      id: "instrumentAbdominalVoiding",
+      tabLabel: "Pujo y flujo",
+      pattern: "abdominalVoiding",
+      focus: "signal",
+      answerOffset: 1,
+      title: "Pves y Pabd aumentan con aparición de flujo",
+      question: "¿Qué puede afirmarse directamente?",
+      answers: [
+        ["El vaciado registrado muestra participación de la prensa abdominal", true, "Correcto. La relación Pabd-Pves-flujo describe lo observado sin cerrar la etiología."],
+        ["La prensa demuestra hipoactividad detrusoriana", false, "Puede ser compensación, estrategia habitual o respuesta al contexto; falta integración."],
+        ["Pdet es alta porque Pves subió", false, "Si Pabd acompaña a Pves, la resta puede cambiar poco."]
       ]
     }
   ],
@@ -1716,15 +2115,22 @@ const chapterPracticeCases = {
 const practiceTraceProfiles = {
   thinkingQuestion: { start: 0.43, end: 0.56, fillSlope: 10, pressureAmplitude: 40, flowAmplitude: 48 },
   thinkingLimit: { start: 0.1, end: 0.9, fillSlope: 7, pressureAmplitude: 0, flowAmplitude: 0 },
+  thinkingRepresentativeness: { start: 0.61, end: 0.88, fillSlope: 10, pressureAmplitude: 0, flowAmplitude: 0, volumeDrop: 0 },
+  thinkingQuality: { start: 0.47, end: 0.54, fillSlope: 9, pressureAmplitude: 52 },
   physiologyStorage: { start: 0.08, end: 0.92, fillSlope: 12, pressureAmplitude: 0, flowAmplitude: 0 },
   physiologyVoiding: { start: 0.62, end: 0.91, fillSlope: 11, pressureAmplitude: 58, flowAmplitude: 72 },
   physiologyAccommodation: { start: 0.24, end: 0.9, fillSlope: 10, complianceAmplitude: 76 },
   tracingCough: { start: 0.32, end: 0.39, fillSlope: 13, pressureAmplitude: 52 },
   tracingSustained: { start: 0.45, end: 0.76, fillSlope: 13, pressureAmplitude: 43 },
   tracingVoiding: { start: 0.68, end: 0.94, fillSlope: 14, pressureAmplitude: 54, flowAmplitude: 65 },
+  tracingUrgencyStable: { start: 0.23, end: 0.37, fillSlope: 10, pressureAmplitude: 0, flowAmplitude: 0, sensationOnly: true },
+  tracingDetrusor: { start: 0.41, end: 0.59, fillSlope: 12, detrusorAmplitude: 57 },
+  tracingAbdominalVoiding: { start: 0.55, end: 0.9, fillSlope: 11, pressureAmplitude: 49, flowAmplitude: 29, volumeDrop: 37 },
   instrumentTransmission: { start: 0.24, end: 0.31, fillSlope: 9, pressureAmplitude: 44 },
   instrumentFlatPabd: { start: 0.46, end: 0.53, fillSlope: 9, pressureAmplitude: 48 },
   instrumentFlow: { start: 0.58, end: 0.88, fillSlope: 12, pressureAmplitude: 46, flowAmplitude: 60 },
+  instrumentDetrusor: { start: 0.36, end: 0.51, fillSlope: 11, detrusorAmplitude: 51 },
+  instrumentAbdominalVoiding: { start: 0.6, end: 0.92, fillSlope: 10, pressureAmplitude: 43, flowAmplitude: 27, volumeDrop: 33 },
   artifactDrift: { start: 0.25, end: 0.79, fillSlope: 8, driftAmplitude: 70 },
   artifactFlatPabd: { start: 0.6, end: 0.67, fillSlope: 10, pressureAmplitude: 56 },
   artifactBaseline: { start: 0.52, end: 0.58, fillSlope: 10, baselineAmplitude: 45 },
@@ -1824,7 +2230,8 @@ const chapterLabDemos = {
   tracing: [{ id: "curveTimeline", label: "Secuencia temporal" }],
   instrument: [
     { id: "signalMap", label: "Mapa de señales" },
-    { id: "pressureEquation", label: "Pdet derivada" }
+    { id: "pressureEquation", label: "Pdet derivada" },
+    { id: "artifactDetective", label: "Pabd defectuosa" }
   ],
   artifacts: [{ id: "artifactDetective", label: "Detector técnico" }],
   storageDisorders: [
@@ -1876,6 +2283,28 @@ const chapterChallenges = {
         ["Verificar el canal abdominal y su transmisión", true, "Correcto. Si Pabd no representa bien el evento, la presión derivada pierde confiabilidad fisiológica."],
         ["Concluir actividad detrusoriana", false, "La discordancia durante una tos obliga primero a revisar la medición."],
         ["Ignorar Pabd y usar solo Pves", false, "Eso elimina justamente el control que permite separar presión abdominal de actividad vesical."]
+      ]
+    },
+    {
+      tag: "Cinco niveles",
+      title: "Del relato al diagnóstico",
+      prompt: "¿Cuál opción corresponde estrictamente a una medición del instrumento?",
+      evidence: ["Síntoma: pérdida al toser", "Evento: tos", "Curvas multicanal"],
+      answers: [
+        ["Aumento simultáneo de Pves y Pabd", true, "Correcto. Describe señales registradas sin convertirlas todavía en hallazgo o diagnóstico."],
+        ["Incontinencia urodinámica de esfuerzo", false, "Eso es un hallazgo interpretado a partir de señal, evento y fuga."],
+        ["Trastorno clínico del mecanismo de cierre", false, "Eso exige integrar historia, examen y contexto más allá de la medición."]
+      ]
+    },
+    {
+      tag: "Representatividad",
+      title: "«Yo nunca orino de esta forma»",
+      prompt: "¿Cómo debe incorporarse esta observación al informe?",
+      evidence: ["Micción registrada", "Catéteres presentes", "Paciente no la reconoce como habitual"],
+      answers: [
+        ["Como límite de representatividad que condiciona la interpretación del vaciado", true, "Correcto. Una micción registrada puede no reproducir la función cotidiana."],
+        ["Debe ignorarse porque existe una curva", false, "La curva no sustituye la valoración contemporánea del paciente."],
+        ["Demuestra por sí sola una enfermedad funcional", false, "La falta de representatividad limita conclusiones; no crea un diagnóstico alternativo."]
       ]
     }
   ],
@@ -2217,7 +2646,7 @@ const chapterChallenges = {
 };
 
 const challengeAnswerOffsets = {
-  thinking: [1, 2, 0],
+  thinking: [1, 2, 0, 2, 1],
   physiology: [2, 1, 2],
   tracing: [1, 2, 1],
   instrument: [2, 1, 0],
@@ -2247,8 +2676,13 @@ window.__urodynamicTutorDiagnostics = {
     syntheticChapterTraces: true,
     coordinationEmgLab: true,
     storageMapLab: true,
-    neuroLesionLab: true
+    neuroLesionLab: true,
+    eightStepClinicalReasoning: true,
+    foundationsRewriteV1: true
   },
+  chapterScreenCounts: Object.fromEntries(
+    Object.entries(chapters).map(([chapterId, chapter]) => [chapterId, chapter.screens.length])
+  ),
   challengeCorrectLetters: Object.fromEntries(
     Object.entries(chapterChallenges).map(([chapterId, challenges]) => [
       chapterId,
@@ -2270,6 +2704,11 @@ window.__urodynamicTutorDiagnostics = {
 };
 
 const readingRoutine = [
+  {
+    id: "question",
+    label: "Pregunta",
+    text: "Recuerda qué fenómeno se intenta reproducir, explicar o descartar."
+  },
   {
     id: "phase",
     label: "Fase",
@@ -2299,6 +2738,11 @@ const readingRoutine = [
     id: "limit",
     label: "Límite",
     text: "Declara qué no se puede concluir con ese segmento o ese estudio."
+  },
+  {
+    id: "response",
+    label: "Respuesta",
+    text: "Vuelve a la pregunta y formula una respuesta funcional, útil y proporcional."
   }
 ];
 
@@ -2932,34 +3376,66 @@ const clinicalReasoningStages = {
   question: {
     label: "Pregunta",
     title: "¿Qué queremos observar?",
-    text: "La paciente refiere pérdida de orina al toser. Antes de mirar curvas, la pregunta debe transformar ese relato en un fenómeno que el examen pueda intentar reproducir.",
-    evidence: ["Síntoma referido: pérdida al toser", "Fenómeno buscado: fuga durante aumento abdominal registrado"],
-    result: "Pregunta definida: ¿aparece fuga asociada a la tos durante el estudio?",
-    boundary: "La pregunta orienta el examen; todavía no establece un diagnóstico."
+    text: "La paciente refiere pérdida de orina al toser. El relato debe convertirse en una relación que el examen pueda intentar reproducir.",
+    evidence: ["Síntoma: pérdida al toser", "Fenómeno buscado: fuga asociada a aumento abdominal"],
+    result: "Pregunta funcional: ¿aparece fuga durante una tos registrada sin contracción detrusoriana que la explique?",
+    boundary: "La pregunta orienta el estudio; todavía no establece un diagnóstico."
   },
-  conditions: {
-    label: "Condiciones",
-    title: "¿En qué condiciones se buscó?",
-    text: "El resultado solo puede entenderse si sabemos en qué fase, posición y maniobra se intentó reproducir el síntoma y si los canales transmitían adecuadamente.",
-    evidence: ["Fase de llenado", "Tos identificada como evento", "Pves y Pabd con transmisión coherente"],
-    result: "Condiciones suficientes para relacionar la maniobra con lo observado.",
-    boundary: "Un examen controlado no reproduce de manera perfecta la vida cotidiana."
+  phase: {
+    label: "Fase",
+    title: "¿Cuándo y en qué condiciones se buscó?",
+    text: "La maniobra debe ubicarse dentro del ciclo y documentarse con volumen, posición y condiciones capaces de reproducir el síntoma.",
+    evidence: ["Fase de llenado", "Volumen y posición registrados", "Tos indicada como maniobra"],
+    result: "El fenómeno fue buscado durante almacenamiento bajo condiciones conocidas.",
+    boundary: "Una condición controlada puede no reproducir la situación cotidiana."
+  },
+  quality: {
+    label: "Calidad",
+    title: "¿Podemos confiar en las señales?",
+    text: "Antes de leer fisiología se comprueba que Pves y Pabd transmitan la tos y que las líneas de base sean coherentes.",
+    evidence: ["Pves responde", "Pabd responde", "Pdet no fabrica un pico discordante"],
+    result: "El segmento es técnicamente interpretable para relacionar maniobra y fuga.",
+    boundary: "Si Pabd falla, Pdet también pierde confiabilidad."
   },
   signal: {
     label: "Señal",
-    title: "¿Qué ocurrió en el registro?",
-    text: "Ahora se describen solamente los datos: la tos fue anotada, Pves y Pabd aumentaron de manera concordante y se registró una fuga coincidente.",
-    evidence: ["Evento: tos", "Pves y Pabd aumentan", "Fuga observada en el mismo momento"],
-    result: "Dato observado: fuga coincidente con una maniobra abdominal registrada.",
-    boundary: "El dato aún debe integrarse con la pregunta y las condiciones del estudio."
+    title: "¿Qué registró el instrumento?",
+    text: "Se describen los datos antes de ponerles nombre: Pves y Pabd aumentan de manera concordante durante la tos y Pdet permanece relativamente estable.",
+    evidence: ["Aumento de Pves", "Aumento de Pabd", "Pdet sin contracción independiente"],
+    result: "La presión registrada corresponde a un evento abdominal transmitido.",
+    boundary: "La presión por sí sola todavía no demuestra el mecanismo de la fuga."
   },
-  conclusion: {
-    label: "Conclusión",
-    title: "¿Qué podemos afirmar con prudencia?",
-    text: "La conclusión responde la pregunta original con el fenómeno que efectivamente se observó, sin atribuir al trazado más información de la que contiene.",
-    evidence: ["Pregunta respondida", "Fenómeno reproducido", "Límite declarado"],
-    result: "Durante las condiciones del estudio se observó fuga asociada a la tos registrada.",
-    boundary: "La conclusión no explica por sí sola toda la historia clínica ni reemplaza su integración."
+  event: {
+    label: "Evento",
+    title: "¿Qué ocurrió al mismo tiempo?",
+    text: "La fuga debe ser observada y alinearse temporalmente con la maniobra. Una señal aislada en el canal de flujo no basta.",
+    evidence: ["Marcador de tos", "Fuga observada", "Coincidencia temporal"],
+    result: "La pérdida ocurrió durante el aumento abdominal registrado.",
+    boundary: "Debe diferenciarse una fuga real de movimiento, goteo o registro espurio."
+  },
+  inference: {
+    label: "Inferencia",
+    title: "¿Qué relación funcional explica mejor los datos?",
+    text: "La combinación de fuga, aumento abdominal y ausencia de contracción detrusoriana apoya una falla del mecanismo de cierre frente al esfuerzo.",
+    evidence: ["Fuga con maniobra", "Pabd aumenta", "Sin aumento independiente de Pdet"],
+    result: "Hallazgo compatible con incontinencia urodinámica de esfuerzo durante esa maniobra.",
+    boundary: "El hallazgo funcional no explica por sí solo la anatomía ni toda la gravedad clínica."
+  },
+  limit: {
+    label: "Límite",
+    title: "¿Qué no permite afirmar este segmento?",
+    text: "El trazado no resume la frecuencia cotidiana, la repercusión, la anatomía del soporte uretral ni todos los escenarios en que la paciente pierde.",
+    evidence: ["Una condición de prueba", "Una maniobra reproducida", "Contexto clínico aún necesario"],
+    result: "La conclusión queda limitada a lo demostrado bajo las condiciones registradas.",
+    boundary: "No debe extrapolarse automáticamente a toda la historia ni al tratamiento."
+  },
+  response: {
+    label: "Respuesta",
+    title: "¿Cómo se responde la pregunta original?",
+    text: "La conclusión traduce la secuencia completa a una respuesta funcional breve, útil y proporcional a la evidencia.",
+    evidence: ["Pregunta respondida", "Señal confiable", "Inferencia y límite explícitos"],
+    result: "Durante el llenado se observó fuga asociada a tos, con aumento abdominal transmitido y sin contracción detrusoriana concomitante.",
+    boundary: "La integración clínica final sigue requiriendo historia, examen y objetivo terapéutico."
   }
 };
 
