@@ -1,4 +1,4 @@
-const BUILD_REVISION = "20260721-course-cover-v2";
+const BUILD_REVISION = "20260721-pressure-language-v1";
 
 const chapters = {
   thinking: {
@@ -64,11 +64,11 @@ const chapters = {
         prompt: "¿Estás describiendo un síntoma, un signo, una medición, un hallazgo o un diagnóstico?"
       },
       {
-        title: "Qué mide el equipo",
+        title: "Dos presiones antes de una resta",
         text:
-          "Un estudio multicanal registra Pves, Pabd, flujo, volumen y eventos. Pdet se deriva de Pves y Pabd; no es una tercera presión medida de manera independiente.",
-        key: "El equipo mide señales, no hiperactividad, obstrucción ni hipoactividad.",
-        prompt: "¿Qué señal fue medida y cuál fue derivada?"
+          "El sistema registra una presión dentro de la vejiga y una estimación de la presión abdominal. La primera se denomina presión vesical (Pves); la segunda, presión abdominal (Pabd). Al restarlas se obtiene la presión detrusoriana (Pdet), que no proviene de un tercer sensor.",
+        key: "Primero entiende qué representa cada presión; después utiliza su abreviatura.",
+        prompt: "¿Qué dos presiones se miden y cuál se obtiene mediante una resta?"
       },
       {
         title: "Qué no puede medir",
@@ -187,8 +187,8 @@ const chapters = {
       {
         title: "Acomodación: ganar volumen sin pagar presión",
         text:
-          "La compliance expresa la relación entre cambio de volumen y cambio de Pdet. No es solo una fórmula: describe cuánto volumen acepta el reservorio antes de aumentar de forma desproporcionada su presión.",
-        key: "Una vejiga complaciente incorpora volumen con poco cambio de Pdet.",
+          "La compliance expresa la relación entre cambio de volumen y cambio de presión detrusoriana (Pdet). No es solo una fórmula: describe cuánto volumen acepta el reservorio antes de aumentar de forma desproporcionada su presión.",
+        key: "Una vejiga complaciente incorpora volumen con poco cambio de presión detrusoriana.",
         prompt: "¿Cuánto volumen ganó y cuánto cambió la presión?",
         visualDemoId: "accommodation"
       },
@@ -319,7 +319,7 @@ const chapters = {
       {
         title: "Lectura horizontal y lectura vertical",
         text:
-          "Horizontalmente seguimos llenado, sensación, maniobra, permiso, flujo y fin. Verticalmente preguntamos qué ocurrió simultáneamente en Pves, Pabd, Pdet, flujo, EMG y eventos.",
+          "Horizontalmente seguimos llenado, sensación, maniobra, permiso, flujo y fin. Verticalmente preguntamos qué ocurrió simultáneamente en la presión vesical, la presión abdominal, la presión detrusoriana, el flujo, la actividad eléctrica y los eventos.",
         key: "Primero ubica el momento; después compara las señales.",
         prompt: "¿Qué muestra la secuencia y qué muestran los canales en ese instante?"
       },
@@ -333,8 +333,8 @@ const chapters = {
       {
         title: "Cada canal tiene un origen",
         text:
-          "Pves se mide en vejiga, Pabd estima el entorno abdominal y Pdet se calcula restándolas. Flujo, volumen, EMG y eventos agregan consecuencias y contexto.",
-        key: "La calidad de Pdet nunca puede superar la calidad de Pves y Pabd.",
+          "La presión vesical (Pves) se registra dentro de la vejiga e incluye la presión propia del órgano y la que transmite el abdomen. La presión abdominal (Pabd), estimada habitualmente desde recto o vagina, sirve como referencia externa. La presión detrusoriana (Pdet) se calcula restando Pabd de Pves.",
+        key: "Pves y Pabd se miden; Pdet se deriva de ambas y depende de su calidad.",
         prompt: "¿Qué señal fue medida, cuál fue derivada y qué contexto falta?"
       },
       {
@@ -550,7 +550,7 @@ const chapters = {
     isThis: "Un sistema de medición que produce señales directas y derivadas",
     labId: "signalMap",
     labDescription:
-      "Sigue el origen de cada señal y prueba tos, ascenso vesical y pérdida de transmisión para observar cómo se construye Pdet.",
+      "Sigue el origen de la presión vesical y abdominal, y observa cómo ambas construyen la presión detrusoriana derivada.",
     screens: [
       {
         title: "El puente entre fisiología y trazado",
@@ -567,23 +567,23 @@ const chapters = {
         prompt: "¿Cómo se obtuvo esta señal y qué fenómeno intenta representar?"
       },
       {
-        title: "Pves: presión dentro de la vejiga",
+        title: "Presión vesical (Pves): dentro de la vejiga",
         text:
-          "Pves se registra mediante el catéter intravesical e incluye tanto presión de la pared vesical como presión transmitida desde el abdomen. Tos, pujo y movimiento pueden elevarla sin contracción detrusoriana.",
-        key: "Un aumento de Pves no demuestra por sí solo actividad del detrusor.",
-        prompt: "¿Pabd acompaña el cambio observado en Pves?"
+          "La presión vesical, abreviada Pves, se registra mediante el catéter intravesical. Incluye tanto la presión propia de la vejiga como la presión transmitida desde el abdomen; por eso, tos, pujo y movimiento pueden elevarla sin que exista una contracción detrusoriana.",
+        key: "Un aumento de la presión vesical no demuestra por sí solo actividad del detrusor.",
+        prompt: "¿La presión abdominal acompaña el cambio observado en la presión vesical?"
       },
       {
-        title: "Pabd: una estimación abdominal",
+        title: "Presión abdominal (Pabd): la referencia externa",
         text:
-          "Pabd se estima habitualmente desde recto o vagina y registra cambios transmitidos hacia la vejiga. No es una medición perfecta de todo el abdomen, pero permite separar contribución abdominal y vesical.",
-        key: "Pabd es el control que evita convertir presión transmitida en falsa actividad detrusoriana.",
+          "La presión abdominal, abreviada Pabd, se estima habitualmente desde recto o vagina y registra cambios transmitidos hacia la vejiga. No mide perfectamente todo el abdomen, pero permite separar la contribución abdominal de la vesical.",
+        key: "La presión abdominal evita convertir presión transmitida en falsa actividad detrusoriana.",
         prompt: "¿El canal abdominal representa de forma creíble el evento?"
       },
       {
-        title: "Pdet: una resta, no un tercer sensor",
+        title: "Presión detrusoriana (Pdet): una resta",
         text:
-          "Pdet = Pves − Pabd. Si ambas suben juntas durante una tos, la resta cambia poco; si Pves sube con Pabd estable, Pdet aumenta, siempre que los canales sean confiables.",
+          "La presión detrusoriana se abrevia Pdet y se calcula como Pves menos Pabd. Si ambas presiones medidas suben juntas durante una tos, la resta cambia poco; si Pves sube con Pabd estable, Pdet aumenta, siempre que los canales sean confiables.",
         key: "La calidad de Pdet depende por completo de sus dos señales de entrada.",
         prompt: "¿Qué cambió realmente en Pves y Pabd?",
         visualDemoId: "pressureEquation"
@@ -2953,7 +2953,8 @@ window.__urodynamicTutorDiagnostics = {
     eightStepClinicalReasoning: true,
     foundationsRewriteV1: true,
     pressurePhysicsLab: true,
-    courseCoverV1: true
+    courseCoverV1: true,
+    pressureVocabularyIntro: true
   },
   chapterScreenCounts: Object.fromEntries(
     Object.entries(chapters).map(([chapterId, chapter]) => [chapterId, chapter.screens.length])
