@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UroDynaMic Tutor - Curso interactivo</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="styles-part-1.css?v=20260720-pages-v1" />
+    <link rel="stylesheet" href="styles-part-2.css?v=20260720-pages-v1" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="side-rail" aria-label="Navegación del curso">
+        <div class="side-rail-top">
+          <div class="brand">
+            <div class="brand-mark">UD</div>
+            <div>
+              <h1>UroDynaMic Tutor</h1>
+              <p>Curso interactivo</p>
+            </div>
+          </div>
+          <button
+            type="button"
+            id="courseNavToggle"
+            class="nav-toggle"
+            aria-controls="courseMap"
+            aria-expanded="false"
+            title="Mostrar capítulos"
+          >
+            <span aria-hidden="true">≡</span>
+            <span class="sr-only">Mostrar capítulos</span>
+          </button>
+        </div>
+
+        <nav class="course-map" id="courseMap" aria-label="Capítulos">
+          <p class="course-section-label">Fundamentos</p>
+          <button type="button" class="course-item active" data-chapter="thinking">
+            <span>1</span>
+            <strong>Cómo pensar una urodinamia</strong>
+            <small>Pregunta + técnica + instrumento</small>
+          </button>
+          <button type="button" class="course-item" data-chapter="physiology">
+            <span>2</span>
+            <strong>Fisiología normal</strong>
+            <small>Almacenamiento / vaciado</small>
+          </button>
+          <button type="button" class="course-item" data-chapter="tracing">
+            <span>3</span>
+            <strong>Del ciclo al trazado</strong>
+            <small>Lectura temporal</small>
+          </button>
+          <button type="button" class="course-item" data-chapter="instrument">
+            <span>4</span>
+            <strong>Qué mide el equipo</strong>
+            <small>Pves / Pabd / Pdet</small>
+          </button>
+          <button type="button" class="course-item" data-chapter="artifacts">
+            <span>5</span>
+            <strong>Artefactos</strong>
+            <small>Antes de patología</small>
+          </button>
+          <p class="course-section-label">Interpretación funcional</p>
+          <button type="button" class="course-item" data-chapter="storageDisorders">
+            <span>6</span>
+            <strong>Trastornos de almacenamiento</strong>
+            <small>Presión / estabilidad / fuga</small>
+          </button>
+          <p class="course-section-label">Recursos</p>
+          <a class="course-item sample-link" href="vision-clinica.html">
+            <span>V</span>
+            <strong>Visión clínica</strong>
+            <small>Manifiesto docente</small>
+          </a>
+          <a class="course-item sample-link" href="case-capture-demo.html">
+            <span>+</span>
+            <strong>Caso interactivo 0</strong>
+            <small>Práctica guiada</small>
+          </a>
+        </nav>
+
+        <div class="educational-boundary">
+          <strong>Uso educativo</strong>
+          <p>Material docente. No usar para diagnóstico, informe clínico ni decisiones terapéuticas.</p>
+        </div>
+      </aside>
+
+      <main class="main-stage">
+        <header class="stage-header">
+          <div>
+            <p class="overline" id="stageBlock">Bloque I · Fundamentos antes de interpretar curvas</p>
+            <h2 id="chapterTitle">Cómo pensar una urodinamia</h2>
+          </div>
+          <div class="progress-box" aria-label="Progreso del piloto">
+            <span id="progressLabel">Lección 1 de 7</span>
+            <div class="progress-track"><div id="progressFill"></div></div>
+            <button type="button" id="resetProgress" class="small-action">Reiniciar ruta</button>
+          </div>
+        </header>
+
+        <nav class="workspace-tabs" aria-label="Modo de aprendizaje">
+          <button type="button" class="active" data-view="lesson" aria-pressed="true">
+            <span>1</span>
+            <div><strong>Lección</strong><small>Comprender la idea</small></div>
+          </button>
+          <button type="button" data-view="lab" aria-pressed="false">
+            <span>2</span>
+            <div><strong>Laboratorio</strong><small>Manipular el concepto</small></div>
+          </button>
+          <button type="button" data-view="practice" aria-pressed="false">
+            <span>3</span>
+            <div><strong>Práctica</strong><small>Aplicarlo al trazado</small></div>
+          </button>
+        </nav>
+
+        <div class="view-panel lesson-view" data-view-panel="lesson">
+          <section class="clinical-compass" aria-label="Brújula clínica del curso">
+            <div class="compass-intro">
+              <p class="overline">La visión del curso</p>
+              <h3>La tecnología registra señales. La clínica decide qué significan.</h3>
+              <a href="vision-clinica.html">Leer el manifiesto completo</a>
+            </div>
+            <ol class="compass-steps">
+              <li><span>1</span><div><strong>Proteger</strong><p>Considerar primero lo grave y estructural.</p></div></li>
+              <li><span>2</span><div><strong>Medir</strong><p>Entender qué registró realmente el instrumento.</p></div></li>
+              <li><span>3</span><div><strong>Integrar</strong><p>Leer relaciones, fases, contexto y límites.</p></div></li>
+              <li><span>4</span><div><strong>Traducir</strong><p>Responder una pregunta clínicamente útil.</p></div></li>
+            </ol>
+          </section>
+
+          <section class="lesson-layout">
+            <article class="lesson-panel">
+              <div class="screen-toolbar">
+                <div>
+                  <p class="overline" id="screenKicker">Capítulo 1</p>
+                  <h3 id="screenTitle">Qué intenta hacer una urodinamia</h3>
+                </div>
+              </div>
+
+              <p class="lesson-text" id="screenText"></p>
+
+              <div class="lesson-prompt" id="lessonPrompt"></div>
+
+              <div class="key-idea">
+                <span>Idea clave</span>
+                <strong id="keyIdea"></strong>
+              </div>
+
+              <div class="lesson-footer">
+                <div class="lesson-navigation" aria-label="Navegación entre lecciones">
+                  <button type="button" id="prevScreen" class="icon-button" aria-label="Lección anterior" title="Lección anterior">‹</button>
+                  <div class="screen-dots" id="screenDots" aria-label="Lecciones del capítulo"></div>
+                  <button type="button" id="nextScreen" class="icon-button" aria-label="Lección siguiente" title="Lección siguiente">›</button>
+                </div>
+                <button type="button" id="openLab" class="primary-action">
+                  Explorar concepto <span aria-hidden="true">→</span>
+                </button>
+              </div>
+            </article>
+
+            <aside class="context-panel">
+              <p class="overline">Marco mental</p>
+              <h3 id="mentalModelTitle">Evaluación funcional controlada</h3>
+              <p id="mentalModelText"></p>
+              <div class="compare-grid">
+                <div>
+                  <span>No es</span>
+                  <strong id="notThis">Una copia exacta de la micción diaria</strong>
+                </div>
+                <div>
+                  <span>Sí es</span>
+                  <strong id="isThis">Un examen funcional con pregunta</strong>
+                </div>
+              </div>
+            </aside>
+          </section>
+        </div>
+
+        <section class="view-panel lab-workspace" data-view-panel="lab" hidden>
+          <header class="lab-intro">
+            <div>
+              <p class="overline">Laboratorio del capítulo</p>
+              <h3 id="labChapterTitle">De la pregunta a una conclusión prudente</h3>
+            </div>
+            <p id="labChapterDescription"></p>
+          </header>
+          <section class="visual-demo" id="visualDemo" aria-label="Laboratorio visual interactivo"></section>
+          <section class="challenge-lab" id="challengeLab" aria-label="Ejemplos interactivos guiados"></section>
+          <div class="lab-actions">
+            <button type="button" id="openPractice" class="primary-action">
+              Aplicar en un trazado <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </section>
+
+        <div class="view-panel practice-view" data-view-panel="practice" hidden>
+          <section class="reading-routine" aria-label="Rutina docente de lectura">
+            <div>
+              <p class="overline">Modo maestro</p>
+              <h3>Rutina de lectura antes de poner etiquetas</h3>
+            </div>
+            <ol id="routineSteps" class="routine-steps"></ol>
+          </section>
+
+          <section class="interactive-zone">
+            <article class="trace-lab">
+              <div class="trace-header">
+                <div>
+                  <p class="overline" id="practiceChapterLabel">Práctica del capítulo</p>
+                  <h3 id="traceTitle">La curva no se interpreta sola</h3>
+                </div>
+                <div class="scenario-tabs" id="scenarioTabs" role="tablist" aria-label="Trazados de este capítulo"></div>
+              </div>
+
+              <div class="trace-toolbar">
+                <label><input type="checkbox" data-layer="pves" checked /> Pves</label>
+                <label><input type="checkbox" data-layer="pabd" checked /> Pabd</label>
+                <label><input type="checkbox" data-layer="pdet" checked /> Pdet</label>
+                <label><input type="checkbox" data-layer="flow" checked /> Flujo</label>
+                <label><input type="checkbox" data-layer="events" checked /> Eventos</label>
+              </div>
+
+              <div class="trace-event-card" id="traceEventCard"></div>
+
+              <div class="trace-canvas">
+                <svg id="traceSvg" viewBox="0 0 1060 470" role="img" aria-label="Trazado urodinámico docente sintético"></svg>
+              </div>
+            </article>
+
+            <article class="coach-panel">
+              <p class="overline">Tutor</p>
+              <h3 id="coachQuestion">Antes de interpretar una curva, ¿qué pregunta falta?</h3>
+              <div class="answer-grid" id="answerGrid"></div>
+              <div class="coach-feedback" id="coachFeedback">Elige una respuesta. El tutor busca razonamiento, no etiquetas.</div>
+            </article>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script src="app-part-1.js?v=20260720-pages-v1"></script>
+    <script src="app-part-2.js?v=20260720-pages-v1"></script>
+    <script src="app-part-3.js?v=20260720-pages-v1"></script>
+    <script src="app-part-4.js?v=20260720-pages-v1"></script>
+    <script src="app-part-5.js?v=20260720-pages-v1"></script>
+  </body>
+</html>
