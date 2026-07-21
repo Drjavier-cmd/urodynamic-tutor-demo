@@ -1,4 +1,4 @@
-const BUILD_REVISION = "20260721-voiding-v1";
+const BUILD_REVISION = "20260721-coordination-v1";
 
 const chapters = {
   thinking: {
@@ -444,6 +444,105 @@ const chapters = {
         prompt: "¿La dificultad depende de la bomba, la salida, su coordinación o las condiciones del examen?"
       }
     ]
+  },
+  coordinationDisorders: {
+    block: "Bloque II · Interpretación funcional",
+    number: "Capítulo 8",
+    title: "Coordinación detrusor-salida",
+    mentalModelTitle: "Reciprocidad, tiempo y contexto",
+    mentalModelText:
+      "Durante el vaciado, la contracción del detrusor solo se transforma en flujo si la salida reduce su resistencia en el momento adecuado.",
+    notThis: "Nombrar disinergia por una curva irregular o un EMG alto",
+    isThis: "Demostrar qué ocurrió, cuándo ocurrió y en qué contexto",
+    labId: "coordinationTimeline",
+    labDescription:
+      "Compara relaciones temporales sintéticas entre Pdet, Pabd, flujo, actividad perineal y apertura de salida; primero describe el fenómeno y luego decide qué etiqueta permite la evidencia.",
+    screens: [
+      {
+        title: "Cuando la vejiga empuja y la salida no cede",
+        text:
+          "Durante el vaciado, el detrusor debe contraerse mientras la salida disminuye su resistencia. Si la relajación es tardía, incompleta o variable, la vejiga trabaja contra una oposición que no debería estar presente.",
+        key: "Un trastorno de coordinación puede ser un problema de tiempo, no el daño aislado de una estructura.",
+        prompt: "¿La salida permitió que la contracción se transformara en flujo?"
+      },
+      {
+        title: "Qué significa vaciar coordinadamente",
+        text:
+          "La salida reduce su resistencia, el detrusor genera la presión necesaria, aparece flujo y ambos fenómenos se sostienen hasta un vaciamiento adecuado. En mujeres, poco aumento de Pdet puede ser normal si la relajación uretral permite buen flujo y vaciamiento completo.",
+        key: "Coordinación no exige mucha presión; exige una relación eficaz entre bomba y salida.",
+        prompt: "¿La presión fue suficiente para la resistencia realmente presente?"
+      },
+      {
+        title: "La coordinación es una relación temporal",
+        text:
+          "La salida puede abrir tarde, relajarse solo parcialmente o reactivarse durante la micción. Pero existe un retraso fisiológico entre el inicio de la presión y la llegada de orina al flujómetro: una separación breve no demuestra cierre esfinteriano.",
+        key: "Para hablar de apertura tardía se necesita más que un pequeño desfase entre Pdet y flujo.",
+        prompt: "¿El retraso es prolongado y está corroborado por EMG o imagen?"
+      },
+      {
+        title: "La forma del flujo no demuestra el mecanismo",
+        text:
+          "Un flujo intermitente o fluctuante también puede aparecer por pujos abdominales, contracción detrusoriana débil o breve, poco volumen, dolor, movimiento o una micción no representativa.",
+        key: "La curva describe cómo sale la orina; no identifica por sí sola qué estructura interrumpe el flujo.",
+        prompt: "¿Los pulsos de flujo coinciden con Pdet, Pabd, actividad perineal o movimiento?"
+      },
+      {
+        title: "Disinergia detrusor-esfínter",
+        text:
+          "La disinergia corresponde a contracción detrusoriana simultánea con activación inapropiada de la salida estriada en el contexto de una alteración neurológica relevante. El trazado puede mostrar presión elevada, flujo limitado o intermitente y actividad perineal concomitante.",
+        key: "La palabra decisiva es neurológica: la forma de la curva no basta.",
+        prompt: "¿Existe una enfermedad o lesión neurológica que haga válida esta etiqueta?"
+      },
+      {
+        title: "Vaciado disfuncional",
+        text:
+          "En una persona sin enfermedad neurológica demostrada, una relajación inadecuada o variable del esfínter externo o del piso pélvico puede producir flujo intermitente. Puede parecerse a la disinergia, pero el contexto fisiopatológico es distinto.",
+        key: "Trazados parecidos no autorizan etiquetas equivalentes.",
+        prompt: "¿El registro demuestra mala relajación y qué contexto neurológico tiene el paciente?"
+      },
+      {
+        title: "Describir cuando la evidencia no alcanza",
+        text:
+          "Si no es posible separar vaciado disfuncional, disinergia, cierre voluntario, obstrucción del cuello o artefacto, conviene describir la relación observada: contracción detrusoriana, flujo y persistencia o cambio de actividad perineal.",
+        key: "La descripción puede ser precisa aunque la etiología permanezca abierta.",
+        prompt: "¿Mi conclusión dice exactamente qué ocurrió sin adjudicar una causa no demostrada?"
+      },
+      {
+        title: "Qué aporta realmente el EMG",
+        text:
+          "Los electrodos de superficie registran actividad eléctrica de músculos cercanos. Pueden recoger esfínter anal, piso pélvico, musculatura periuretral, glúteos, movimiento e interferencias; no miden presión uretral ni demuestran cierre por sí solos.",
+        key: "Aumento de EMG significa actividad eléctrica, no obstrucción demostrada.",
+        prompt: "¿La señal respondió a controles y coincide temporalmente con presión, flujo o imagen?"
+      },
+      {
+        title: "EMG e imagen son complementarios",
+        text:
+          "La videourodinamia puede mostrar apertura del cuello, sitio de estrechamiento, dilatación proximal o reflujo. El EMG aporta actividad perineal. Como pueden existir discordancias, ninguno debe interpretarse como verdad aislada.",
+        key: "La fuerza diagnóstica aparece al integrar señales concordantes, no al absolutizar una de ellas.",
+        prompt: "¿Presión, flujo, EMG, imagen y contexto cuentan la misma historia?"
+      },
+      {
+        title: "Coordinación no es toda obstrucción",
+        text:
+          "Pdet alta con flujo bajo sugiere resistencia aumentada, pero esa resistencia puede ser anatómica, del cuello vesical o funcional. Una próstata obstructiva o una estenosis no implican por sí mismas mala coordinación neuromuscular.",
+        key: "Primero demuestra resistencia; después pregunta por su sitio y mecanismo.",
+        prompt: "¿Qué dato permite separar estrechamiento fijo de activación variable de la salida?"
+      },
+      {
+        title: "Prensa abdominal y falsa apariencia de disinergia",
+        text:
+          "Pujos repetidos elevan Pabd y Pves, producen pulsos de flujo y pueden activar el piso pélvico o mover los electrodos. Si Pdet no sostiene el vaciado, el patrón puede simular una alteración esfinteriana.",
+        key: "Antes de culpar a la salida, identifica quién está generando el flujo.",
+        prompt: "¿Cada pulso de flujo coincide con Pabd o con una contracción detrusoriana sostenida?"
+      },
+      {
+        title: "Integrar antes de etiquetar",
+        text:
+          "Confirma representatividad y calidad; identifica qué inició el flujo; observa la apertura de salida y su relación temporal; revisa antecedentes neurológicos y anatómicos. Luego describe y, solo si la evidencia alcanza, nombra el mecanismo.",
+        key: "Primero se describe lo que la salida hizo. Después, si corresponde, se le pone un nombre.",
+        prompt: "¿La evidencia permite una etiqueta o exige conservar una descripción funcional prudente?"
+      }
+    ]
   }
 };
 
@@ -675,6 +774,101 @@ const scenarios = {
       ["Obstrucción de salida demostrada", false, "No hay una relación presión-flujo interpretable que sostenga esa conclusión."],
       ["El relato del paciente debe ignorarse", false, "La representatividad informada por el paciente forma parte de la interpretación."
       ]
+    ]
+  },
+  delayedOutlet: {
+    title: "Presión antes de apertura de la salida",
+    eventLabel: "Pdet inicia antes del flujo",
+    event: {
+      type: "voiding",
+      title: "La salida tarda en reducir su resistencia",
+      label: "relación temporal",
+      timing: "inicio del intento de vaciado",
+      reading: "Pdet aumenta mientras la actividad perineal persiste; el flujo aparece cuando esa actividad disminuye.",
+      caution: "Un desfase breve puede corresponder al retraso fisiológico del flujo. La apertura tardía exige un intervalo relevante y corroboración."
+    },
+    question: "¿Qué conclusión respeta mejor el alcance de este trazado sintético?",
+    answers: [
+      ["Existe una demora de apertura que debe compararse con el retraso fisiológico y corroborarse", true, "Correcto. La relación temporal orienta, pero el pequeño desfase presión-flujo no basta por sí solo."],
+      ["Toda presión anterior al flujo demuestra disinergia", false, "No. Existe retraso fisiológico y la disinergia exige además contexto neurológico relevante."],
+      ["El flujo tardío demuestra una estenosis uretral", false, "El registro no localiza ni demuestra por sí solo una causa anatómica."],
+      ["El EMG elevado mide directamente el cierre uretral", false, "El EMG registra actividad eléctrica cercana, no presión ni apertura uretral directa."]
+    ]
+  },
+  dysfunctionalOutlet: {
+    title: "Salida variable sin enfermedad neurológica",
+    eventLabel: "flujo y EMG fluctúan",
+    event: {
+      type: "voiding",
+      title: "La salida se reactiva durante el vaciado",
+      label: "relajación variable",
+      timing: "durante una contracción detrusoriana",
+      reading: "El flujo se interrumpe mientras reaparece actividad perineal en una persona sin enfermedad neurológica demostrada.",
+      caution: "Primero se describe relajación inadecuada; el diagnóstico exige excluir prensa, artefacto y otras resistencias."
+    },
+    question: "Sin una alteración neurológica relevante, ¿qué término es más apropiado si el mecanismo se confirma?",
+    answers: [
+      ["Vaciado disfuncional", true, "Correcto. La falta de relajación en una persona neurológicamente normal se diferencia de la disinergia."],
+      ["Disinergia detrusor-esfínter", false, "Ese término requiere una alteración neurológica relevante."],
+      ["Obstrucción anatómica demostrada", false, "La actividad variable de salida no localiza una lesión anatómica fija."],
+      ["Hipoactividad detrusoriana por definición", false, "La intermitencia no demuestra por sí sola una falla de la bomba."]
+    ]
+  },
+  neurogenicDyssynergia: {
+    title: "Contracción y salida activas en contexto neurológico",
+    eventLabel: "Pdet + actividad de salida simultáneas",
+    event: {
+      type: "voiding",
+      title: "La reciprocidad detrusor-salida se pierde",
+      label: "contexto neurológico relevante",
+      timing: "durante el intento de vaciado",
+      reading: "Una contracción detrusoriana coincide con actividad perineal persistente y flujo limitado o intermitente.",
+      caution: "El contexto neurológico permite plantear disinergia; la curva y el EMG aislados no la confirman automáticamente."
+    },
+    question: "¿Qué formulación conserva la relación entre evidencia y contexto?",
+    answers: [
+      ["Hallazgos compatibles con disinergia detrusor-esfínter en el contexto neurológico descrito", true, "Correcto. La conclusión integra simultaneidad, salida activa y enfermedad neurológica relevante."],
+      ["Disinergia confirmada solo por el flujo intermitente", false, "La forma del flujo no identifica por sí sola el mecanismo."],
+      ["Vaciado disfuncional porque ambos patrones se ven parecidos", false, "El contexto neurológico cambia la terminología y la fisiopatología."],
+      ["El EMG demuestra directamente una uretra cerrada", false, "La actividad eléctrica es evidencia complementaria, no una medición directa de cierre."]
+    ]
+  },
+  abdominalCoordinationMimic: {
+    title: "Prensa abdominal que imita mala coordinación",
+    eventLabel: "pulsos de Pabd + pulsos de flujo",
+    event: {
+      type: "valsalva",
+      title: "El abdomen genera el patrón intermitente",
+      label: "imitador funcional",
+      timing: "durante pujos repetidos",
+      reading: "Cada pulso de flujo coincide con Pabd y Pves, mientras Pdet no sostiene una contracción; el EMG también puede moverse con el esfuerzo.",
+      caution: "Flujo y EMG intermitentes no demuestran disinergia si el motor principal es la prensa abdominal."
+    },
+    question: "¿Qué debe identificarse antes de atribuir la intermitencia a la salida?",
+    answers: [
+      ["Quién genera cada pulso de flujo: Pdet o Pabd", true, "Correcto. La relación temporal con Pabd puede revelar una micción abdominal que imita mala coordinación."],
+      ["La etiqueta neurológica más específica", false, "Primero hay que demostrar el mecanismo observado y conocer el contexto neurológico."],
+      ["El valor máximo aislado de Pves", false, "Pves incluye presión abdominal y no identifica por sí sola al generador del flujo."],
+      ["La forma visual del flujo sin revisar otros canales", false, "La misma forma puede originarse por mecanismos distintos."]
+    ]
+  },
+  fixedOutletResistance: {
+    title: "Resistencia fija sin activación perineal demostrada",
+    eventLabel: "Pdet alta + flujo bajo continuo",
+    event: {
+      type: "voiding",
+      title: "La relación presión-flujo demuestra resistencia",
+      label: "mecanismo aún no localizado",
+      timing: "durante un vaciado representativo",
+      reading: "Pdet se mantiene elevada y el flujo es bajo pero continuo, sin aumento concordante de actividad perineal.",
+      caution: "El patrón orienta a resistencia aumentada; no demuestra que la causa sea mala coordinación ni identifica una lesión anatómica."
+    },
+    question: "¿Qué afirmación es defendible con estos datos?",
+    answers: [
+      ["Existe un patrón de resistencia aumentada, pero el mecanismo necesita localización adicional", true, "Correcto. Presión-flujo responde si hay resistencia; EMG, imagen y anatomía ayudan a explicar su causa."],
+      ["Existe disinergia porque Pdet es alta", false, "La presión alta no demuestra activación esfinteriana ni aporta por sí sola contexto neurológico."],
+      ["La ausencia de aumento del EMG excluye toda obstrucción", false, "Una resistencia anatómica puede existir sin activación perineal."],
+      ["El flujo continuo demuestra coordinación normal", false, "Puede existir continuidad y, aun así, una relación presión-flujo de alta resistencia."]
     ]
   }
 };
@@ -970,6 +1164,48 @@ const chapterPracticeCases = {
       focus: "limit",
       answerOffset: 1
     }
+  ],
+  coordinationDisorders: [
+    {
+      ...scenarios.delayedOutlet,
+      id: "coordinationDelayed",
+      tabLabel: "Apertura tardía",
+      pattern: "delayedOutlet",
+      focus: "event",
+      answerOffset: 1
+    },
+    {
+      ...scenarios.dysfunctionalOutlet,
+      id: "coordinationDysfunctional",
+      tabLabel: "Sin lesión neurológica",
+      pattern: "variableOutlet",
+      focus: "inference",
+      answerOffset: 2
+    },
+    {
+      ...scenarios.neurogenicDyssynergia,
+      id: "coordinationDyssynergia",
+      tabLabel: "Con lesión neurológica",
+      pattern: "neuroDyssynergia",
+      focus: "inference",
+      answerOffset: 3
+    },
+    {
+      ...scenarios.abdominalCoordinationMimic,
+      id: "coordinationAbdominalMimic",
+      tabLabel: "Prensa imitadora",
+      pattern: "abdominalMimic",
+      focus: "signal",
+      answerOffset: 1
+    },
+    {
+      ...scenarios.fixedOutletResistance,
+      id: "coordinationFixedResistance",
+      tabLabel: "Resistencia fija",
+      pattern: "fixedResistance",
+      focus: "limit",
+      answerOffset: 2
+    }
   ]
 };
 
@@ -994,7 +1230,12 @@ const practiceTraceProfiles = {
   voidingResistance: { start: 0.57, end: 0.92, fillSlope: 10, pressureAmplitude: 78, flowAmplitude: 18, volumeDrop: 44 },
   voidingUnderactive: { start: 0.61, end: 0.86, fillSlope: 10, pressureAmplitude: 20, flowAmplitude: 17, volumeDrop: 24 },
   voidingAbdominal: { start: 0.56, end: 0.91, fillSlope: 10, pressureAmplitude: 50, flowAmplitude: 25, volumeDrop: 38 },
-  voidingInhibited: { start: 0.62, end: 0.88, fillSlope: 10, pressureAmplitude: 0, flowAmplitude: 0, volumeDrop: 0 }
+  voidingInhibited: { start: 0.62, end: 0.88, fillSlope: 10, pressureAmplitude: 0, flowAmplitude: 0, volumeDrop: 0 },
+  coordinationDelayed: { start: 0.48, end: 0.9, flowStart: 0.64, fillSlope: 9, pressureAmplitude: 54, flowAmplitude: 48, emgAmplitude: 34, volumeDrop: 88 },
+  coordinationDysfunctional: { start: 0.5, end: 0.92, flowStart: 0.56, fillSlope: 9, pressureAmplitude: 61, flowAmplitude: 47, emgAmplitude: 32, cycles: 4, volumeDrop: 72 },
+  coordinationDyssynergia: { start: 0.46, end: 0.91, flowStart: 0.53, fillSlope: 9, pressureAmplitude: 76, flowAmplitude: 29, emgAmplitude: 43, cycles: 5, volumeDrop: 48 },
+  coordinationAbdominalMimic: { start: 0.52, end: 0.9, flowStart: 0.54, fillSlope: 9, pressureAmplitude: 45, flowAmplitude: 38, emgAmplitude: 26, cycles: 4, volumeDrop: 58 },
+  coordinationFixedResistance: { start: 0.55, end: 0.93, flowStart: 0.59, fillSlope: 9, pressureAmplitude: 80, flowAmplitude: 20, emgAmplitude: 4, volumeDrop: 44 }
 };
 
 const practiceCaseMap = Object.fromEntries(
@@ -1044,6 +1285,10 @@ const interactiveDemos = {
   pressureFlowMatrix: {
     title: "Presión y flujo: una relación, cinco lecturas",
     subtitle: "Patrones cualitativos sintéticos; no representan umbrales ni producen diagnósticos"
+  },
+  coordinationTimeline: {
+    title: "Coordinación: quién actúa y cuándo",
+    subtitle: "Relaciones temporales sintéticas; el mismo aspecto puede exigir conclusiones distintas según el contexto"
   }
 };
 
@@ -1064,7 +1309,8 @@ const chapterLabDemos = {
   voidingDisorders: [
     { id: "pressureFlowMatrix", label: "Presión y flujo" },
     { id: "flowResistance", label: "Bomba y salida" }
-  ]
+  ],
+  coordinationDisorders: [{ id: "coordinationTimeline", label: "Tiempo y salida" }]
 };
 
 const chapterChallenges = {
@@ -1277,6 +1523,52 @@ const chapterChallenges = {
         ["Obstrucción confirmada por ausencia de flujo", false, "Sin una relación presión-flujo interpretable, la ausencia de flujo no distingue el mecanismo."]
       ]
     }
+  ],
+  coordinationDisorders: [
+    {
+      tag: "Terminología",
+      title: "Flujo intermitente y actividad perineal, sin enfermedad neurológica",
+      prompt: "Si se confirma una relajación variable de la salida, ¿qué formulación corresponde?",
+      evidence: ["Pdet sostenida", "Flujo intermitente", "Sin alteración neurológica demostrada"],
+      answers: [
+        ["Compatible con vaciado disfuncional; primero describir la relajación inadecuada", true, "Correcto. El patrón debe describirse y el contexto no permite llamarlo disinergia."],
+        ["Disinergia detrusor-esfínter confirmada", false, "La disinergia requiere una alteración neurológica relevante."],
+        ["Estenosis uretral demostrada", false, "El patrón no localiza por sí solo una resistencia anatómica."]
+      ]
+    },
+    {
+      tag: "Contexto neurológico",
+      title: "Contracción detrusoriana y salida activas en una lesión suprasacra",
+      prompt: "¿Qué lectura integra mejor señal y contexto?",
+      evidence: ["Lesión neurológica relevante", "Pdet activa", "Actividad perineal simultánea + flujo limitado"],
+      answers: [
+        ["Hallazgos compatibles con disinergia detrusor-esfínter", true, "Correcto. La conclusión integra la simultaneidad y el contexto neurológico; no depende solo de la forma del flujo."],
+        ["Vaciado disfuncional por definición", false, "Ese término se usa cuando no existe enfermedad neurológica demostrada."],
+        ["EMG aislado confirma cierre uretral", false, "El EMG aporta actividad eléctrica, no una medición directa de cierre."]
+      ]
+    },
+    {
+      tag: "Tiempo",
+      title: "Pdet comienza poco antes de que el flujo llegue al flujómetro",
+      prompt: "¿Qué precaución evita sobrediagnosticar apertura tardía?",
+      evidence: ["Separación breve", "Canales técnicamente adecuados", "Sin evidencia adicional de cierre"],
+      answers: [
+        ["Considerar el retraso fisiológico y del sistema antes de atribuir cierre de salida", true, "Correcto. Una separación breve entre presión y flujo forma parte de la secuencia de apertura y tránsito."],
+        ["Llamar disinergia por el orden temporal", false, "La secuencia aislada no demuestra activación esfinteriana ni aporta contexto neurológico."],
+        ["Ignorar por completo la relación temporal", false, "El tiempo sí importa, pero debe interpretarse con magnitud, señales y contexto."]
+      ]
+    },
+    {
+      tag: "Imitador",
+      title: "Cada pulso de flujo coincide con Pabd; Pdet no se sostiene",
+      prompt: "¿Cuál es la descripción inicial más defendible?",
+      evidence: ["Pujos abdominales repetidos", "Pves y Pabd ascienden juntas", "EMG variable con movimiento"],
+      answers: [
+        ["Micción con participación abdominal que puede imitar mala coordinación", true, "Correcto. Primero se identifica quién genera el flujo; después se evalúa la salida."],
+        ["Disinergia demostrada por flujo y EMG intermitentes", false, "Pabd y movimiento ofrecen una explicación alternativa que debe resolverse."],
+        ["Obstrucción anatómica localizada", false, "No existe información suficiente para localizar una causa anatómica."]
+      ]
+    }
   ]
 };
 
@@ -1286,7 +1578,8 @@ const challengeAnswerOffsets = {
   tracing: [1, 2, 1],
   instrument: [2, 1, 0],
   artifacts: [1, 2, 1],
-  voidingDisorders: [2, 1, 2]
+  voidingDisorders: [2, 1, 2],
+  coordinationDisorders: [1, 2, 1, 2]
 };
 
 function orderedAnswers(answers, offset = 0) {
@@ -1305,7 +1598,8 @@ window.__urodynamicTutorDiagnostics = {
   features: {
     persistentTheme: true,
     traceLocalizationChallenge: true,
-    syntheticChapterTraces: true
+    syntheticChapterTraces: true,
+    coordinationEmgLab: true
   },
   challengeCorrectLetters: Object.fromEntries(
     Object.entries(chapterChallenges).map(([chapterId, challenges]) => [
@@ -1367,7 +1661,8 @@ const chapterFocus = {
   instrument: "signal",
   artifacts: "quality",
   storageDisorders: "inference",
-  voidingDisorders: "inference"
+  voidingDisorders: "inference",
+  coordinationDisorders: "event"
 };
 
 const chapterScenarioDefaults = Object.fromEntries(
@@ -1387,6 +1682,7 @@ const defaultState = {
     pabd: true,
     pdet: true,
     flow: true,
+    emg: true,
     events: true
   },
   demoControls: {
@@ -1403,7 +1699,8 @@ const defaultState = {
     tracePosition: 12,
     pressurePattern: "cough",
     artifactPattern: "cough",
-    voidingPattern: "efficient"
+    voidingPattern: "efficient",
+    coordinationPattern: "coordinated"
   },
   challengeIndex: {
     thinking: 0,
@@ -1411,7 +1708,8 @@ const defaultState = {
     tracing: 0,
     instrument: 0,
     artifacts: 0,
-    voidingDisorders: 0
+    voidingDisorders: 0,
+    coordinationDisorders: 0
   },
   challengeAnswers: {
     thinking: {},
@@ -1419,7 +1717,8 @@ const defaultState = {
     tracing: {},
     instrument: {},
     artifacts: {},
-    voidingDisorders: {}
+    voidingDisorders: {},
+    coordinationDisorders: {}
   },
   labDemo: {
     thinking: "clinicalReasoning",
@@ -1428,7 +1727,8 @@ const defaultState = {
     instrument: "signalMap",
     artifacts: "artifactDetective",
     storageDisorders: "accommodation",
-    voidingDisorders: "pressureFlowMatrix"
+    voidingDisorders: "pressureFlowMatrix",
+    coordinationDisorders: "coordinationTimeline"
   },
   traceChallenge: {
     active: false,
@@ -1475,6 +1775,7 @@ const els = {
   traceTitle: document.getElementById("traceTitle"),
   traceEventCard: document.getElementById("traceEventCard"),
   traceSvg: document.getElementById("traceSvg"),
+  emgLayerControl: document.getElementById("emgLayerControl"),
   traceChallenge: document.getElementById("traceChallenge"),
   traceChallengePrompt: document.getElementById("traceChallengePrompt"),
   traceChallengeInstructions: document.getElementById("traceChallengeInstructions"),
@@ -1757,6 +2058,79 @@ const pressureFlowPatterns = {
     pdet: "M90 52 L610 52",
     pabd: "M90 112 L610 112",
     flow: "M90 178 L610 178"
+  }
+};
+
+const coordinationPatterns = {
+  coordinated: {
+    label: "Coordinado",
+    headline: "Pdet útil + salida relajada + flujo continuo",
+    context: "Micción representativa sin enfermedad neurológica relevante.",
+    outlet: "Se relaja antes del flujo y permanece abierta",
+    outletClass: "open",
+    observed: "La contracción detrusoriana se transforma en flujo sin reactivación perineal relevante.",
+    allowed: "Vaciado coordinado en este registro sintético.",
+    missing: "La eficiencia final todavía debe relacionarse con volumen y residuo.",
+    pdet: "M100 58 L205 58 C225 58 238 32 270 32 L490 32 C520 32 530 58 560 58 L665 58",
+    pabd: "M100 120 L665 120",
+    flow: "M100 184 L220 184 C245 184 260 148 305 143 C365 136 450 146 485 184 L665 184",
+    emg: "M100 246 L205 246 C220 246 230 253 250 253 L510 253 C530 253 540 246 560 246 L665 246"
+  },
+  delayed: {
+    label: "Apertura tardía",
+    headline: "Pdet comienza y la salida cede después",
+    context: "La demora es mayor que un simple desfase técnico en este ejemplo docente.",
+    outlet: "Permanece activa al inicio y luego se relaja",
+    outletClass: "delayed",
+    observed: "Pdet aumenta antes del flujo; el EMG desciende cuando finalmente aparece el flujo.",
+    allowed: "Demora de apertura compatible con relajación tardía si las señales se corroboran.",
+    missing: "Un retraso breve puede ser fisiológico; se necesita magnitud, calidad y apoyo de EMG o imagen.",
+    pdet: "M100 58 L195 58 C218 58 230 29 265 29 L500 29 C525 29 535 58 565 58 L665 58",
+    pabd: "M100 120 L665 120",
+    flow: "M100 184 L305 184 C330 184 345 154 382 148 C430 142 475 156 500 184 L665 184",
+    emg: "M100 246 L195 246 C210 246 220 215 245 215 L295 215 C315 215 325 250 350 250 L665 250"
+  },
+  dysfunctional: {
+    label: "Relajación variable",
+    headline: "Pdet sostenida + flujo y salida intermitentes",
+    context: "No existe una enfermedad neurológica demostrada.",
+    outlet: "Se abre y vuelve a activarse durante el vaciado",
+    outletClass: "variable",
+    observed: "Los cortes del flujo coinciden con reaparición de actividad perineal mientras Pdet continúa.",
+    allowed: "Posible vaciado disfuncional si se excluyen prensa, artefacto y resistencia anatómica.",
+    missing: "La curva intermitente sola no demuestra el mecanismo; primero debe describirse la relación.",
+    pdet: "M100 58 L195 58 C220 58 230 31 265 31 L505 31 C530 31 540 58 565 58 L665 58",
+    pabd: "M100 120 L665 120",
+    flow: "M100 184 L225 184 Q245 143 270 184 Q292 143 317 184 Q339 143 364 184 Q386 143 411 184 Q433 147 458 184 L665 184",
+    emg: "M100 246 L215 246 Q238 210 260 246 Q282 210 304 246 Q326 210 348 246 Q370 210 392 246 Q414 210 436 246 L665 246"
+  },
+  dyssynergia: {
+    label: "Contexto neurológico",
+    headline: "Pdet y salida activas de manera simultánea",
+    context: "Existe una alteración neurológica relevante para el vaciado.",
+    outlet: "Permanece activa mientras el detrusor intenta vaciar",
+    outletClass: "closed",
+    observed: "Pdet elevada coincide con actividad perineal persistente y flujo limitado o intermitente.",
+    allowed: "Hallazgos compatibles con disinergia detrusor-esfínter en este contexto.",
+    missing: "El EMG y la curva aislados no bastan; la imagen puede ayudar a localizar el cierre.",
+    pdet: "M100 58 L190 58 C215 58 225 18 260 18 L510 18 C535 18 545 58 570 58 L665 58",
+    pabd: "M100 120 L665 120",
+    flow: "M100 184 L230 184 Q252 164 275 184 Q297 164 320 184 Q342 164 365 184 Q387 164 410 184 Q432 167 455 184 L665 184",
+    emg: "M100 246 L205 246 Q225 203 245 230 Q265 203 285 230 Q305 203 325 230 Q345 203 365 230 Q385 203 405 230 Q425 203 445 230 L505 225 C530 225 545 246 570 246 L665 246"
+  },
+  abdominalMimic: {
+    label: "Prensa imitadora",
+    headline: "Pabd y flujo por pulsos + Pdet no sostenida",
+    context: "El paciente realiza pujos repetidos durante el intento de vaciado.",
+    outlet: "No puede inferirse solo por la forma del flujo",
+    outletClass: "uncertain",
+    observed: "Cada pulso de flujo coincide con Pabd; el EMG también cambia con esfuerzo o movimiento.",
+    allowed: "Micción con participación abdominal que imita una alteración de coordinación.",
+    missing: "Debe determinarse si la salida ofrece resistencia y si existe una contracción detrusoriana útil.",
+    pdet: "M100 58 L225 58 Q248 51 270 58 Q292 51 314 58 Q336 51 358 58 Q380 51 402 58 Q424 51 446 58 L665 58",
+    pabd: "M100 120 L220 120 Q243 83 266 120 Q289 83 312 120 Q335 83 358 120 Q381 83 404 120 Q427 83 450 120 L665 120",
+    flow: "M100 184 L225 184 Q248 151 271 184 Q294 151 317 184 Q340 151 363 184 Q386 151 409 184 Q432 151 455 184 L665 184",
+    emg: "M100 246 L220 246 Q243 222 266 246 Q289 222 312 246 Q335 222 358 246 Q381 222 404 246 Q427 222 450 246 L665 246"
   }
 };
 
@@ -2353,6 +2727,66 @@ function renderPressureFlowMatrixDemo(demo) {
   `;
 }
 
+function renderCoordinationTimelineDemo(demo) {
+  const patternKey = coordinationPatterns[state.demoControls.coordinationPattern]
+    ? state.demoControls.coordinationPattern
+    : "coordinated";
+  const pattern = coordinationPatterns[patternKey];
+
+  return `
+    <div class="visual-demo-head">
+      <div>
+        <p class="overline">Laboratorio de coordinación</p>
+        <h4>${demo.title}</h4>
+      </div>
+      <span>${demo.subtitle}</span>
+    </div>
+    <div class="demo-tabs coordination-tabs" aria-label="Relaciones temporales entre detrusor y salida">
+      ${Object.entries(coordinationPatterns)
+        .map(([key, item]) => `<button type="button" class="${key === patternKey ? "active" : ""}" aria-pressed="${key === patternKey}" data-coordination-pattern="${key}">${item.label}</button>`)
+        .join("")}
+    </div>
+    <div class="coordination-lab" aria-live="polite">
+      <div class="coordination-figure">
+        <div class="outlet-state ${pattern.outletClass}">
+          <span>Mecanismo de salida</span>
+          <strong>${pattern.outlet}</strong>
+        </div>
+        <svg viewBox="0 0 700 286" role="img" aria-labelledby="coordinationTitle coordinationDesc">
+          <title id="coordinationTitle">${pattern.headline}</title>
+          <desc id="coordinationDesc">Trazado sintético cualitativo de presión detrusoriana, presión abdominal, flujo y actividad electromiográfica perineal.</desc>
+          <rect class="coordination-window" x="195" y="8" width="375" height="256" rx="8" />
+          <line class="coordination-grid" x1="92" y1="58" x2="675" y2="58" />
+          <line class="coordination-grid" x1="92" y1="120" x2="675" y2="120" />
+          <line class="coordination-grid" x1="92" y1="184" x2="675" y2="184" />
+          <line class="coordination-grid" x1="92" y1="246" x2="675" y2="246" />
+          <text class="coordination-label pdet" x="14" y="63">Pdet</text>
+          <text class="coordination-label pabd" x="14" y="125">Pabd</text>
+          <text class="coordination-label flow" x="14" y="189">Flujo</text>
+          <text class="coordination-label emg" x="14" y="251">EMG</text>
+          <path class="coordination-path pdet" d="${pattern.pdet}" />
+          <path class="coordination-path pabd" d="${pattern.pabd}" />
+          <path class="coordination-path flow" d="${pattern.flow}" />
+          <path class="coordination-path emg" d="${pattern.emg}" />
+        </svg>
+        <p class="coordination-context"><span>Contexto</span>${pattern.context}</p>
+      </div>
+      <div class="coordination-reasoning">
+        <p class="overline">Relación seleccionada</p>
+        <h5>${pattern.headline}</h5>
+        <div><span>Qué se observa</span><p>${pattern.observed}</p></div>
+        <div><span>Qué permite decir</span><p>${pattern.allowed}</p></div>
+        <div><span>Qué todavía falta</span><p>${pattern.missing}</p></div>
+      </div>
+    </div>
+    <div class="coordination-rule">
+      <strong>Regla terminológica</strong>
+      <p><b>Disinergia detrusor-esfínter:</b> alteración neurológica relevante. <b>Vaciado disfuncional:</b> relajación inadecuada sin enfermedad neurológica demostrada.</p>
+      <small>El EMG registra actividad eléctrica cercana; no mide directamente el cierre uretral.</small>
+    </div>
+  `;
+}
+
 function renderCurveTimelineDemo(demo) {
   const position = clamp(state.demoControls.tracePosition, 0, 100);
   const moment = traceMoments.find((item) => position <= item.until) || traceMoments[traceMoments.length - 1];
@@ -2570,6 +3004,15 @@ function bindDemoControls() {
     });
   });
 
+  els.visualDemo.querySelectorAll("[data-coordination-pattern]").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (!coordinationPatterns[button.dataset.coordinationPattern]) return;
+      state.demoControls.coordinationPattern = button.dataset.coordinationPattern;
+      renderVisualDemo("coordinationTimeline");
+      saveState();
+    });
+  });
+
   els.visualDemo.querySelectorAll("[data-clinical-stage]").forEach((button) => {
     button.addEventListener("click", () => {
       if (!clinicalReasoningStages[button.dataset.clinicalStage]) return;
@@ -2630,7 +3073,8 @@ function renderVisualDemo(demoId = activeLabDemoId()) {
     pressureEquation: renderPressureEquationDemo,
     signalMap: renderSignalMapDemo,
     artifactDetective: renderArtifactDetectiveDemo,
-    pressureFlowMatrix: renderPressureFlowMatrixDemo
+    pressureFlowMatrix: renderPressureFlowMatrixDemo,
+    coordinationTimeline: renderCoordinationTimelineDemo
   };
   const labOptions = chapterLabDemos[state.chapter] || [];
   state.labDemo[state.chapter] = demoId;
@@ -2857,8 +3301,27 @@ function eventRamp(t, start, amplitude) {
   return ((t - start) / (1 - start)) * amplitude;
 }
 
+function eventPlateau(t, start, end, amplitude) {
+  if (t <= start || t >= end || end <= start) return 0;
+  const edge = Math.min(0.045, (end - start) / 4);
+  if (t < start + edge) return Math.sin(((t - start) / edge) * (Math.PI / 2)) * amplitude;
+  if (t > end - edge) return Math.sin(((end - t) / edge) * (Math.PI / 2)) * amplitude;
+  return amplitude;
+}
+
+function eventTrain(t, start, end, amplitude, cycles = 4) {
+  if (t <= start || t >= end || end <= start) return 0;
+  const progress = (t - start) / (end - start);
+  return Math.pow(Math.sin(progress * Math.PI * cycles), 2) * amplitude;
+}
+
+function isCoordinationPattern(pattern) {
+  return ["delayedOutlet", "variableOutlet", "neuroDyssynergia", "abdominalMimic", "fixedResistance"].includes(pattern);
+}
+
 function isVoidingPattern(pattern) {
-  return ["voiding", "outletResistance", "weakDetrusor", "abdominalVoiding", "inhibitedVoiding"].includes(pattern);
+  return ["voiding", "outletResistance", "weakDetrusor", "abdominalVoiding", "inhibitedVoiding"].includes(pattern)
+    || isCoordinationPattern(pattern);
 }
 
 function scenarioHasFocalEvent(scenario = activePracticeCase()) {
@@ -2884,10 +3347,43 @@ function makeData() {
     const outletResistance = pattern === "outletResistance" ? event : 0;
     const weakDetrusor = pattern === "weakDetrusor" ? event : 0;
     const abdominalVoiding = pattern === "abdominalVoiding" ? event : 0;
-    const flowStart = Math.min(profile.start + 0.035, profile.end - 0.02);
-    const flowRise = isVoidingPattern(pattern) && pattern !== "inhibitedVoiding"
+    const flowStart = profile.flowStart ?? Math.min(profile.start + 0.035, profile.end - 0.02);
+    const flowRise = isVoidingPattern(pattern) && !isCoordinationPattern(pattern) && pattern !== "inhibitedVoiding"
       ? eventPulse(t, flowStart, profile.end, flowAmplitude)
       : 0;
+    const coordinationWindow = isCoordinationPattern(pattern)
+      ? eventPlateau(t, profile.start, profile.end, 1)
+      : 0;
+    const coordinationTrain = isCoordinationPattern(pattern)
+      ? eventTrain(t, flowStart, profile.end, 1, profile.cycles || 4)
+      : 0;
+    const coordinationDetrusor = ["delayedOutlet", "variableOutlet", "neuroDyssynergia", "fixedResistance"].includes(pattern)
+      ? eventPlateau(t, profile.start, profile.end, pressureAmplitude)
+      : 0;
+    const coordinationAbdominal = pattern === "abdominalMimic"
+      ? eventTrain(t, profile.start, profile.end, pressureAmplitude, profile.cycles || 4)
+      : 0;
+    const coordinationFlow = pattern === "delayedOutlet"
+      ? eventPulse(t, flowStart, profile.end, flowAmplitude)
+      : pattern === "variableOutlet"
+        ? coordinationWindow * flowAmplitude * (0.12 + 0.88 * (1 - coordinationTrain))
+        : pattern === "neuroDyssynergia"
+          ? coordinationWindow * flowAmplitude * (0.2 + 0.45 * (1 - coordinationTrain))
+          : pattern === "abdominalMimic"
+            ? coordinationTrain * flowAmplitude
+            : pattern === "fixedResistance"
+              ? eventPulse(t, flowStart, profile.end, flowAmplitude)
+              : 0;
+    const coordinationEmg = pattern === "delayedOutlet"
+      ? eventPlateau(t, profile.start, flowStart, profile.emgAmplitude || 30)
+      : pattern === "variableOutlet"
+        ? coordinationTrain * (profile.emgAmplitude || 30)
+        : pattern === "neuroDyssynergia"
+          ? coordinationWindow * (profile.emgAmplitude || 38) * 0.65
+            + coordinationTrain * (profile.emgAmplitude || 38) * 0.35
+          : pattern === "abdominalMimic"
+            ? coordinationTrain * (profile.emgAmplitude || 24)
+            : 0;
     const signalDrift = pattern === "signal" ? eventRamp(t, profile.start, profile.driftAmplitude || 70) : 0;
     const signalDrop = pattern === "signal" ? eventPulse(t, Math.max(profile.start, profile.end - 0.2), profile.end, 46) : 0;
     const baselineShift = pattern === "baselineShift" && t > profile.start ? profile.baselineAmplitude || 42 : 0;
@@ -2904,11 +3400,12 @@ function makeData() {
 
     points.push({
       x,
-      pves: 214 - fillTrend - cough - flatPabdCough - abdominal - voiding - outletResistance - weakDetrusor - abdominalVoiding - signalDrift + signalDrop - baselineShift - detrusorStorage - lowCompliance - leakAbdominal,
-      pabd: 270 - cough - abdominal - abdominalVoiding - leakAbdominal,
-      pdet: 330 - flatPabdCough - voiding - outletResistance - weakDetrusor - baselineShift - detrusorStorage - lowCompliance - (pattern === "signal" ? signalDrift * 0.55 - signalDrop : 0),
-      flow: 398 - flowRise - leakFlow,
-      volume: 426 - t * 78 + voidingVolumeChange
+      pves: 214 - fillTrend - cough - flatPabdCough - abdominal - voiding - outletResistance - weakDetrusor - abdominalVoiding - coordinationDetrusor - coordinationAbdominal - signalDrift + signalDrop - baselineShift - detrusorStorage - lowCompliance - leakAbdominal,
+      pabd: 270 - cough - abdominal - abdominalVoiding - coordinationAbdominal - leakAbdominal,
+      pdet: 330 - flatPabdCough - voiding - outletResistance - weakDetrusor - coordinationDetrusor - baselineShift - detrusorStorage - lowCompliance - (pattern === "signal" ? signalDrift * 0.55 - signalDrop : 0),
+      flow: 398 - flowRise - coordinationFlow - leakFlow,
+      volume: 426 - t * 78 + voidingVolumeChange,
+      emg: 430 - coordinationEmg
     });
   }
 
@@ -2917,7 +3414,8 @@ function makeData() {
     pabd: points.map((p) => ({ x: p.x, y: p.pabd })),
     pdet: points.map((p) => ({ x: p.x, y: p.pdet })),
     flow: points.map((p) => ({ x: p.x, y: p.flow })),
-    volume: points.map((p) => ({ x: p.x, y: p.volume }))
+    volume: points.map((p) => ({ x: p.x, y: p.volume })),
+    emg: points.map((p) => ({ x: p.x, y: p.emg }))
   };
 }
 
@@ -3015,6 +3513,7 @@ function renderTrace() {
   const scenario = activePracticeCase();
   const profile = activeTraceProfile();
   const data = makeData();
+  const showEmg = state.chapter === "coordinationDisorders";
   const grids = [92, 156, 220, 284, 348, 412]
     .map((y) => `<line class="grid-line" x1="72" y1="${y}" x2="982" y2="${y}" />`)
     .join("");
@@ -3023,11 +3522,12 @@ function renderTrace() {
     ["Pabd", 23, 272],
     ["Pdet", 24, 331],
     ["Flujo", 21, 402],
-    ["Vol", 34, 434]
+    [showEmg ? "EMG" : "Vol", showEmg ? 23 : 34, 434]
   ]
     .map(([text, x, y]) => `<text class="axis-label" x="${x}" y="${y}">${text}</text>`)
     .join("");
-  const layerPaths = ["pves", "pabd", "pdet", "flow", "volume"]
+  const traceLayers = showEmg ? ["pves", "pabd", "pdet", "flow", "emg"] : ["pves", "pabd", "pdet", "flow", "volume"];
+  const layerPaths = traceLayers
     .filter((layer) => layer === "volume" || state.layers[layer])
     .map((layer) => `<path class="trace-path ${layer}" d="${pathFromPoints(data[layer])}" />`)
     .join("");
@@ -3210,6 +3710,7 @@ function renderLayerControls() {
   document.querySelectorAll("[data-layer]").forEach((input) => {
     input.checked = Boolean(state.layers[input.dataset.layer]);
   });
+  els.emgLayerControl.hidden = state.chapter !== "coordinationDisorders";
 }
 
 function renderCoach() {

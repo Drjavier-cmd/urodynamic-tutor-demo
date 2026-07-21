@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>UroDynaMic Tutor - Curso interactivo</title>
     <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="styles.css?v=20260721-voiding-v1" />
+    <link rel="stylesheet" href="styles.css?v=20260721-coordination-v1" />
   </head>
   <body>
     <div class="app-shell">
@@ -80,6 +80,11 @@
             <span>7</span>
             <strong>Trastornos del vaciado</strong>
             <small>Bomba / salida / coordinación</small>
+          </button>
+          <button type="button" class="course-item" data-chapter="coordinationDisorders">
+            <span>8</span>
+            <strong>Coordinación detrusor-salida</strong>
+            <small>Tiempo / EMG / contexto</small>
           </button>
           <p class="course-section-label">Recursos</p>
           <a class="course-item sample-link" href="vision-clinica.html">
@@ -232,6 +237,7 @@
                 <label><input type="checkbox" data-layer="pabd" checked /> Pabd</label>
                 <label><input type="checkbox" data-layer="pdet" checked /> Pdet</label>
                 <label><input type="checkbox" data-layer="flow" checked /> Flujo</label>
+                <label id="emgLayerControl" hidden><input type="checkbox" data-layer="emg" checked /> EMG</label>
                 <label><input type="checkbox" data-layer="events" checked /> Eventos</label>
               </div>
 
@@ -269,6 +275,6 @@
       </main>
     </div>
 
-    <script src="app.js?v=20260721-voiding-v1"></script>
+    <script src="app.js?v=20260721-coordination-v1"></script>
   </body>
 </html>
