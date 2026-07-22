@@ -1,4 +1,4 @@
-const BUILD_REVISION = "20260721-pressure-language-v1";
+const BUILD_REVISION = "20260722-cover-principles-v1";
 
 const chapters = {
   thinking: {
@@ -2953,7 +2953,7 @@ window.__urodynamicTutorDiagnostics = {
     eightStepClinicalReasoning: true,
     foundationsRewriteV1: true,
     pressurePhysicsLab: true,
-    courseCoverV1: true,
+    courseCoverV2: true,
     pressureVocabularyIntro: true
   },
   chapterScreenCounts: Object.fromEntries(

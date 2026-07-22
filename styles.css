@@ -5297,44 +5297,44 @@ html[data-theme="dark"] .physics-principle.warning {
 }
 
 .cover-hero {
-  min-height: min(700px, calc(100vh - 160px));
-  padding: 58px clamp(40px, 6vw, 88px) 48px;
+  min-height: min(650px, calc(100vh - 150px));
+  padding: 72px clamp(40px, 6vw, 88px) 58px;
   display: grid;
-  grid-template-columns: minmax(340px, 0.82fr) minmax(520px, 1.18fr);
   align-items: center;
-  gap: 58px;
   border-bottom: 1px solid var(--line);
   background: #f7fafb;
 }
 
 .cover-copy {
+  width: 100%;
+  max-width: 1180px;
   min-width: 0;
 }
 
 .cover-copy h1 {
   margin: 14px 0 0;
-  max-width: 740px;
+  max-width: none;
   color: #102b34;
-  font-size: 68px;
-  line-height: 0.98;
+  font-size: 88px;
+  line-height: 1;
   letter-spacing: 0;
 }
 
 .cover-thesis {
-  margin: 24px 0 0;
-  max-width: 630px;
+  margin: 30px 0 0;
+  max-width: 940px;
   color: #1a525d;
-  font-size: 25px;
+  font-size: 38px;
   font-weight: 850;
-  line-height: 1.25;
+  line-height: 1.18;
 }
 
 .cover-summary {
-  margin: 15px 0 0;
-  max-width: 590px;
+  margin: 16px 0 0;
+  max-width: 760px;
   color: #4a646c;
-  font-size: 16px;
-  line-height: 1.55;
+  font-size: 18px;
+  line-height: 1.5;
 }
 
 .cover-actions {
@@ -5357,21 +5357,6 @@ html[data-theme="dark"] .physics-principle.warning {
   font-weight: 850;
 }
 
-.cover-trace {
-  min-width: 0;
-  margin: 0;
-  align-self: stretch;
-  display: grid;
-  align-content: center;
-  gap: 16px;
-}
-
-.cover-trace figcaption {
-  display: grid;
-  gap: 5px;
-}
-
-.cover-trace figcaption span,
 .cover-next span {
   color: var(--teal);
   font-size: 11px;
@@ -5379,102 +5364,28 @@ html[data-theme="dark"] .physics-principle.warning {
   text-transform: uppercase;
 }
 
-.cover-trace figcaption strong {
-  max-width: 620px;
-  color: #18343d;
-  font-size: 18px;
-  line-height: 1.3;
-}
-
-.cover-trace svg {
-  width: 100%;
-  height: auto;
-  min-height: 290px;
-  overflow: visible;
-  border-top: 1px solid #bfcfd4;
-  border-bottom: 1px solid #bfcfd4;
-}
-
-.cover-trace-grid line {
-  stroke: #d8e3e6;
-  stroke-width: 1;
-}
-
-.cover-trace-labels text {
-  fill: #526a72;
-  font-size: 10px;
-  font-weight: 850;
-}
-
-.cover-event-band {
-  fill: rgba(184, 109, 22, 0.11);
-  stroke: rgba(184, 109, 22, 0.36);
-}
-
-.cover-event-label {
-  fill: #92530d;
-  font-size: 12px;
-  font-weight: 900;
-}
-
-.cover-line {
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 3;
-}
-
-.cover-line.pves {
-  stroke: var(--cyan);
-}
-
-.cover-line.pabd {
-  stroke: var(--amber);
-}
-
-.cover-line.pdet {
-  stroke: var(--rose);
-}
-
-.cover-line.flow {
-  stroke: var(--green);
-}
-
-.cover-trace-note {
-  display: grid;
-  grid-template-columns: 72px minmax(0, 1fr);
-  gap: 12px;
-  align-items: baseline;
-}
-
-.cover-trace-note span {
-  color: #6d7f85;
-  font-size: 11px;
-  font-weight: 950;
-  text-transform: uppercase;
-}
-
-.cover-trace-note strong {
-  color: #29444d;
-  font-size: 14px;
-  line-height: 1.4;
-}
-
 .cover-principles {
-  padding: 38px clamp(40px, 6vw, 88px);
+  padding: 46px clamp(40px, 6vw, 88px);
   display: grid;
-  grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.28fr);
-  gap: 54px;
-  align-items: center;
+  grid-template-columns: 1fr;
+  gap: 30px;
   background: #ffffff;
   border-bottom: 1px solid var(--line);
 }
 
 .cover-principles h2 {
-  margin: 7px 0 0;
-  max-width: 420px;
-  font-size: 25px;
-  line-height: 1.15;
+  margin: 0;
+  color: #102b34;
+  font-size: 40px;
+  line-height: 1.08;
+}
+
+.cover-principles header > p {
+  margin: 8px 0 0;
+  color: #60777e;
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.4;
 }
 
 .cover-principles ol {
@@ -5487,10 +5398,10 @@ html[data-theme="dark"] .physics-principle.warning {
 
 .cover-principles li {
   min-width: 0;
-  padding: 2px 22px;
+  padding: 4px 28px;
   display: grid;
   grid-template-columns: 34px minmax(0, 1fr);
-  gap: 12px;
+  gap: 14px;
   border-left: 1px solid var(--line);
 }
 
@@ -5507,7 +5418,7 @@ html[data-theme="dark"] .physics-principle.warning {
 
 .cover-principles strong {
   display: block;
-  font-size: 17px;
+  font-size: 18px;
 }
 
 .cover-principles p {
@@ -5664,7 +5575,7 @@ html[data-theme="dark"] .cover-hero {
 }
 
 html[data-theme="dark"] .cover-copy h1,
-html[data-theme="dark"] .cover-trace figcaption strong {
+html[data-theme="dark"] .cover-principles h2 {
   color: #edf6f7;
 }
 
@@ -5672,7 +5583,7 @@ html[data-theme="dark"] .cover-thesis {
   color: #99d4d5;
 }
 
-html[data-theme="dark"] :is(.cover-summary, .cover-resume, .cover-trace-note strong, .cover-next p, .cover-principles p) {
+html[data-theme="dark"] :is(.cover-summary, .cover-resume, .cover-next p, .cover-principles p) {
   color: #abc0c5;
 }
 
@@ -5684,41 +5595,19 @@ html[data-theme="dark"] .cover-next {
   background: #132227;
 }
 
-html[data-theme="dark"] .cover-trace svg {
-  border-color: #3b555d;
-}
-
-html[data-theme="dark"] .cover-trace-grid line {
-  stroke: #2d444b;
-}
-
-html[data-theme="dark"] .cover-trace-labels text {
-  fill: #a9bec3;
-}
-
-html[data-theme="dark"] .cover-event-label {
-  fill: #f0b76c;
-}
-
 @media (max-width: 1600px) {
-  .cover-hero {
-    grid-template-columns: minmax(300px, 0.85fr) minmax(400px, 1.15fr);
-    gap: 30px;
-  }
-
   .cover-copy h1 {
-    font-size: 48px;
+    font-size: 72px;
   }
 }
 
 @media (max-width: 1280px) {
-  .cover-hero {
-    grid-template-columns: minmax(300px, 0.85fr) minmax(400px, 1.15fr);
-    gap: 30px;
+  .cover-copy h1 {
+    font-size: 64px;
   }
 
-  .cover-copy h1 {
-    font-size: 48px;
+  .cover-thesis {
+    font-size: 32px;
   }
 }
 
@@ -5729,15 +5618,13 @@ html[data-theme="dark"] .cover-event-label {
 
   .cover-hero {
     min-height: auto;
-    grid-template-columns: 1fr;
     padding-top: 46px;
   }
 
-  .cover-trace {
-    max-width: 760px;
+  .cover-copy h1 {
+    font-size: 56px;
   }
 
-  .cover-principles,
   .cover-next {
     grid-template-columns: 1fr;
     gap: 24px;
@@ -5785,18 +5672,13 @@ html[data-theme="dark"] .cover-event-label {
     width: 100%;
   }
 
-  .cover-trace svg {
-    min-height: 0;
-  }
-
-  .cover-trace-note {
-    grid-template-columns: 1fr;
-    gap: 4px;
-  }
-
   .cover-principles,
   .cover-next {
     padding: 28px 20px;
+  }
+
+  .cover-principles h2 {
+    font-size: 32px;
   }
 
   .cover-principles ol {
