@@ -162,8 +162,9 @@
             <p class="overline" id="stageBlock">Bloque I · Fundamentos antes de interpretar curvas</p>
             <h2 id="chapterTitle">Cómo pensar una urodinamia</h2>
           </div>
-          <div class="progress-box" aria-label="Progreso del piloto">
-            <span id="progressLabel">Lección 1 de 7</span>
+          <div class="progress-box" aria-label="Dominio de competencias">
+            <span id="progressLabel">Dominio · sin evidencia</span>
+            <small id="progressDetail">Lección 1 de 18</small>
             <div class="progress-track"><div id="progressFill"></div></div>
             <button type="button" id="resetProgress" class="small-action">Reiniciar ruta</button>
           </div>
@@ -181,6 +182,10 @@
           <button type="button" data-view="practice" aria-pressed="false">
             <span>3</span>
             <div><strong>Práctica</strong><small>Aplicarlo al trazado</small></div>
+          </button>
+          <button type="button" data-view="assessment" aria-pressed="false">
+            <span>4</span>
+            <div><strong>Evaluación</strong><small>Demostrar dominio</small></div>
           </button>
         </nav>
 
@@ -207,6 +212,8 @@
               <p class="lesson-text" id="screenText"></p>
 
               <div class="lesson-prompt" id="lessonPrompt"></div>
+
+              <aside class="chapter-governance" id="chapterGovernance" aria-label="Estado científico del capítulo"></aside>
 
               <details class="context-panel" id="contextPanel">
                 <summary>
@@ -290,8 +297,28 @@
               <div class="trace-event-card" id="traceEventCard"></div>
 
               <div class="trace-canvas">
-                <svg id="traceSvg" viewBox="0 0 1060 470" role="img" aria-label="Trazado urodinámico docente sintético"></svg>
+                <svg id="traceSvg" viewBox="0 0 1060 470" role="img" tabindex="0" aria-label="Trazado urodinámico docente sintético"></svg>
               </div>
+
+              <details class="trace-accessibility">
+                <summary>Descripción y tabla accesible del trazado</summary>
+                <p id="traceTextSummary"></p>
+                <div class="trace-table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th scope="col">Tiempo</th>
+                        <th scope="col">Pves (rel.)</th>
+                        <th scope="col">Pabd (rel.)</th>
+                        <th scope="col">Pdet (rel.)</th>
+                        <th scope="col">Flujo (rel.)</th>
+                        <th scope="col">Evento</th>
+                      </tr>
+                    </thead>
+                    <tbody id="traceDataTable"></tbody>
+                  </table>
+                </div>
+              </details>
 
               <section class="trace-challenge" id="traceChallenge" aria-label="Reto de localización sobre el trazado">
                 <div class="trace-challenge-copy">
@@ -318,9 +345,43 @@
             </article>
           </section>
         </div>
+
+        <section class="view-panel assessment-workspace" id="assessmentView" data-view-panel="assessment" hidden>
+          <header class="assessment-intro">
+            <div>
+              <p class="overline">Centro de dominio</p>
+              <h3>Demostrar razonamiento, no solo completar pantallas</h3>
+            </div>
+            <p>Pretest, postest, caso final y constructor de informe utilizan la misma matriz de ocho competencias.</p>
+          </header>
+
+          <section class="mastery-overview" aria-label="Dominio por competencia">
+            <div class="mastery-summary" id="masterySummary"></div>
+            <div class="competency-grid" id="competencyGrid"></div>
+          </section>
+
+          <nav class="assessment-tabs" aria-label="Secciones de evaluación">
+            <button type="button" data-assessment-section="overview">Resumen</button>
+            <button type="button" data-assessment-section="pretest">Pretest</button>
+            <button type="button" data-assessment-section="posttest">Postest</button>
+            <button type="button" data-assessment-section="capstone">Caso final</button>
+            <button type="button" data-assessment-section="report">Informe razonado</button>
+            <button type="button" data-assessment-section="governance">Gobernanza</button>
+            <button type="button" data-assessment-section="instructor">Modo docente</button>
+          </nav>
+
+          <section class="assessment-content" id="assessmentContent" aria-live="polite"></section>
+        </section>
       </main>
     </div>
 
-    <script src="app.js?v=20260722-cover-principles-v1"></script>
+    <script src="course-content.js?v=20260723-competency-system-v1"></script>
+    <script src="practice-data.js?v=20260723-competency-system-v1"></script>
+    <script src="lab-data.js?v=20260723-competency-system-v1"></script>
+    <script src="challenge-data.js?v=20260723-competency-system-v1"></script>
+    <script src="competency-model.js?v=20260723-competency-system-v1"></script>
+    <script src="assessment-engine.js?v=20260723-competency-system-v1"></script>
+    <script src="assessment-ui.js?v=20260723-competency-system-v1"></script>
+    <script src="app.js?v=20260723-competency-system-v1"></script>
   </body>
 </html>
