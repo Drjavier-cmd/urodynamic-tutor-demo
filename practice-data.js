@@ -7,24 +7,24 @@ const chapterPracticeCases = {
     {
       ...scenarios.leak,
       id: "thinkingQuestion",
-      tabLabel: "Pregunta y fuga",
+      tabLabel: "Formular la pregunta",
       pattern: "leak",
-      focus: "limit",
+      focus: "question",
       answerOffset: 1,
-      title: "¿El trazado respondió la pregunta?",
-      eventLabel: "tos registrada + fuga observada",
+      title: "La historia antes del trazado",
+      eventLabel: "relato de pérdida al toser",
       event: {
         ...scenarios.leak.event,
         title: "Caso sintético: pérdida referida al toser",
-        label: "pregunta antes del trazado",
-        reading: "La maniobra, las presiones y la fuga solo son útiles si responden al fenómeno que se buscaba reproducir.",
-        caution: "Primero pregunta; después condiciones, señal y límite."
+        label: "pregunta antes del examen",
+        reading: "La paciente relata pérdida al toser. Antes de mirar las curvas hay que transformar ese relato en una pregunta que el estudio pueda intentar responder.",
+        caution: "No anticipes el mecanismo ni el diagnóstico."
       },
-      question: "Antes de cerrar una conclusión, ¿qué relación debes comprobar?",
+      question: "¿Cuál es la pregunta inicial más útil?",
       answers: [
-        ["Que la señal observada responda la pregunta original y conserve sus límites", true, "Correcto. El hallazgo adquiere sentido al responder una pregunta definida en condiciones conocidas."],
-        ["Que exista el mayor número posible de curvas llamativas", false, "La cantidad de señales no reemplaza una pregunta clínica-funcional."],
-        ["Que toda fuga reciba automáticamente una etiqueta diagnóstica", false, "El patrón observado todavía debe integrarse con historia, técnica y contexto."]
+        ["¿Se reproduce la pérdida al toser durante el estudio y bajo qué condiciones?", true, "Correcto. La pregunta conserva el relato y permite una respuesta verificable sin adelantar el mecanismo."],
+        ["¿Qué diagnóstico confirmará la urodinamia?", false, "La formulación da por cierta una conclusión que todavía no ha sido demostrada."],
+        ["¿Qué curva se verá más anormal?", false, "La apariencia de las curvas no reemplaza la incertidumbre clínica que motivó el examen."]
       ]
     },
     {
@@ -58,42 +58,42 @@ const chapterPracticeCases = {
       focus: "limit",
       answerOffset: 0,
       title: "El paciente no reconoce esta micción",
-      eventLabel: "sin flujo con catéteres",
+      eventLabel: "micción que el paciente no reconoce como habitual",
       event: {
         ...scenarios.inhibitedVoiding.event,
         title: "Caso sintético: micción inhibida durante el estudio",
         label: "representatividad",
-        reading: "No aparece contracción ni flujo con los catéteres, pero el paciente orina normalmente después de retirarlos.",
-        caution: "La fase instrumentada no permite demostrar acontractilidad."
+        reading: "Durante el estudio la paciente no logra orinar de su forma habitual, pero después de retirar los catéteres presenta una micción que sí reconoce como propia.",
+        caution: "Lo registrado bajo instrumentación puede no representar la función cotidiana."
       },
       question: "¿Qué conclusión respeta mejor la evidencia completa?",
       answers: [
-        ["La micción instrumentada no fue representativa y no demuestra acontractilidad", true, "Correcto. La micción posterior obliga a incorporar inhibición y representatividad."],
-        ["La ausencia de flujo confirma obstrucción", false, "Sin una relación presión-flujo interpretable no puede demostrarse obstrucción."],
-        ["El relato posterior no modifica el trazado", false, "La experiencia del paciente y la micción posterior forman parte del contexto interpretativo."]
+        ["La micción durante el estudio no fue representativa y el mecanismo permanece abierto", true, "Correcto. La experiencia de la paciente limita el alcance de lo registrado."],
+        ["El estudio demuestra por sí solo la causa del problema", false, "Una micción no habitual no permite atribuir automáticamente un mecanismo."],
+        ["La experiencia posterior no modifica la interpretación", false, "Lo que la paciente reconoce como habitual forma parte de la representatividad del examen."]
       ]
     },
     {
       ...scenarios.signal,
       id: "thinkingQuality",
-      tabLabel: "Pabd defectuosa",
-      pattern: "flatPabd",
-      focus: "quality",
+      tabLabel: "Utilidad clínica",
+      pattern: "storage",
+      focus: "question",
       answerOffset: 1,
-      title: "La tos no se transmite en Pabd",
-      eventLabel: "Pves responde; Pabd permanece plana",
+      title: "Un resultado que no responde la consulta",
+      eventLabel: "hallazgo no relacionado con la pregunta inicial",
       event: {
         ...scenarios.signal.event,
-        title: "Caso sintético: una señal derivada engañosa",
-        label: "calidad antes de fisiología",
-        reading: "Durante una tos, Pves aumenta y Pabd permanece plana; Pdet hereda un pico artificial.",
-        caution: "Primero se corrige o limita el canal abdominal; después se interpreta fisiología."
+        title: "Caso sintético: un dato llamativo fuera de la pregunta",
+        label: "relevancia clínica",
+        reading: "El registro contiene un dato llamativo, pero la solicitud no explica qué incertidumbre se intentaba resolver ni qué decisión depende de ese resultado.",
+        caution: "Un dato puede ser real y aun así no responder la consulta principal."
       },
-      question: "¿Qué debe hacerse antes de interpretar Pdet?",
+      question: "¿Qué debe recuperarse antes de asignarle importancia clínica?",
       answers: [
-        ["Verificar posición, conexión y transmisión del canal abdominal", true, "Correcto. Pdet no es confiable si una de sus señales de entrada es defectuosa."],
-        ["Informar una contracción detrusoriana", false, "La discordancia durante la tos exige primero resolver la calidad técnica."],
-        ["Usar Pves como sustituto de Pdet", false, "Pves incluye la contribución abdominal y no reemplaza la resta multicanal."]
+        ["La pregunta original y la decisión clínica que debía informar", true, "Correcto. La relevancia del dato depende de la pregunta y del contexto que motivaron el estudio."],
+        ["Una etiqueta diagnóstica basada solo en el dato llamativo", false, "Nombrar primero el hallazgo no resuelve si era pertinente para la consulta."],
+        ["La curva de mayor amplitud para convertirla en conclusión", false, "La magnitud visual no reemplaza la integración con la pregunta clínica."]
       ]
     }
   ],
@@ -106,26 +106,66 @@ const chapterPracticeCases = {
       focus: "phase",
       answerOffset: 2,
       title: "Reservorio de baja presión",
-      question: "¿Qué relación funcional corresponde a este trazado de almacenamiento?"
+      eventLabel: "llenado progresivo con continencia",
+      event: {
+        ...scenarios.storage.event,
+        title: "Caso sintético: el sistema está almacenando",
+        label: "programa de almacenamiento",
+        reading: "La vejiga recibe volumen, permanece relajada, la salida conserva continencia y la sensación progresa sin iniciar todavía el vaciado.",
+        caution: "Describe primero el objetivo coordinado de esta fase."
+      },
+      question: "¿Qué relación funcional corresponde a este programa?",
+      answers: [
+        ["Vejiga relajada, salida resistente, sensación progresiva y posibilidad de postergar", true, "Correcto. El almacenamiento combina baja presión, continencia, información sensitiva y control voluntario."],
+        ["Vejiga contráctil y salida abierta para generar flujo", false, "Esa coordinación corresponde al programa de vaciado."],
+        ["Ausencia completa de actividad nerviosa y muscular", false, "El almacenamiento parece quieto, pero requiere coordinación activa del sistema."]
+      ]
     },
     {
       ...scenarios.voiding,
       id: "physiologyVoiding",
       tabLabel: "Vaciado",
       pattern: "voiding",
-      focus: "inference",
+      focus: "phase",
       answerOffset: 1,
-      title: "Cambio coordinado hacia vaciado"
+      title: "Cambio coordinado hacia vaciado",
+      eventLabel: "decisión de orinar y aparición de flujo",
+      event: {
+        ...scenarios.voiding.event,
+        title: "Caso sintético: el sistema cambia de programa",
+        label: "programa de vaciado",
+        reading: "La persona autoriza la micción, la salida reduce su resistencia y la vejiga inicia una contracción sostenida que produce flujo.",
+        caution: "Bomba y salida deben cambiar de programa de forma coordinada."
+      },
+      question: "¿Qué secuencia permite que aparezca flujo?",
+      answers: [
+        ["Decisión de orinar, reducción de la resistencia de salida y contracción vesical sostenida", true, "Correcto. La transición coordinada convierte el reservorio en una bomba con una vía de salida disponible."],
+        ["Aumento de la resistencia uretral mientras la vejiga permanece relajada", false, "Esa relación mantiene el almacenamiento y no genera un vaciado coordinado."],
+        ["Sensación de llenado sin cambio en vejiga ni salida", false, "La sensación puede iniciar la decisión, pero el flujo requiere cambios motores coordinados."]
+      ]
     },
     {
-      ...scenarios.lowCompliance,
+      ...scenarios.storage,
       id: "physiologyAccommodation",
       tabLabel: "Acomodación",
-      pattern: "lowCompliance",
-      focus: "signal",
+      pattern: "storage",
+      focus: "inference",
       answerOffset: 2,
-      title: "Cuando el volumen comienza a costar presión",
-      question: "¿Qué relación fisiológica debe evaluarse primero?"
+      title: "Ganar volumen manteniendo baja la presión",
+      eventLabel: "aumento progresivo del volumen vesical",
+      event: {
+        ...scenarios.storage.event,
+        title: "Caso sintético: acomodación durante el llenado",
+        label: "propiedad del reservorio",
+        reading: "A medida que recibe orina, la pared vesical se distiende y el volumen aumenta sin un incremento proporcional de la presión.",
+        caution: "La fórmula se aprenderá después; aquí importa comprender la propiedad fisiológica."
+      },
+      question: "¿Qué propiedad normal permite este comportamiento?",
+      answers: [
+        ["La capacidad de aumentar volumen con un cambio pequeño de presión", true, "Correcto. Esa es la idea fisiológica central de la acomodación vesical."],
+        ["La contracción sostenida del detrusor durante todo el llenado", false, "Durante el almacenamiento la vejiga debe permanecer relajada mientras recibe volumen."],
+        ["El aumento progresivo de la resistencia de salida para elevar la presión vesical", false, "La salida mantiene continencia, pero la baja presión depende de la acomodación del reservorio."]
+      ]
     }
   ],
   tracing: [
@@ -766,7 +806,7 @@ const practiceTraceProfiles = {
   thinkingQuality: { start: 0.47, end: 0.54, fillSlope: 9, pressureAmplitude: 52 },
   physiologyStorage: { start: 0.08, end: 0.92, fillSlope: 12, pressureAmplitude: 0, flowAmplitude: 0 },
   physiologyVoiding: { start: 0.62, end: 0.91, fillSlope: 11, pressureAmplitude: 58, flowAmplitude: 72 },
-  physiologyAccommodation: { start: 0.24, end: 0.9, fillSlope: 10, complianceAmplitude: 76 },
+  physiologyAccommodation: { start: 0.14, end: 0.9, fillSlope: 16, pressureAmplitude: 0, flowAmplitude: 0 },
   tracingCough: { start: 0.32, end: 0.39, fillSlope: 13, pressureAmplitude: 52 },
   tracingSustained: { start: 0.45, end: 0.76, fillSlope: 13, pressureAmplitude: 43 },
   tracingVoiding: { start: 0.68, end: 0.94, fillSlope: 14, pressureAmplitude: 54, flowAmplitude: 65 },

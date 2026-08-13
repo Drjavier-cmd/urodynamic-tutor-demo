@@ -1,6 +1,7 @@
-# UroDynaMic Tutor - Demo
+# UroDynaMic Tutor
 
-Version publica de prueba del curso interactivo UroDynaMic Tutor.
+Curso interactivo completo de razonamiento urodinamico, disponible temporalmente
+con acceso publico libre.
 
 ## Abrir El Curso
 
@@ -8,8 +9,10 @@ https://drjavier-cmd.github.io/urodynamic-tutor-demo/
 
 ## Revision Actual
 
-La revision `20260723-competency-system-v1` incorpora:
+La revision `20260811-physiology-first-v1` incorpora:
 
+- diez capitulos con lecciones, laboratorios, practica y evaluacion;
+- fisiologia normal antes de curvas, formulas y patologia;
 - dominio por ocho competencias;
 - pretest y postest estructurados;
 - caso final sintetico con revision humana;
@@ -24,5 +27,10 @@ Material exclusivamente educativo. No debe utilizarse para diagnostico, informes
 clinicos ni decisiones terapeuticas. El constructor de informe genera solo un
 borrador docente que requiere revision humana.
 
-Este repositorio contiene los archivos estaticos necesarios para la demostracion
-publica. El proyecto de desarrollo principal permanece privado.
+El curso se encuentra en fase de piloto docente. La validacion tecnica interna
+esta completada, pero la revision cientifica externa y la prueba de usabilidad
+institucional continuan en curso. No equivale a aprobacion institucional,
+certificacion de competencia clinica ni herramienta diagnostica.
+
+Este repositorio contiene los archivos estaticos necesarios para el acceso
+publico. El proyecto de desarrollo principal permanece privado.

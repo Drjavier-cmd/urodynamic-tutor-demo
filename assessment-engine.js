@@ -170,6 +170,18 @@
     return { id: "mastery", label: "Dominio" };
   }
 
+  function globalMasteryLevel(percent, accuracyPercent, competencies, minimumEvidence) {
+    const attempted = competencies.reduce((sum, competency) => sum + competency.attempted, 0);
+    if (!attempted) return { id: "none", label: "Sin evidencia" };
+    if (accuracyPercent < 60) return { id: "initial", label: "Inicial" };
+
+    const hasRequiredCoverage = competencies.every(
+      (competency) => competency.attempted >= minimumEvidence
+    );
+    if (percent < 80 || !hasRequiredCoverage) return { id: "developing", label: "En desarrollo" };
+    return { id: "mastery", label: "Dominio" };
+  }
+
   function calculateMastery(model, assessmentState, courseContext) {
     const evidence = Object.fromEntries(
       model.competencies.map((competency) => [competency.id, { attempted: 0, correct: 0 }])
@@ -231,14 +243,38 @@
     });
     const totalAttempted = competencies.reduce((sum, competency) => sum + competency.attempted, 0);
     const totalCorrect = competencies.reduce((sum, competency) => sum + competency.correct, 0);
-    const percent = totalAttempted ? Math.round((totalCorrect / totalAttempted) * 100) : 0;
+    const accuracyPercent = totalAttempted ? Math.round((totalCorrect / totalAttempted) * 100) : 0;
+    const evidencedCompetencies = competencies.filter((competency) => competency.attempted > 0).length;
+    const minimumEvidencePerCompetency = 2;
+    const competenciesWithMinimumEvidence = competencies.filter(
+      (competency) => competency.attempted >= minimumEvidencePerCompetency
+    ).length;
+    const masteredCompetencies = competencies.filter(
+      (competency) => competency.level.id === "mastery"
+    ).length;
+    const coveragePercent = Math.round((evidencedCompetencies / competencies.length) * 100);
+    const percent = Math.round(
+      competencies.reduce((sum, competency) => sum + competency.percent, 0) / competencies.length
+    );
 
     return {
       competencies,
       attempted: totalAttempted,
       correct: totalCorrect,
       percent,
-      level: masteryLevel(percent, totalAttempted)
+      accuracyPercent,
+      coveragePercent,
+      evidencedCompetencies,
+      competenciesWithMinimumEvidence,
+      masteredCompetencies,
+      requiredCompetencies: competencies.length,
+      minimumEvidencePerCompetency,
+      level: globalMasteryLevel(
+        percent,
+        accuracyPercent,
+        competencies,
+        minimumEvidencePerCompetency
+      )
     };
   }
 

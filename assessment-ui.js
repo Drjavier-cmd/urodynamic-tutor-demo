@@ -50,9 +50,9 @@
     function renderMastery() {
       const current = mastery();
       elements.masterySummary.innerHTML = `
-        <span>Dominio global</span>
+        <span>Dominio global con cobertura</span>
         <strong>${current.percent}%</strong>
-        <p>${escapeHtml(current.level.label)} · ${current.correct} de ${current.attempted} evidencias correctas</p>
+        <p>${escapeHtml(current.level.label)} · ${current.evidencedCompetencies} de ${current.requiredCompetencies} competencias con evidencia · precisión ${current.accuracyPercent}%</p>
       `;
       elements.competencyGrid.innerHTML = current.competencies
         .map(
@@ -60,7 +60,7 @@
             <article class="competency-item level-${competency.level.id}">
               <header>
                 <strong>${escapeHtml(competency.label)}</strong>
-                <span>${competency.attempted ? `${competency.percent}%` : "Sin evidencia"}</span>
+                <span>${competency.attempted ? `${competency.percent}% de precisión` : "Sin evidencia"}</span>
               </header>
               <div class="competency-meter" aria-label="${escapeHtml(competency.label)}: ${competency.percent}%">
                 <i style="width:${competency.percent}%"></i>
@@ -532,11 +532,13 @@
             <p>${escapeHtml(governance.contentPolicy)}</p>
           </header>
           <dl class="governance-meta">
+            <div><dt>Estado del producto</dt><dd>${escapeHtml(governance.productStatus)}</dd></div>
             <div><dt>Versión del producto</dt><dd>${escapeHtml(governance.productVersion)}</dd></div>
             <div><dt>Línea base</dt><dd>${escapeHtml(governance.contentBaseline)}</dd></div>
             <div><dt>Autor clínico</dt><dd>${escapeHtml(governance.author)}</dd></div>
             <div><dt>Revisor externo</dt><dd>${escapeHtml(governance.externalReviewer)}</dd></div>
           </dl>
+          <p class="governance-beta-note">${escapeHtml(governance.reviewSummary)}</p>
           <div class="governance-table-wrap">
             <table>
               <thead><tr><th>Capítulo</th><th>Estado</th><th>Fuente</th><th>Revisión</th></tr></thead>

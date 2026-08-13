@@ -2,14 +2,14 @@
 const chapterChallenges = {
   thinking: [
     {
-      tag: "Dato vs inferencia",
-      title: "Dos canales responden a una tos",
-      prompt: "¿Cuál es la descripción más defendible antes de explicar el fenómeno?",
-      evidence: ["Evento: tos", "Pves aumenta", "Pabd aumenta"],
+      tag: "Pregunta clínica",
+      title: "La paciente refiere pérdida al toser",
+      prompt: "¿Cuál es la mejor pregunta antes de iniciar el estudio?",
+      evidence: ["Relato: pérdida al toser", "Mecanismo aún no demostrado", "Decisión clínica pendiente"],
       answers: [
-        ["Pves y Pabd aumentaron durante el evento registrado", true, "Correcto. Eso describe lo observado sin transformar todavía la señal en una explicación."],
-        ["Se demostró una contracción detrusoriana", false, "Eso ya es una inferencia y no se sostiene solo porque Pves aumentó."],
-        ["La tos explica por completo los síntomas del paciente", false, "El evento ayuda a contextualizar la señal, pero no explica por sí solo el caso clínico."]
+        ["¿Se reproduce la pérdida al toser durante el estudio y bajo qué condiciones?", true, "Correcto. Convierte el relato en una pregunta verificable sin anticipar el mecanismo."],
+        ["¿Qué diagnóstico confirmará inevitablemente el examen?", false, "La pregunta no debe contener de antemano una conclusión diagnóstica."],
+        ["¿Qué anormalidad aparecerá si registramos suficientes curvas?", false, "Buscar cualquier anormalidad no responde una incertidumbre clínica definida."]
       ]
     },
     {
@@ -24,25 +24,25 @@ const chapterChallenges = {
       ]
     },
     {
-      tag: "Calidad antes de significado",
-      title: "La tos no aparece en Pabd",
-      prompt: "¿Cuál debe ser el siguiente paso antes de interpretar Pdet?",
-      evidence: ["Evento: tos", "Pves responde", "Pabd permanece plana"],
+      tag: "Utilidad del examen",
+      title: "La solicitud no contiene una pregunta",
+      prompt: "¿Qué debe aclararse antes de interpretar cualquier resultado?",
+      evidence: ["Síntomas descritos de forma general", "Sin fenómeno prioritario", "Sin decisión asociada"],
       answers: [
-        ["Verificar el canal abdominal y su transmisión", true, "Correcto. Si Pabd no representa bien el evento, la presión derivada pierde confiabilidad fisiológica."],
-        ["Concluir actividad detrusoriana", false, "La discordancia durante una tos obliga primero a revisar la medición."],
-        ["Ignorar Pabd y usar solo Pves", false, "Eso elimina justamente el control que permite separar presión abdominal de actividad vesical."]
+        ["Qué incertidumbre clínica debe resolver y qué cambiaría con la respuesta", true, "Correcto. La utilidad del estudio comienza por una pregunta vinculada a una decisión."],
+        ["Qué curva tendrá la mayor amplitud", false, "La apariencia de una curva no define la utilidad clínica del examen."],
+        ["Qué diagnóstico es más frecuente en esa edad", false, "La frecuencia previa no sustituye la pregunta concreta de esta persona."]
       ]
     },
     {
-      tag: "Cinco niveles",
-      title: "Del relato al diagnóstico",
-      prompt: "¿Cuál opción corresponde estrictamente a una medición del instrumento?",
-      evidence: ["Síntoma: pérdida al toser", "Evento: tos", "Curvas multicanal"],
+      tag: "Niveles de información",
+      title: "Del relato a la observación",
+      prompt: "¿Cuál opción describe solo lo observado durante el estudio?",
+      evidence: ["Relato previo: pérdida al toser", "Durante la prueba se indicó toser", "No se observó pérdida"],
       answers: [
-        ["Aumento simultáneo de Pves y Pabd", true, "Correcto. Describe señales registradas sin convertirlas todavía en hallazgo o diagnóstico."],
-        ["Incontinencia urodinámica de esfuerzo", false, "Eso es un hallazgo interpretado a partir de señal, evento y fuga."],
-        ["Trastorno clínico del mecanismo de cierre", false, "Eso exige integrar historia, examen y contexto más allá de la medición."]
+        ["No se observó pérdida durante la tos realizada en esas condiciones", true, "Correcto. Describe el episodio sin negar el relato ni inventar un mecanismo."],
+        ["La paciente nunca pierde al toser", false, "Una observación negativa durante el estudio no invalida automáticamente la experiencia cotidiana."],
+        ["El mecanismo de continencia es necesariamente normal", false, "Esa explicación excede lo que permite afirmar la observación mostrada."]
       ]
     },
     {
@@ -81,14 +81,14 @@ const chapterChallenges = {
       ]
     },
     {
-      tag: "Coordinación",
-      title: "La bomba actúa contra una salida cerrada",
-      prompt: "Sin asignar todavía un diagnóstico, ¿qué relación funcional está fallando?",
-      evidence: ["Detrusor contráctil", "Salida cerrada", "Flujo limitado"],
+      tag: "Fuerza y resistencia",
+      title: "La vejiga inicia una contracción y la salida se relaja",
+      prompt: "¿Cómo se transforma esta coordinación en flujo?",
+      evidence: ["Detrusor contráctil", "Resistencia de salida reducida", "Vía disponible para el paso de orina"],
       answers: [
-        ["La coordinación entre bomba y salida", true, "Correcto. Primero se reconoce la relación ineficiente; la etiqueta diagnóstica requiere más contexto."],
-        ["La sensibilidad vesical necesariamente", false, "Los datos mostrados describen bomba y salida; no permiten concluir una alteración sensitiva."],
-        ["La fase de almacenamiento normal", false, "El escenario describe un intento de vaciado, no un almacenamiento normal."]
+        ["La contracción genera un gradiente de presión que produce flujo a través de una salida de baja resistencia", true, "Correcto. El flujo resulta de la fuerza impulsora y de una salida que permite el paso."],
+        ["La sensación vesical se convierte directamente en flujo", false, "La sensación informa y participa en la decisión, pero no sustituye la contracción ni la apertura de la salida."],
+        ["La salida aumenta su resistencia para acelerar la orina", false, "Durante el vaciado coordinado la salida reduce su resistencia para facilitar el flujo."]
       ]
     }
   ],

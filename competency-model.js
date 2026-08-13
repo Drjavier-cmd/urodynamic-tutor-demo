@@ -477,8 +477,8 @@
   ];
 
   const challengeCompetencyMap = {
-    thinking: ["signal", "limit", "quality", "signal", "limit"],
-    physiology: ["phase", "phase", "signal"],
+    thinking: ["question", "limit", "question", "response", "limit"],
+    physiology: ["phase", "phase", "inference"],
     tracing: ["phase", "event", "signal"],
     pressurePhysics: ["quality", "quality", "quality", "signal"],
     instrument: ["signal", "quality", "signal"],
@@ -490,8 +490,8 @@
   };
 
   const chapterCompetencies = {
-    thinking: ["question", "quality", "signal", "limit", "response"],
-    physiology: ["phase", "signal", "event"],
+    thinking: ["question", "limit", "response"],
+    physiology: ["phase", "event", "inference"],
     tracing: ["phase", "signal", "event", "inference"],
     pressurePhysics: ["quality", "signal"],
     instrument: ["quality", "signal"],
@@ -564,16 +564,19 @@
   }));
 
   const scientificGovernance = {
+    productStatus: "Piloto docente",
     productVersion: "0.2.0-assessment-alpha",
     contentBaseline: "v0.1.0-content-baseline",
-    updatedAt: "2026-07-23",
+    updatedAt: "2026-08-11",
     author: "Dr. Javier Alejandro Muñoz Quintana",
     externalReviewer: "Pendiente de designación",
+    reviewSummary:
+      "La validación técnica interna y la revisión visual multidispositivo están completadas. La revisión científica externa y la prueba de usabilidad institucional continúan en curso; este estado no equivale a certificación clínica.",
     contentPolicy:
       "Ningún cambio fisiológico o interpretativo se considera aprobado sin registro en el cambio científico y validación clínica del autor.",
     chapters: {
-      thinking: { status: "Vigente", source: "Documento maestro del curso", reviewedAt: "2026-07-22" },
-      physiology: { status: "Revisión clínica pendiente", source: "cap1 cap 2.txt", reviewedAt: null },
+      thinking: { status: "Revisión del autor en curso", source: "Replanteamiento pedagógico aprobado por el autor", reviewedAt: "2026-08-11" },
+      physiology: { status: "Revisión del autor en curso", source: "Reformulación fisiológica dictada por el autor", reviewedAt: "2026-08-11" },
       tracing: { status: "Vigente", source: "Documento maestro y trazados sintéticos", reviewedAt: "2026-07-21" },
       pressurePhysics: { status: "Vigente", source: "Principios físicos docentes del sistema de presión", reviewedAt: "2026-07-21" },
       instrument: { status: "Vigente", source: "Descripción funcional del instrumento", reviewedAt: "2026-07-21" },

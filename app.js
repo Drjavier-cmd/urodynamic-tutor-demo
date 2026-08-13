@@ -1,4 +1,4 @@
-const BUILD_REVISION = "20260723-competency-system-v1";
+const BUILD_REVISION = "20260811-physiology-first-v1";
 const competencyModel = window.UroDynamicCompetencyModel;
 const assessmentEngine = window.UroDynamicAssessmentEngine;
 const assessmentUIFactory = window.UroDynamicAssessmentUI;
@@ -62,7 +62,13 @@ window.__urodynamicTutorDiagnostics = {
     reasonedReportBuilder: true,
     adaptiveFeedback: true,
     scientificGovernance: true,
-    accessibleTraceTable: true
+    accessibleTraceTable: true,
+    signalFocusMode: true,
+    artifactSideBySideComparison: true,
+    reasoningStepFeedback: true,
+    guidedLabMissions: true,
+    compactReadingRoutine: true,
+    interactiveTraceInspector: true
   },
   assessmentBlueprint: assessmentBlueprintValidation,
   chapterScreenCounts: Object.fromEntries(
@@ -131,8 +137,35 @@ const readingRoutine = [
   }
 ];
 
+function routineStepMeta(stepId) {
+  const index = readingRoutine.findIndex((step) => step.id === stepId);
+  const resolvedIndex = index >= 0 ? index : readingRoutine.findIndex((step) => step.id === "inference");
+  return {
+    ...readingRoutine[resolvedIndex],
+    number: resolvedIndex + 1
+  };
+}
+
+function reasoningStepBadgeClass(answered, correct) {
+  if (!answered) return "reasoning-step-badge";
+  return `reasoning-step-badge answered ${correct ? "good" : "warn"}`;
+}
+
+function reasoningStepBadgeContent(stepId) {
+  const step = routineStepMeta(stepId);
+  return `
+    <span>Paso evaluado</span>
+    <strong>${String(step.number).padStart(2, "0")} · ${escapeHtml(step.label)}</strong>
+    <small>${escapeHtml(step.text)}</small>
+  `;
+}
+
+function reasoningStepBadgeMarkup(stepId, answered = false, correct = false) {
+  return `<div class="${reasoningStepBadgeClass(answered, correct)}">${reasoningStepBadgeContent(stepId)}</div>`;
+}
+
 const chapterFocus = {
-  thinking: "limit",
+  thinking: "question",
   physiology: "phase",
   tracing: "phase",
   pressurePhysics: "quality",
@@ -165,6 +198,7 @@ const defaultState = {
     emg: true,
     events: true
   },
+  focusLayer: null,
   demoControls: {
     accommodationVolume: 62,
     accommodationStiffness: 28,
@@ -182,7 +216,7 @@ const defaultState = {
     zeroOffset: 0,
     transmissionPattern: "continuous",
     pressurePattern: "cough",
-    artifactPattern: "cough",
+    artifactPattern: "flatPabd",
     storagePattern: "normal",
     voidingPattern: "efficient",
     coordinationPattern: "coordinated",
@@ -237,6 +271,8 @@ const defaultState = {
 };
 
 const state = loadState();
+let traceRuntime = null;
+let traceInspectionPosition = 0.12;
 
 const els = {
   mainStage: document.querySelector(".main-stage"),
@@ -289,9 +325,12 @@ const els = {
   traceTitle: document.getElementById("traceTitle"),
   traceEventCard: document.getElementById("traceEventCard"),
   traceSvg: document.getElementById("traceSvg"),
+  traceScrubber: document.getElementById("traceScrubber"),
+  traceInspector: document.getElementById("traceInspector"),
   traceTextSummary: document.getElementById("traceTextSummary"),
   traceDataTable: document.getElementById("traceDataTable"),
   emgLayerControl: document.getElementById("emgLayerControl"),
+  traceFocusControls: document.getElementById("traceFocusControls"),
   traceChallenge: document.getElementById("traceChallenge"),
   traceChallengePrompt: document.getElementById("traceChallengePrompt"),
   traceChallengeInstructions: document.getElementById("traceChallengeInstructions"),
@@ -300,9 +339,11 @@ const els = {
   noFocalEvent: document.getElementById("noFocalEvent"),
   resetTraceChallenge: document.getElementById("resetTraceChallenge"),
   coachQuestion: document.getElementById("coachQuestion"),
+  coachStep: document.getElementById("coachStep"),
   answerGrid: document.getElementById("answerGrid"),
   coachFeedback: document.getElementById("coachFeedback"),
   routineSteps: document.getElementById("routineSteps"),
+  routineFocus: document.getElementById("routineFocus"),
   resetProgress: document.getElementById("resetProgress"),
   assessmentView: document.getElementById("assessmentView"),
   masterySummary: document.getElementById("masterySummary"),
@@ -369,6 +410,9 @@ function loadState() {
         ...defaultState.layers,
         ...(saved.layers || {})
       },
+      focusLayer: ["pves", "pabd", "pdet", "flow", "volume", "emg"].includes(saved.focusLayer)
+        ? saved.focusLayer
+        : null,
       demoControls: normalizeDemoControls(saved.demoControls),
       labDemo: {
         ...defaultState.labDemo,
@@ -457,6 +501,7 @@ function resetState() {
   const theme = state.theme;
   Object.assign(state, cloneDefaultState());
   state.theme = theme;
+  traceInspectionPosition = 0.12;
 }
 
 function applyTheme() {
@@ -490,11 +535,61 @@ function pressureLabel(value) {
 
 function controlMarkup(id, label) {
   const value = state.demoControls[id];
+  const qualitativeValue = id === "outletDiameter"
+    ? (value < 34 ? "estrecho" : value < 67 ? "intermedio" : "amplio")
+    : id === "outletCompression"
+      ? (value < 34 ? "mínima" : value < 67 ? "moderada" : "marcada")
+      : id === "outletStiffness"
+        ? (value < 34 ? "flexible" : value < 67 ? "intermedia" : "rígida")
+        : String(value);
   return `
     <label class="demo-control">
-      <span>${label}</span>
-      <input type="range" min="0" max="100" value="${value}" data-demo-control="${id}" />
+      <span>${label}<output>${qualitativeValue}</output></span>
+      <input type="range" min="0" max="100" value="${value}" aria-label="${label}" aria-valuetext="${qualitativeValue}" data-demo-control="${id}" />
     </label>
+  `;
+}
+
+const demoControlKeys = {
+  clinicalReasoning: ["clinicalStage"],
+  programSwitch: ["functionalProgram"],
+  accommodation: ["accommodationStage"],
+  flowResistance: ["outletDiameter", "outletCompression", "outletStiffness", "resistancePattern"],
+  curveTimeline: ["tracePosition"],
+  waterColumn: ["waterPressure"],
+  zeroAndLevel: ["transducerHeight", "zeroOffset"],
+  pressureTransmission: ["transmissionPattern"],
+  pressureEquation: ["pressurePattern"],
+  signalMap: ["signalChannel"],
+  artifactDetective: ["artifactPattern"],
+  storageMap: ["storagePattern"],
+  pressureFlowMatrix: ["voidingPattern"],
+  coordinationTimeline: ["coordinationPattern"],
+  neuroLesionMap: ["neuroPattern"]
+};
+
+function resetDemoControls(demoId) {
+  (demoControlKeys[demoId] || []).forEach((key) => {
+    state.demoControls[key] = defaultState.demoControls[key];
+  });
+}
+
+function demoMissionMarkup(demo, demoId) {
+  if (!demo.question || !demo.action || !demo.observe) return "";
+  const canReset = Boolean(demoControlKeys[demoId]?.length);
+  return `
+    <section class="demo-mission" aria-label="Misión del laboratorio">
+      <div class="demo-mission-question">
+        <span>Pregunta de trabajo</span>
+        <strong>${escapeHtml(demo.question)}</strong>
+      </div>
+      <ol class="demo-mission-steps">
+        <li><span>1</span><div><b>Manipula</b><p>${escapeHtml(demo.action)}</p></div></li>
+        <li><span>2</span><div><b>Observa</b><p>${escapeHtml(demo.observe)}</p></div></li>
+        <li><span>3</span><div><b>Explica</b><p>Formula una conclusión proporcional y declara su límite.</p></div></li>
+      </ol>
+      ${canReset ? `<button type="button" class="demo-reset" data-reset-demo="${demoId}" title="Restablecer este laboratorio"><span aria-hidden="true">↺</span> Reiniciar</button>` : ""}
+    </section>
   `;
 }
 
@@ -815,54 +910,54 @@ const clinicalReasoningStages = {
     label: "Pregunta",
     title: "¿Qué queremos observar?",
     text: "La paciente refiere pérdida de orina al toser. El relato debe convertirse en una relación que el examen pueda intentar reproducir.",
-    evidence: ["Síntoma: pérdida al toser", "Fenómeno buscado: fuga asociada a aumento abdominal"],
-    result: "Pregunta funcional: ¿aparece fuga durante una tos registrada sin contracción detrusoriana que la explique?",
-    boundary: "La pregunta orienta el estudio; todavía no establece un diagnóstico."
+    evidence: ["Relato: pérdida al toser", "Situación que se intentará reproducir: la tos"],
+    result: "Pregunta funcional: ¿se reproduce la pérdida referida al toser durante el estudio y bajo qué condiciones?",
+    boundary: "La pregunta no presupone el mecanismo ni establece un diagnóstico."
   },
   phase: {
     label: "Fase",
-    title: "¿Cuándo y en qué condiciones se buscó?",
-    text: "La maniobra debe ubicarse dentro del ciclo y documentarse con volumen, posición y condiciones capaces de reproducir el síntoma.",
-    evidence: ["Fase de llenado", "Volumen y posición registrados", "Tos indicada como maniobra"],
-    result: "El fenómeno fue buscado durante almacenamiento bajo condiciones conocidas.",
-    boundary: "Una condición controlada puede no reproducir la situación cotidiana."
+    title: "¿Cuándo y bajo qué condiciones se buscó?",
+    text: "Por ahora basta con registrar el momento, la posición y la maniobra. Las fases formales del estudio se enseñarán más adelante.",
+    evidence: ["Momento documentado", "Posición registrada", "Tos realizada como maniobra"],
+    result: "El fenómeno fue buscado en condiciones conocidas y comparables con el relato.",
+    boundary: "Una condición de prueba puede no reproducir la situación cotidiana."
   },
   quality: {
     label: "Calidad",
-    title: "¿Podemos confiar en las señales?",
-    text: "Antes de leer fisiología se comprueba que Pves y Pabd transmitan la tos y que las líneas de base sean coherentes.",
-    evidence: ["Pves responde", "Pabd responde", "Pdet no fabrica un pico discordante"],
-    result: "El segmento es técnicamente interpretable para relacionar maniobra y fuga.",
-    boundary: "Si Pabd falla, Pdet también pierde confiabilidad."
+    title: "¿El intento permite responder la pregunta?",
+    text: "Antes de interpretar medidas, comprueba que la maniobra realmente ocurrió, que fue documentada y que la observación buscada pudo realizarse.",
+    evidence: ["Tos efectivamente realizada", "Condiciones registradas", "Presencia o ausencia de pérdida observada"],
+    result: "El intento quedó suficientemente documentado para describir qué ocurrió.",
+    boundary: "La calidad técnica de las señales se aprenderá en los capítulos 4 a 6."
   },
   signal: {
     label: "Señal",
-    title: "¿Qué registró el instrumento?",
-    text: "Se describen los datos antes de ponerles nombre: Pves y Pabd aumentan de manera concordante durante la tos y Pdet permanece relativamente estable.",
-    evidence: ["Aumento de Pves", "Aumento de Pabd", "Pdet sin contracción independiente"],
-    result: "La presión registrada corresponde a un evento abdominal transmitido.",
-    boundary: "La presión por sí sola todavía no demuestra el mecanismo de la fuga."
+    title: "¿Qué quedó registrado u observado?",
+    text: "En este primer capítulo se separa el dato de su explicación: se registró la maniobra y se observó si apareció o no la pérdida referida.",
+    evidence: ["Marcador de tos", "Observación de la pérdida", "Relación temporal entre ambos"],
+    result: "La tos y la pérdida pueden describirse antes de explicar su mecanismo.",
+    boundary: "El significado de cada canal se enseñará después; aquí no debe adivinarse."
   },
   event: {
     label: "Evento",
     title: "¿Qué ocurrió al mismo tiempo?",
-    text: "La fuga debe ser observada y alinearse temporalmente con la maniobra. Una señal aislada en el canal de flujo no basta.",
-    evidence: ["Marcador de tos", "Fuga observada", "Coincidencia temporal"],
-    result: "La pérdida ocurrió durante el aumento abdominal registrado.",
-    boundary: "Debe diferenciarse una fuga real de movimiento, goteo o registro espurio."
+    text: "La pérdida debe ser observada y relacionarse temporalmente con la tos. Registrar una maniobra sin documentar qué ocurrió no responde la pregunta.",
+    evidence: ["Tos documentada", "Pérdida observada", "Coincidencia temporal"],
+    result: "La pérdida ocurrió durante la maniobra que se intentaba reproducir.",
+    boundary: "La coincidencia temporal todavía no demuestra por sí sola el mecanismo."
   },
   inference: {
     label: "Inferencia",
     title: "¿Qué relación funcional explica mejor los datos?",
-    text: "La combinación de fuga, aumento abdominal y ausencia de contracción detrusoriana apoya una falla del mecanismo de cierre frente al esfuerzo.",
-    evidence: ["Fuga con maniobra", "Pabd aumenta", "Sin aumento independiente de Pdet"],
-    result: "Hallazgo compatible con incontinencia urodinámica de esfuerzo durante esa maniobra.",
-    boundary: "El hallazgo funcional no explica por sí solo la anatomía ni toda la gravedad clínica."
+    text: "La coincidencia entre tos y pérdida permite afirmar que el síntoma se reprodujo. Definir el mecanismo exigirá comprender después las fases, las señales y su calidad.",
+    evidence: ["Relato previo", "Maniobra reproducida", "Pérdida observada durante la maniobra"],
+    result: "El fenómeno referido fue reproducido bajo las condiciones registradas.",
+    boundary: "Reproducir el síntoma no equivale todavía a explicar su mecanismo."
   },
   limit: {
     label: "Límite",
     title: "¿Qué no permite afirmar este segmento?",
-    text: "El trazado no resume la frecuencia cotidiana, la repercusión, la anatomía del soporte uretral ni todos los escenarios en que la paciente pierde.",
+    text: "El estudio no resume la frecuencia cotidiana, la repercusión, la anatomía ni todos los escenarios en que la paciente pierde.",
     evidence: ["Una condición de prueba", "Una maniobra reproducida", "Contexto clínico aún necesario"],
     result: "La conclusión queda limitada a lo demostrado bajo las condiciones registradas.",
     boundary: "No debe extrapolarse automáticamente a toda la historia ni al tratamiento."
@@ -870,10 +965,10 @@ const clinicalReasoningStages = {
   response: {
     label: "Respuesta",
     title: "¿Cómo se responde la pregunta original?",
-    text: "La conclusión traduce la secuencia completa a una respuesta funcional breve, útil y proporcional a la evidencia.",
-    evidence: ["Pregunta respondida", "Señal confiable", "Inferencia y límite explícitos"],
-    result: "Durante el llenado se observó fuga asociada a tos, con aumento abdominal transmitido y sin contracción detrusoriana concomitante.",
-    boundary: "La integración clínica final sigue requiriendo historia, examen y objetivo terapéutico."
+    text: "La conclusión responde primero si el fenómeno se reprodujo, bajo qué condiciones y qué permanece todavía sin resolver.",
+    evidence: ["Pregunta respondida", "Condiciones documentadas", "Límite explícito"],
+    result: "Durante el estudio se reprodujo la pérdida referida al toser, bajo las condiciones registradas.",
+    boundary: "El mecanismo y la integración clínica requieren los pasos que se enseñarán después."
   }
 };
 
@@ -1275,6 +1370,7 @@ function renderAccommodationDemo(demo) {
     ? state.demoControls.accommodationStage
     : "progressive";
   const stage = accommodationStages[stageKey];
+  const physiologyOnly = state.chapter === "physiology";
 
   const tractFigure = (mode) => {
     const altered = mode === "altered";
@@ -1282,30 +1378,42 @@ function renderAccommodationDemo(demo) {
     const ureterWidth = altered ? stage.ureterWidth : 4;
     const pelvisScale = altered ? stage.pelvisScale : 1;
     const pressure = altered ? stage.alteredPressure : stage.normalPressure;
+    const gaugeLevel = altered
+      ? ({ initial: 22, progressive: 58, high: 86 }[stageKey] || 22)
+      : ({ initial: 18, progressive: 23, high: 28 }[stageKey] || 18);
+    const upperTract = altered ? stage.upperTract : "preservada en el esquema";
 
     return `
-      <svg class="urinary-tract-figure ${mode}" viewBox="0 0 260 300" role="img" aria-label="${altered ? "Vejiga con acomodación alterada y representación del riesgo para la vía urinaria superior" : "Vejiga con acomodación conservada y vía urinaria superior preservada"}">
-        <g class="kidneys">
-          <path d="M44 50 C26 62 28 98 49 108 C64 115 77 101 75 82 C73 62 60 45 44 50 Z" />
-          <path d="M216 50 C234 62 232 98 211 108 C196 115 183 101 185 82 C187 62 200 45 216 50 Z" />
-        </g>
-        <g class="renal-pelvis">
-          <ellipse cx="64" cy="84" rx="${(10 * pelvisScale).toFixed(1)}" ry="${(14 * pelvisScale).toFixed(1)}" />
-          <ellipse cx="196" cy="84" rx="${(10 * pelvisScale).toFixed(1)}" ry="${(14 * pelvisScale).toFixed(1)}" />
-        </g>
-        <g class="ureters" style="--ureter-width:${ureterWidth}px;">
-          <path d="M64 97 C72 130 88 156 104 204" />
-          <path d="M196 97 C188 130 172 156 156 204" />
-        </g>
-        <g class="bladder-group" transform="translate(130 230) scale(${bladderScale}) translate(-130 -230)">
-          <path class="bladder-shape" d="M82 196 C69 221 72 259 95 276 C113 290 147 290 165 276 C188 259 191 221 178 196 C166 173 151 164 130 164 C109 164 94 173 82 196 Z" />
-          <path class="bladder-highlight" d="M99 202 C112 184 147 181 164 207" />
-        </g>
-        ${altered && stageKey !== "initial" ? '<path class="pressure-arrows" d="M110 188 L91 161 M150 188 L169 161 M130 179 L130 145" />' : ""}
-      </svg>
+      <div class="tract-visual-shell ${mode}" data-stage="${stageKey}">
+        <svg class="urinary-tract-figure ${mode}" viewBox="0 0 260 300" role="img" aria-label="${altered ? "Vejiga con acomodación alterada y representación del riesgo para la vía urinaria superior" : "Vejiga con acomodación conservada y vía urinaria superior preservada"}">
+          <g class="kidneys">
+            <path d="M44 50 C26 62 28 98 49 108 C64 115 77 101 75 82 C73 62 60 45 44 50 Z" />
+            <path d="M216 50 C234 62 232 98 211 108 C196 115 183 101 185 82 C187 62 200 45 216 50 Z" />
+          </g>
+          <g class="renal-pelvis">
+            <ellipse cx="64" cy="84" rx="${(10 * pelvisScale).toFixed(1)}" ry="${(14 * pelvisScale).toFixed(1)}" />
+            <ellipse cx="196" cy="84" rx="${(10 * pelvisScale).toFixed(1)}" ry="${(14 * pelvisScale).toFixed(1)}" />
+          </g>
+          <g class="ureters" style="--ureter-width:${ureterWidth}px;">
+            <path d="M64 97 C72 130 88 156 104 204" />
+            <path d="M196 97 C188 130 172 156 156 204" />
+          </g>
+          <g class="bladder-group" transform="translate(130 230) scale(${bladderScale}) translate(-130 -230)">
+            <path class="bladder-shape" d="M82 196 C69 221 72 259 95 276 C113 290 147 290 165 276 C188 259 191 221 178 196 C166 173 151 164 130 164 C109 164 94 173 82 196 Z" />
+            <path class="bladder-highlight" d="M99 202 C112 184 147 181 164 207" />
+          </g>
+          ${altered && stageKey !== "initial" ? '<path class="pressure-arrows" d="M110 188 L91 161 M150 188 L169 161 M130 179 L130 145" />' : ""}
+        </svg>
+        <div class="qualitative-gauge" style="--gauge-level:${gaugeLevel}%;" aria-label="Presión de almacenamiento cualitativa: ${pressure}">
+          <span>Presión</span>
+          <div aria-hidden="true"><i></i></div>
+          <strong>${pressure}</strong>
+          <small>escala cualitativa</small>
+        </div>
+      </div>
       <div class="tract-readout">
-        <span>Presión de almacenamiento</span>
-        <strong>${pressure}</strong>
+        <span>Vía urinaria superior</span>
+        <strong>${upperTract}</strong>
       </div>
     `;
   };
@@ -1323,21 +1431,25 @@ function renderAccommodationDemo(demo) {
         .map(([key, item]) => `<button type="button" class="${key === stageKey ? "active" : ""}" aria-pressed="${key === stageKey}" data-accommodation-stage="${key}">${item.label}</button>`)
         .join("")}
     </div>
-    <div class="accommodation-comparison" aria-live="polite">
+    <div class="accommodation-comparison ${physiologyOnly ? "single" : ""}" aria-live="polite">
       <article class="urinary-tract-card normal">
         <header><span>Acomodación conservada</span><strong>Vejiga distensible</strong></header>
         ${tractFigure("normal")}
         <p>El reservorio aumenta su volumen manteniendo una presión contenida. La vía urinaria superior se representa preservada.</p>
       </article>
-      <article class="urinary-tract-card altered">
-        <header><span>Acomodación alterada</span><strong>El volumen cuesta presión</strong></header>
-        ${tractFigure("altered")}
-        <p>La vejiga gana menos volumen y la presión aumenta. Vía superior: ${stage.upperTract}.</p>
-      </article>
+      ${physiologyOnly ? "" : `
+        <article class="urinary-tract-card altered">
+          <header><span>Acomodación alterada</span><strong>El volumen cuesta presión</strong></header>
+          ${tractFigure("altered")}
+          <p>La vejiga gana menos volumen y la presión aumenta. Vía superior: ${stage.upperTract}.</p>
+        </article>
+      `}
     </div>
     <div class="accommodation-caution">
-      <strong>Lectura correcta del esquema</strong>
-      <p>La dilatación no es una consecuencia obligatoria. Representa el riesgo que debe considerarse cuando el almacenamiento deja de mantenerse a baja presión.</p>
+      <strong>${physiologyOnly ? "Idea fisiológica" : "Lectura correcta del esquema"}</strong>
+      <p>${physiologyOnly
+        ? "Durante el llenado normal, la vejiga se distiende y gana volumen sin un aumento proporcional de la presión."
+        : "La dilatación no es una consecuencia obligatoria. Representa el riesgo que debe considerarse cuando el almacenamiento deja de mantenerse a baja presión."}</p>
     </div>
   `;
 }
@@ -1353,6 +1465,13 @@ function renderFlowResistanceDemo(demo) {
   const upstreamPressure = clamp(92 - effectiveOutlet + compression * 0.28 + stiffness * 0.22, 12, 96);
   const hoseHeight = clamp(16 + effectiveOutlet * 0.32, 18, 46);
   const pinch = clamp(100 - compression, 18, 100);
+  const outletQuality = effectiveOutlet > 60 ? "amplia" : effectiveOutlet > 32 ? "limitada" : "muy limitada";
+  const pressureQuality = pressureLabel(upstreamPressure);
+  const flowQuality = stream > 60 ? "amplio" : stream > 32 ? "limitado" : "pobre";
+  const cutawayLumen = clamp(34 + effectiveOutlet * 1.08, 40, 132);
+  const cutawayLumenHeight = clamp(cutawayLumen * 0.42, 18, 58);
+  const cutawayWall = clamp(8 + stiffness * 0.12, 8, 20);
+  const jawShift = clamp(compression * 0.42, 0, 42);
 
   return `
     <div class="visual-demo-head">
@@ -1375,10 +1494,31 @@ function renderFlowResistanceDemo(demo) {
         <div class="water-stream"></div>
       </div>
       <div class="flow-readout">
-        <strong>${stream > 60 ? "Flujo amplio" : stream > 32 ? "Flujo limitado" : "Flujo pobre"}</strong>
+        <strong>Flujo ${flowQuality}</strong>
         <p>El flujo no depende solo de la bomba: la salida también decide.</p>
       </div>
     </div>
+    <section class="resistance-cutaway" aria-label="Corte cualitativo de la salida">
+      <div
+        class="resistance-cutaway-figure"
+        style="--lumen:${cutawayLumen}px; --lumen-height:${cutawayLumenHeight}px; --wall:${cutawayWall}px; --jaw-shift:${jawShift}px;"
+        aria-label="Representación cualitativa de compresión extrínseca y resistencia intrínseca"
+      >
+        <span class="cutaway-label external">fuerza externa</span>
+        <i class="compression-jaw upper" aria-hidden="true"></i>
+        <div class="outlet-cross-section" aria-hidden="true">
+          <div class="outlet-lumen"><span></span></div>
+        </div>
+        <i class="compression-jaw lower" aria-hidden="true"></i>
+        <span class="cutaway-label internal">pared / lumen</span>
+      </div>
+      <div class="resistance-metrics" aria-live="polite">
+        <div><span>Salida efectiva</span><strong>${outletQuality}</strong></div>
+        <div><span>Presión proximal</span><strong>${pressureQuality}</strong></div>
+        <div><span>Flujo resultante</span><strong>${flowQuality}</strong></div>
+      </div>
+      <p class="cutaway-note">Es una analogía cualitativa: muestra relaciones, no reproduce una uretra ni calcula valores clínicos.</p>
+    </section>
     <div class="resistance-concepts" aria-label="Conceptos de resistencia del tracto de salida">
       <article>
         <span>Extrínseca</span>
@@ -1953,8 +2093,28 @@ function renderPressureEquationDemo(demo) {
 }
 
 function renderArtifactDetectiveDemo(demo) {
-  const patternKey = artifactPatterns[state.demoControls.artifactPattern] ? state.demoControls.artifactPattern : "cough";
+  const comparisonPatterns = Object.entries(artifactPatterns).filter(([key]) => key !== "cough");
+  const patternKey = comparisonPatterns.some(([key]) => key === state.demoControls.artifactPattern)
+    ? state.demoControls.artifactPattern
+    : "flatPabd";
   const pattern = artifactPatterns[patternKey];
+  const reference = artifactPatterns.cough;
+
+  const artifactTraceMarkup = (item, idSuffix) => `
+    <svg viewBox="0 0 620 202" role="img" aria-labelledby="artifactTitle-${idSuffix} artifactDesc-${idSuffix}">
+      <title id="artifactTitle-${idSuffix}">${escapeHtml(item.label)}</title>
+      <desc id="artifactDesc-${idSuffix}">${escapeHtml(item.clue)}</desc>
+      <line class="artifact-grid" x1="82" y1="48" x2="598" y2="48" />
+      <line class="artifact-grid" x1="82" y1="103" x2="598" y2="103" />
+      <line class="artifact-grid" x1="82" y1="158" x2="598" y2="158" />
+      <text class="artifact-channel-label pves" x="12" y="53">Pves</text>
+      <text class="artifact-channel-label pabd" x="12" y="108">Pabd</text>
+      <text class="artifact-channel-label pdet" x="12" y="163">Pdet</text>
+      <path class="artifact-path pves" d="${item.pves}" />
+      <path class="artifact-path pabd" d="${item.pabd}" />
+      <path class="artifact-path pdet" d="${item.pdet}" />
+    </svg>
+  `;
 
   return `
     <div class="visual-demo-head">
@@ -1964,25 +2124,22 @@ function renderArtifactDetectiveDemo(demo) {
       </div>
       <span>${demo.subtitle}</span>
     </div>
-    <div class="demo-tabs" aria-label="Patrones técnicos docentes">
-      ${Object.entries(artifactPatterns)
+    <div class="demo-tabs" aria-label="Patrones para comparar con la referencia confiable">
+      ${comparisonPatterns
         .map(([key, item]) => `<button type="button" class="${key === patternKey ? "active" : ""}" aria-pressed="${key === patternKey}" data-artifact-pattern="${key}">${item.label}</button>`)
         .join("")}
     </div>
-    <div class="artifact-detective-demo">
-      <svg viewBox="0 0 620 202" role="img" aria-labelledby="artifactTitle artifactDesc">
-        <title id="artifactTitle">Comparación sintética de coherencia entre canales</title>
-        <desc id="artifactDesc">Pves, Pabd y Pdet cambian según el patrón técnico seleccionado.</desc>
-        <line class="artifact-grid" x1="82" y1="48" x2="598" y2="48" />
-        <line class="artifact-grid" x1="82" y1="103" x2="598" y2="103" />
-        <line class="artifact-grid" x1="82" y1="158" x2="598" y2="158" />
-        <text class="artifact-channel-label pves" x="12" y="53">Pves</text>
-        <text class="artifact-channel-label pabd" x="12" y="108">Pabd</text>
-        <text class="artifact-channel-label pdet" x="12" y="163">Pdet</text>
-        <path class="artifact-path pves" d="${pattern.pves}" />
-        <path class="artifact-path pabd" d="${pattern.pabd}" />
-        <path class="artifact-path pdet" d="${pattern.pdet}" />
-      </svg>
+    <div class="artifact-comparison" aria-label="Comparación simultánea de señales">
+      <article class="artifact-compare-card reference">
+        <header><span>Referencia confiable</span><strong>${reference.label}</strong></header>
+        <div class="artifact-detective-demo">${artifactTraceMarkup(reference, "reference")}</div>
+        <p>${reference.clue}</p>
+      </article>
+      <article class="artifact-compare-card comparison">
+        <header><span>Patrón a revisar</span><strong>${pattern.label}</strong></header>
+        <div class="artifact-detective-demo">${artifactTraceMarkup(pattern, patternKey)}</div>
+        <p>${pattern.clue}</p>
+      </article>
     </div>
     <div class="artifact-route" aria-label="Secuencia de control técnico">
       <span><b>1</b> Comparar canales</span>
@@ -2053,6 +2210,16 @@ function bindDemoControls() {
       if (!artifactPatterns[button.dataset.artifactPattern]) return;
       state.demoControls.artifactPattern = button.dataset.artifactPattern;
       renderVisualDemo("artifactDetective");
+      saveState();
+    });
+  });
+
+  els.visualDemo.querySelectorAll("[data-reset-demo]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const demoId = button.dataset.resetDemo;
+      if (!interactiveDemos[demoId]) return;
+      resetDemoControls(demoId);
+      renderVisualDemo(demoId);
       saveState();
     });
   });
@@ -2144,6 +2311,16 @@ function activeLabDemoId() {
   return options.some((option) => option.id === selected) ? selected : options[0].id;
 }
 
+function insertDemoMission(markup, mission) {
+  if (!mission) return markup;
+  const headStart = markup.indexOf('class="visual-demo-head"');
+  if (headStart < 0) return `${mission}${markup}`;
+  const innerClose = markup.indexOf("</div>", headStart);
+  const headClose = markup.indexOf("</div>", innerClose + 6);
+  if (innerClose < 0 || headClose < 0) return `${mission}${markup}`;
+  return `${markup.slice(0, headClose + 6)}${mission}${markup.slice(headClose + 6)}`;
+}
+
 function renderVisualDemo(demoId = activeLabDemoId()) {
   const demo = interactiveDemos[demoId];
   if (!demo) {
@@ -2179,7 +2356,9 @@ function renderVisualDemo(demoId = activeLabDemoId()) {
           .join("")}
       </div>`
     : "";
-  els.visualDemo.innerHTML = `${labSelector}${renderers[demoId](demo)}`;
+  const renderedDemo = renderers[demoId](demo);
+  const guidedDemo = insertDemoMission(renderedDemo, demoMissionMarkup(demo, demoId));
+  els.visualDemo.innerHTML = `${labSelector}${guidedDemo}`;
   bindDemoControls();
 }
 
@@ -2199,6 +2378,9 @@ function renderChallenge() {
   const selectedIndex = Number(savedAnswers[index]);
   const hasSelection = Number.isInteger(selectedIndex) && Boolean(challenge.answers[selectedIndex]);
   const selectedAnswer = hasSelection ? challenge.answers[selectedIndex] : null;
+  const challengeStepId = competencyModel.challengeCompetencyMap?.[chapterId]?.[index]
+    || chapterFocus[chapterId]
+    || "inference";
   const answeredCount = Object.entries(savedAnswers).filter(([answerIndex, answer]) => {
     const challengeIndex = Number(answerIndex);
     return challenges[challengeIndex] && challenges[challengeIndex].answers[Number(answer)];
@@ -2242,6 +2424,7 @@ function renderChallenge() {
     <div class="challenge-evidence" aria-label="Datos del ejemplo">${evidenceMarkup}</div>
     <p class="challenge-prompt">${escapeHtml(challenge.prompt)}</p>
     <div class="challenge-answers">${answersMarkup}</div>
+    ${reasoningStepBadgeMarkup(challengeStepId, hasSelection, Boolean(selectedAnswer?.[1]))}
     <div class="challenge-feedback-row">
       <div class="challenge-feedback ${hasSelection ? (selectedAnswer[1] ? "good" : "warn") : ""}" aria-live="polite">
         ${hasSelection ? escapeHtml(selectedAnswer[2]) : "Elige la lectura más prudente. Recibirás retroalimentación inmediata."}
@@ -2541,6 +2724,100 @@ function makeData() {
   };
 }
 
+function traceCursorMarkup() {
+  return `
+    <g class="trace-cursor" id="traceCursorGroup" aria-hidden="true">
+      <line class="trace-cursor-line" x1="0" y1="74" x2="0" y2="432" />
+      <circle class="trace-cursor-dot pves" data-cursor-layer="pves" r="6" />
+      <circle class="trace-cursor-dot pabd" data-cursor-layer="pabd" r="6" />
+      <circle class="trace-cursor-dot pdet" data-cursor-layer="pdet" r="6" />
+      <circle class="trace-cursor-dot flow" data-cursor-layer="flow" r="6" />
+      <circle class="trace-cursor-dot context" data-cursor-layer="context" r="5" />
+    </g>
+  `;
+}
+
+function signedRelative(value) {
+  const rounded = Math.round(value);
+  return rounded > 0 ? `+${rounded}` : String(rounded);
+}
+
+function updateTraceInspector(position = traceInspectionPosition) {
+  if (!traceRuntime || !els.traceInspector || !els.traceScrubber) return;
+  traceInspectionPosition = clamp(Number(position) || 0, 0, 1);
+  const challengePending = traceChallengeIsCurrent() && state.traceChallenge.verdict === null;
+  els.traceScrubber.value = String(Math.round(traceInspectionPosition * 100));
+  els.traceScrubber.disabled = challengePending;
+
+  const cursorGroup = els.traceSvg.querySelector("#traceCursorGroup");
+  if (cursorGroup) cursorGroup.style.opacity = challengePending ? "0" : "1";
+
+  if (challengePending) {
+    els.traceScrubber.setAttribute("aria-valuetext", "Inspector pausado durante el reto");
+    els.traceInspector.className = "trace-inspector locked";
+    els.traceInspector.innerHTML = `
+      <span>Reto activo</span>
+      <strong>Inspector pausado</strong>
+      <p>Marca primero el evento. Después podrás recorrer las señales sin ocultar la guía.</p>
+    `;
+    return;
+  }
+
+  const { data, scenario, profile, showEmg } = traceRuntime;
+  const index = clamp(Math.round(traceInspectionPosition * 150), 0, 150);
+  const x = data.pves[index].x;
+  const focal = scenarioHasFocalEvent(scenario);
+  const eventMoment = !focal
+    ? "sin evento focal definido"
+    : traceInspectionPosition < profile.start
+      ? "antes del evento"
+      : traceInspectionPosition <= profile.end
+        ? "durante el evento"
+        : "después del evento";
+  const phase = isVoidingPattern(scenario.pattern)
+    ? (traceInspectionPosition < profile.start ? "almacenamiento" : "vaciado")
+    : "almacenamiento / registro";
+  const values = {
+    pves: 214 - data.pves[index].y,
+    pabd: 270 - data.pabd[index].y,
+    pdet: 330 - data.pdet[index].y,
+    flow: 398 - data.flow[index].y
+  };
+  const cursorLayers = ["pves", "pabd", "pdet", "flow", "context"];
+  cursorLayers.forEach((layer) => {
+    const dot = els.traceSvg.querySelector(`[data-cursor-layer="${layer}"]`);
+    if (!dot) return;
+    const sourceLayer = layer === "context" ? (showEmg ? "emg" : "volume") : layer;
+    dot.setAttribute("cx", String(x));
+    dot.setAttribute("cy", String(data[sourceLayer][index].y));
+    const layerVisible = sourceLayer === "volume" || Boolean(state.layers[sourceLayer]);
+    dot.style.opacity = layerVisible ? "1" : "0";
+  });
+  const cursorLine = els.traceSvg.querySelector(".trace-cursor-line");
+  if (cursorLine) {
+    cursorLine.setAttribute("x1", String(x));
+    cursorLine.setAttribute("x2", String(x));
+  }
+
+  const percent = Math.round(traceInspectionPosition * 100);
+  els.traceScrubber.setAttribute("aria-valuetext", `${percent}% del registro, ${eventMoment}`);
+  els.traceInspector.className = "trace-inspector";
+  els.traceInspector.innerHTML = `
+    <div class="trace-inspector-context">
+      <span>${percent}% del registro</span>
+      <strong>${phase}</strong>
+      <small>${eventMoment}</small>
+    </div>
+    <dl>
+      <div class="pves"><dt>Pves</dt><dd>${signedRelative(values.pves)}</dd></div>
+      <div class="pabd"><dt>Pabd</dt><dd>${signedRelative(values.pabd)}</dd></div>
+      <div class="pdet"><dt>Pdet</dt><dd>${signedRelative(values.pdet)}</dd></div>
+      <div class="flow"><dt>Flujo</dt><dd>${signedRelative(values.flow)}</dd></div>
+    </dl>
+    <p>Desviaciones visuales relativas; no son valores clínicos.</p>
+  `;
+}
+
 function renderTraceAccessibility(data, scenario, profile) {
   if (!els.traceTextSummary || !els.traceDataTable) return;
   const eventDescription = scenarioHasFocalEvent(scenario)
@@ -2677,17 +2954,18 @@ function renderTrace() {
   const profile = activeTraceProfile();
   const data = makeData();
   const showEmg = ["coordinationDisorders", "neuroUrology"].includes(state.chapter);
+  traceRuntime = { data, scenario, profile, showEmg };
   const grids = [92, 156, 220, 284, 348, 412]
     .map((y) => `<line class="grid-line" x1="72" y1="${y}" x2="982" y2="${y}" />`)
     .join("");
   const labels = [
-    ["Pves", 26, 218],
-    ["Pabd", 23, 272],
-    ["Pdet", 24, 331],
-    ["Flujo", 21, 402],
-    [showEmg ? "EMG" : "Vol", showEmg ? 23 : 34, 434]
+    ["Pves", "pves", 26, 218],
+    ["Pabd", "pabd", 23, 272],
+    ["Pdet", "pdet", 24, 331],
+    ["Flujo", "flow", 21, 402],
+    [showEmg ? "EMG" : "Vol", showEmg ? "emg" : "volume", showEmg ? 23 : 34, 434]
   ]
-    .map(([text, x, y]) => `<text class="axis-label" x="${x}" y="${y}">${text}</text>`)
+    .map(([text, layer, x, y]) => `<text class="axis-label ${layer}" x="${x}" y="${y}">${text}</text>`)
     .join("");
   const traceLayers = showEmg ? ["pves", "pabd", "pdet", "flow", "emg"] : ["pves", "pabd", "pdet", "flow", "volume"];
   const layerPaths = traceLayers
@@ -2697,6 +2975,7 @@ function renderTrace() {
 
   const transitionX = isVoidingPattern(scenario.pattern) ? Math.round(78 + profile.start * 900) : 678;
   els.traceSvg.dataset.traceProfile = scenario.id;
+  els.traceSvg.dataset.focusLayer = activeTraceFocusLayer() || "all";
   els.traceSvg.setAttribute("aria-label", `Trazado sintético: ${scenario.title}`);
   els.traceSvg.classList.toggle("challenge-active", traceChallengeIsCurrent() && state.traceChallenge.verdict === null);
   els.traceSvg.innerHTML = `
@@ -2707,6 +2986,7 @@ function renderTrace() {
     ${grids}
     ${labels}
     ${layerPaths}
+    ${traceCursorMarkup()}
     ${traceChallengeMarkerMarkup()}
     <line class="time-marker" x1="${transitionX}" y1="74" x2="${transitionX}" y2="432" />
     <text class="phase-label" x="82" y="452">llenado</text>
@@ -2714,6 +2994,7 @@ function renderTrace() {
     <text class="phase-label" x="842" y="452">vaciado</text>
   `;
   renderTraceAccessibility(data, scenario, profile);
+  updateTraceInspector(traceInspectionPosition);
 }
 
 function renderTraceChallenge() {
@@ -2783,16 +3064,23 @@ function answerTraceChallengeAtPosition(position) {
 
 function answerTraceChallengeAt(clientX) {
   if (!traceChallengeIsCurrent() || state.traceChallenge.verdict !== null) return;
+  const position = tracePositionFromClientX(clientX);
+  if (position === null) return;
+  answerTraceChallengeAtPosition(position);
+}
+
+function tracePositionFromClientX(clientX) {
   const rect = els.traceSvg.getBoundingClientRect();
-  if (!rect.width) return;
+  if (!rect.width) return null;
   const svgX = ((clientX - rect.left) / rect.width) * 1060;
-  answerTraceChallengeAtPosition(clamp((svgX - 78) / 900, 0, 1));
+  return clamp((svgX - 78) / 900, 0, 1);
 }
 
 function renderChapter() {
   const chapter = chapters[state.chapter];
   const screen = chapter.screens[state.screen];
   const total = chapter.screens.length;
+  const conceptFirst = ["thinking", "physiology"].includes(state.chapter);
 
   els.chapterTitle.textContent = chapter.title;
   els.stageBlock.textContent = chapter.block;
@@ -2822,6 +3110,12 @@ function renderChapter() {
   els.prevScreen.disabled = state.screen === 0;
   els.nextScreen.disabled = state.screen === total - 1;
   els.openLab.hidden = state.screen !== total - 1;
+  document.querySelector(".practice-view")?.classList.toggle("concept-first", conceptFirst);
+  const practiceTabSummary = document.querySelector('[data-view="practice"] small');
+  if (practiceTabSummary) practiceTabSummary.textContent = conceptFirst ? "Aplicarlo a un caso" : "Aplicarlo al trazado";
+  els.openPractice.innerHTML = conceptFirst
+    ? 'Aplicar a un caso <span aria-hidden="true">→</span>'
+    : 'Aplicar en un trazado <span aria-hidden="true">→</span>';
 
   const contextKey = `${state.chapter}:${state.screen}`;
   if (els.contextPanel.dataset.screenKey !== contextKey) {
@@ -2903,19 +3197,22 @@ function closeCourseNav() {
 
 function renderRoutine() {
   const activeStep = activePracticeCase().focus || chapterFocus[state.chapter] || "phase";
+  const activeMeta = routineStepMeta(activeStep);
   els.routineSteps.innerHTML = readingRoutine
     .map(
       (step, index) => `
-        <li class="${step.id === activeStep ? "active" : ""}">
+        <li class="${step.id === activeStep ? "active" : ""}" title="${escapeHtml(step.text)}" aria-current="${step.id === activeStep ? "step" : "false"}">
           <span>${index + 1}</span>
-          <div>
-            <strong>${step.label}</strong>
-            <p>${step.text}</p>
-          </div>
+          <strong>${step.label}</strong>
         </li>
       `
     )
     .join("");
+  els.routineFocus.innerHTML = `
+    <span>Paso activo ${String(activeMeta.number).padStart(2, "0")}</span>
+    <strong>${escapeHtml(activeMeta.label)}</strong>
+    <p>${escapeHtml(activeMeta.text)}</p>
+  `;
 }
 
 function renderLayerControls() {
@@ -2925,10 +3222,50 @@ function renderLayerControls() {
   els.emgLayerControl.hidden = !["coordinationDisorders", "neuroUrology"].includes(state.chapter);
 }
 
+function traceFocusOptions() {
+  const showEmg = ["coordinationDisorders", "neuroUrology"].includes(state.chapter);
+  return [
+    { id: null, label: "Todas", title: "Mostrar todas las señales con el mismo énfasis" },
+    { id: "pves", label: "Pves", title: "Enfocar la presión vesical" },
+    { id: "pabd", label: "Pabd", title: "Enfocar la presión abdominal" },
+    { id: "pdet", label: "Pdet", title: "Enfocar la presión detrusoriana derivada" },
+    { id: "flow", label: "Flujo", title: "Enfocar el flujo" },
+    showEmg
+      ? { id: "emg", label: "EMG", title: "Enfocar la actividad electromiográfica" }
+      : { id: "volume", label: "Volumen", title: "Enfocar el volumen" }
+  ];
+}
+
+function activeTraceFocusLayer() {
+  return traceFocusOptions().some((option) => option.id === state.focusLayer)
+    ? state.focusLayer
+    : null;
+}
+
+function renderFocusControls() {
+  const activeLayer = activeTraceFocusLayer();
+  els.traceFocusControls.innerHTML = `
+    <span class="trace-focus-label">Enfocar señal</span>
+    ${traceFocusOptions()
+      .map((option) => {
+        const active = option.id === activeLayer;
+        const id = option.id || "all";
+        return `<button type="button" class="signal-focus-chip ${id} ${active ? "active" : ""}" data-focus-layer="${id}" aria-pressed="${active}" title="${escapeHtml(option.title)}${option.id ? ". Pulsa de nuevo para volver a todas." : ""}"><i aria-hidden="true"></i>${escapeHtml(option.label)}</button>`;
+      })
+      .join("")}
+  `;
+}
+
 function renderCoach() {
   const scenario = activePracticeCase();
   const chapterCases = chapterPracticeCases[state.chapter];
-  els.practiceChapterLabel.textContent = `${chapters[state.chapter].number} · trazados propios del capítulo`;
+  const conceptPractice = ["thinking", "physiology"].includes(state.chapter);
+  els.practiceChapterLabel.textContent = state.chapter === "thinking"
+    ? `${chapters[state.chapter].number} · casos para formular la pregunta`
+    : state.chapter === "physiology"
+      ? `${chapters[state.chapter].number} · casos de fisiología normal`
+      : `${chapters[state.chapter].number} · trazados propios del capítulo`;
+  els.scenarioTabs.setAttribute("aria-label", conceptPractice ? "Casos de este capítulo" : "Trazados de este capítulo");
   els.scenarioTabs.innerHTML = chapterCases
     .map((practiceCase) => `<button type="button" class="scenario-tab ${practiceCase.id === scenario.id ? "active" : ""}" data-scenario="${practiceCase.id}" role="tab" aria-selected="${practiceCase.id === scenario.id}">${practiceCase.tabLabel}</button>`)
     .join("");
@@ -2938,6 +3275,8 @@ function renderCoach() {
   const selectedIndex = Number(state.practiceAnswers[scenario.id]);
   const hasSelection = Number.isInteger(selectedIndex) && Boolean(scenario.answers[selectedIndex]);
   const selectedAnswer = hasSelection ? scenario.answers[selectedIndex] : null;
+  els.coachStep.className = reasoningStepBadgeClass(hasSelection, Boolean(selectedAnswer?.[1]));
+  els.coachStep.innerHTML = reasoningStepBadgeContent(scenario.focus || chapterFocus[state.chapter] || "inference");
   els.coachFeedback.className = `coach-feedback ${selectedAnswer ? (selectedAnswer[1] ? "good" : "warn") : ""}`;
   els.coachFeedback.textContent = selectedAnswer
     ? selectedAnswer[2]
@@ -3016,7 +3355,7 @@ const assessmentUI = assessmentUIFactory.createAssessmentUI({
   navigateToRemediation,
   onMasteryChange(current) {
     els.progressLabel.textContent = current.attempted
-      ? `Dominio ${current.percent}% · ${current.level.label}`
+      ? `Dominio con cobertura ${current.percent}% · ${current.level.label}`
       : "Dominio · sin evidencia";
     els.progressFill.style.width = `${current.percent}%`;
   }
@@ -3082,8 +3421,27 @@ function bindEvents() {
   document.querySelectorAll("[data-layer]").forEach((input) => {
     input.addEventListener("change", () => {
       state.layers[input.dataset.layer] = input.checked;
+      if (!input.checked && state.focusLayer === input.dataset.layer) {
+        state.focusLayer = null;
+      }
+      renderFocusControls();
       renderTrace();
+      saveState();
     });
+  });
+
+  els.traceFocusControls.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-focus-layer]");
+    if (!button) return;
+    const requestedLayer = button.dataset.focusLayer === "all" ? null : button.dataset.focusLayer;
+    state.focusLayer = state.focusLayer === requestedLayer ? null : requestedLayer;
+    if (state.focusLayer && state.focusLayer !== "volume") {
+      state.layers[state.focusLayer] = true;
+    }
+    renderLayerControls();
+    renderFocusControls();
+    renderTrace();
+    saveState();
   });
 
   els.startTraceChallenge.addEventListener("click", () => {
@@ -3123,7 +3481,21 @@ function bindEvents() {
     saveState();
   });
 
-  els.traceSvg.addEventListener("click", (event) => answerTraceChallengeAt(event.clientX));
+  els.traceScrubber.addEventListener("input", () => {
+    updateTraceInspector(Number(els.traceScrubber.value) / 100);
+  });
+
+  els.traceSvg.addEventListener("pointermove", (event) => {
+    if (event.pointerType === "touch") return;
+    const position = tracePositionFromClientX(event.clientX);
+    if (position !== null) updateTraceInspector(position);
+  });
+
+  els.traceSvg.addEventListener("click", (event) => {
+    const position = tracePositionFromClientX(event.clientX);
+    if (position !== null) updateTraceInspector(position);
+    answerTraceChallengeAt(event.clientX);
+  });
   els.traceSvg.addEventListener("keydown", (event) => {
     if (!traceChallengeIsCurrent() || state.traceChallenge.verdict !== null) return;
     if (!["ArrowLeft", "ArrowRight", "Enter", " "].includes(event.key)) return;
@@ -3172,6 +3544,7 @@ function render() {
   renderView();
   renderRoutine();
   renderLayerControls();
+  renderFocusControls();
   renderCoach();
   renderTrace();
   renderTraceChallenge();

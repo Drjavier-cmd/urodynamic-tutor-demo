@@ -3,9 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Curso interactivo para aprender a razonar e interpretar trazados urodinámicos sintéticos." />
+    <meta name="theme-color" content="#0d777b" />
     <title>UroDynaMic Tutor - Curso interactivo</title>
     <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="styles.css?v=20260723-competency-system-v1" />
+    <link rel="stylesheet" href="styles.css?v=20260811-physiology-first-v1" />
   </head>
   <body>
     <div class="app-shell">
@@ -47,8 +49,8 @@
           <p class="course-section-label">Fundamentos</p>
           <button type="button" class="course-item active" data-chapter="thinking">
             <span>1</span>
-            <strong>Cómo pensar una urodinamia</strong>
-            <small>Pregunta + técnica + instrumento</small>
+            <strong>La pregunta antes del trazado</strong>
+            <small>Relato / utilidad / límite</small>
           </button>
           <button type="button" class="course-item" data-chapter="physiology">
             <span>2</span>
@@ -120,6 +122,7 @@
         <section class="course-cover view-panel" id="courseCover" data-view-panel="cover">
           <div class="cover-hero">
             <div class="cover-copy">
+              <p class="product-status-badge">Piloto docente · validación técnica interna completada</p>
               <p class="overline">Curso interactivo de razonamiento urodinámico</p>
               <h1>UroDynaMic Tutor</h1>
               <p class="cover-thesis">De una pregunta clínica a una interpretación funcional.</p>
@@ -148,19 +151,36 @@
             </ol>
           </section>
 
+          <section class="cover-editorial" aria-labelledby="editorialTitle">
+            <header>
+              <p class="overline">Nota del autor</p>
+              <h2 id="editorialTitle">Por qué nace UroDynaMic Tutor</h2>
+            </header>
+            <div class="cover-editorial-copy">
+              <p>La urodinamia suele percibirse como una disciplina compleja, cargada de curvas, términos técnicos y conceptos físicos. En la práctica urológica, donde lo anatómico, lo visible y lo quirúrgico ocupan gran parte de nuestra atención, comprender la función puede quedar injustamente en segundo plano.</p>
+              <p>Sin embargo, entender cómo almacena y vacía el sistema urinario es parte esencial de la urología. Nadie debería estar mejor preparado que nosotros para relacionar el síntoma del paciente con su funcionamiento.</p>
+              <p>Este tutor nace para acercar ese razonamiento a becados, urólogos y otros profesionales vinculados al área. No busca convertir a todos en operadores expertos ni reemplazar el juicio clínico. Busca ayudar a formular una buena pregunta, reconocer cuándo el estudio puede ser útil, valorar si representa el problema del paciente y comprender qué información entrega y cuál no.</p>
+            </div>
+            <aside>
+              <strong>La intención docente</strong>
+              <p>Hacer la urodinamia más accesible sin volverla superficial: comenzar por la clínica y construir desde allí la fisiología, la medición y la interpretación.</p>
+            </aside>
+          </section>
+
           <section class="cover-next" aria-label="Inicio de la ruta docente">
             <div>
               <span>Primera ruta</span>
-              <strong>Capítulo 1 · Cómo pensar una urodinamia</strong>
+              <strong>Capítulo 1 · La pregunta antes del trazado</strong>
             </div>
-            <p>Antes de interpretar curvas, aprende a separar señal, inferencia y límite.</p>
+            <p>Antes de interpretar curvas, define qué problema debe responder el estudio y qué quedará fuera de su alcance.</p>
           </section>
         </section>
 
         <header class="stage-header" id="stageHeader" hidden>
           <div>
+            <p class="product-status-inline">Piloto docente · validación técnica interna completada</p>
             <p class="overline" id="stageBlock">Bloque I · Fundamentos antes de interpretar curvas</p>
-            <h2 id="chapterTitle">Cómo pensar una urodinamia</h2>
+            <h2 id="chapterTitle">La pregunta antes del trazado</h2>
           </div>
           <div class="progress-box" aria-label="Dominio de competencias">
             <span id="progressLabel">Dominio · sin evidencia</span>
@@ -273,6 +293,7 @@
               <h3>Rutina de lectura antes de poner etiquetas</h3>
             </div>
             <ol id="routineSteps" class="routine-steps"></ol>
+            <div class="routine-focus" id="routineFocus" aria-live="polite"></div>
           </section>
 
           <section class="interactive-zone">
@@ -285,6 +306,22 @@
                 <div class="scenario-tabs" id="scenarioTabs" role="tablist" aria-label="Trazados de este capítulo"></div>
               </div>
 
+              <section class="trace-challenge" id="traceChallenge" aria-label="Reto de localización sobre el trazado">
+                <div class="trace-challenge-copy">
+                  <p class="overline">Reto de localización</p>
+                  <strong id="traceChallengePrompt">Encuentra el evento antes de ver la guía.</strong>
+                  <p id="traceChallengeInstructions">Activa el reto y marca directamente sobre el trazado.</p>
+                </div>
+                <div class="trace-challenge-actions">
+                  <button type="button" id="startTraceChallenge" class="secondary-action">Iniciar reto</button>
+                  <button type="button" id="noFocalEvent" class="secondary-action" hidden>No hay evento focal</button>
+                  <button type="button" id="resetTraceChallenge" class="secondary-action" hidden>Reintentar</button>
+                </div>
+                <div class="trace-challenge-feedback" id="traceChallengeFeedback" aria-live="polite">
+                  La guía permanece visible hasta que inicies el reto.
+                </div>
+              </section>
+
               <div class="trace-toolbar">
                 <label><input type="checkbox" data-layer="pves" checked /> Vesical (Pves)</label>
                 <label><input type="checkbox" data-layer="pabd" checked /> Abdominal (Pabd)</label>
@@ -294,10 +331,25 @@
                 <label><input type="checkbox" data-layer="events" checked /> Eventos</label>
               </div>
 
+              <div
+                class="trace-focus-toolbar"
+                id="traceFocusControls"
+                role="group"
+                aria-label="Enfocar una señal del trazado"
+              ></div>
+
               <div class="trace-event-card" id="traceEventCard"></div>
 
               <div class="trace-canvas">
                 <svg id="traceSvg" viewBox="0 0 1060 470" role="img" tabindex="0" aria-label="Trazado urodinámico docente sintético"></svg>
+              </div>
+
+              <div class="trace-inspection" aria-label="Inspector del trazado">
+                <label class="trace-scrubber" for="traceScrubber">
+                  <span>Recorrer trazado</span>
+                  <input id="traceScrubber" type="range" min="0" max="100" value="12" />
+                </label>
+                <div class="trace-inspector" id="traceInspector" aria-live="polite"></div>
               </div>
 
               <details class="trace-accessibility">
@@ -320,25 +372,11 @@
                 </div>
               </details>
 
-              <section class="trace-challenge" id="traceChallenge" aria-label="Reto de localización sobre el trazado">
-                <div class="trace-challenge-copy">
-                  <p class="overline">Reto de localización</p>
-                  <strong id="traceChallengePrompt">Encuentra el evento antes de ver la guía.</strong>
-                  <p id="traceChallengeInstructions">Activa el reto y marca directamente sobre el trazado.</p>
-                </div>
-                <div class="trace-challenge-actions">
-                  <button type="button" id="startTraceChallenge" class="secondary-action">Iniciar reto</button>
-                  <button type="button" id="noFocalEvent" class="secondary-action" hidden>No hay evento focal</button>
-                  <button type="button" id="resetTraceChallenge" class="secondary-action" hidden>Reintentar</button>
-                </div>
-                <div class="trace-challenge-feedback" id="traceChallengeFeedback" aria-live="polite">
-                  La guía permanece visible hasta que inicies el reto.
-                </div>
-              </section>
             </article>
 
             <article class="coach-panel">
               <p class="overline">Tutor</p>
+              <div class="reasoning-step-badge" id="coachStep" aria-live="polite"></div>
               <h3 id="coachQuestion">Antes de interpretar una curva, ¿qué pregunta falta?</h3>
               <div class="answer-grid" id="answerGrid"></div>
               <div class="coach-feedback" id="coachFeedback">Elige una respuesta. El tutor busca razonamiento, no etiquetas.</div>
@@ -375,13 +413,13 @@
       </main>
     </div>
 
-    <script src="course-content.js?v=20260723-competency-system-v1"></script>
-    <script src="practice-data.js?v=20260723-competency-system-v1"></script>
-    <script src="lab-data.js?v=20260723-competency-system-v1"></script>
-    <script src="challenge-data.js?v=20260723-competency-system-v1"></script>
-    <script src="competency-model.js?v=20260723-competency-system-v1"></script>
-    <script src="assessment-engine.js?v=20260723-competency-system-v1"></script>
-    <script src="assessment-ui.js?v=20260723-competency-system-v1"></script>
-    <script src="app.js?v=20260723-competency-system-v1"></script>
+    <script src="course-content.js?v=20260811-physiology-first-v1"></script>
+    <script src="practice-data.js?v=20260811-physiology-first-v1"></script>
+    <script src="lab-data.js?v=20260811-physiology-first-v1"></script>
+    <script src="challenge-data.js?v=20260811-physiology-first-v1"></script>
+    <script src="competency-model.js?v=20260811-physiology-first-v1"></script>
+    <script src="assessment-engine.js?v=20260811-physiology-first-v1"></script>
+    <script src="assessment-ui.js?v=20260811-physiology-first-v1"></script>
+    <script src="app.js?v=20260811-physiology-first-v1"></script>
   </body>
 </html>

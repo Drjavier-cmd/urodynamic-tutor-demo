@@ -3,113 +3,113 @@ const chapters = {
   thinking: {
     block: "Bloque I · Fundamentos antes de interpretar curvas",
     number: "Capítulo 1",
-    title: "Cómo pensar una urodinamia",
-    mentalModelTitle: "Una pregunta clínica convertida en señales",
+    title: "La pregunta antes del trazado",
+    mentalModelTitle: "Una pregunta clínica antes que una curva",
     mentalModelText:
-      "La urodinamia intenta reproducir síntomas y registrar la función del tracto urinario inferior. Su valor nace al interpretar esas señales dentro de una pregunta, una técnica y un contexto.",
-    notThis: "Una colección de curvas que entrega el diagnóstico",
-    isThis: "Una pregunta clínica transformada en señales interpretables",
+      "La urodinamia es útil cuando intenta responder una pregunta funcional concreta. Antes de aprender fases, presiones o artefactos, hay que saber qué problema se quiere comprender y qué cambiaría con la respuesta.",
+    notThis: "Un examen solicitado para ver qué aparece",
+    isThis: "Una evaluación funcional orientada por una pregunta clínica",
     labId: "clinicalReasoning",
     labDescription:
-      "Construye una respuesta desde el síntoma hasta la conclusión. Cada etapa separa lo observado, lo inferido y el límite que debe conservarse.",
+      "Convierte un relato clínico en una pregunta verificable y una respuesta prudente. Las fases, señales y controles técnicos se enseñarán en los capítulos siguientes.",
     screens: [
       {
-        title: "Una pregunta clínica convertida en señales",
+        title: "La historia comienza antes del equipo",
         text:
-          "La urodinamia intenta reproducir síntomas mientras mide presión, volumen, flujo y eventos. Esas señales solo adquieren significado dentro de la pregunta clínica que originó el estudio.",
-        key: "La urodinamia produce señales; no entrega respuestas por sí sola.",
-        prompt: "¿Qué mecanismo funcional intentas observar o descartar?"
+          "El paciente consulta por una experiencia: pierde orina, siente urgencia, no logra vaciar o debe hacer esfuerzo. Esa historia define el problema; el examen solo puede aportar una observación funcional bajo condiciones controladas.",
+        key: "Primero comprende el problema del paciente; después decide qué puede aportar el estudio.",
+        prompt: "¿Qué experiencia concreta motivó esta evaluación?"
+      },
+      {
+        title: "Una buena urodinamia empieza con una pregunta",
+        text:
+          "No se solicita para buscar cualquier anormalidad. La pregunta debe expresar qué fenómeno se intenta reproducir, aclarar o descartar y por qué esa respuesta sería clínicamente útil.",
+        key: "La pregunta debe existir antes de comenzar el estudio.",
+        prompt: "¿Qué incertidumbre clínica debería ayudar a resolver el examen?"
+      },
+      {
+        title: "Del síntoma a una pregunta verificable",
+        text:
+          "«Pierdo al toser» puede transformarse en: «¿se reproduce la pérdida al toser durante el estudio y bajo qué condiciones?». La formulación conserva el relato sin anticipar todavía el mecanismo ni el diagnóstico.",
+        key: "Una pregunta verificable no contiene de antemano su respuesta.",
+        prompt: "¿Cómo formularías la pregunta sin dar por conocido el mecanismo?"
+      },
+      {
+        title: "La respuesta debe tener una consecuencia",
+        text:
+          "Una pregunta útil aclara qué decisión, explicación o conducta podría cambiar con el resultado. Si no sabemos para qué necesitamos la información, incluso un registro técnicamente correcto puede ser clínicamente poco útil.",
+        key: "El valor del examen depende de la decisión que intenta informar.",
+        prompt: "¿Qué cambiaría si la respuesta fuera positiva, negativa o incierta?"
       },
       {
         title: "Controlado no significa completamente natural",
         text:
-          "Catéteres, infusión artificial, instrucciones, posición, presencia de personal y ansiedad pueden modificar la sensibilidad o el vaciado. El examen aproxima una función cotidiana bajo condiciones controladas.",
-        key: "El estudio es funcional y controlado, pero no una copia perfecta de la vida diaria.",
+          "Catéteres, llenado artificial, instrucciones, posición, presencia de personal y ansiedad pueden modificar la sensación, la continencia o el vaciado. El examen aproxima una función cotidiana, pero no la reproduce de forma perfecta.",
+        key: "La urodinamia observa una función bajo condiciones de prueba.",
         prompt: "¿Qué condición del examen pudo modificar lo observado?"
       },
       {
         title: "La representatividad también es un resultado",
         text:
-          "Que el paciente haya llenado u orinado durante el estudio no garantiza que haya reproducido su experiencia habitual. Sensaciones, urgencia, fuga, posición y chorro deben compararse con su vida cotidiana.",
-        key: "Una micción registrada puede ser fisiológicamente poco representativa.",
-        prompt: "¿El paciente reconoció este llenado o esta micción como habitual?"
+          "Que el paciente haya llenado u orinado durante el estudio no garantiza que haya reproducido su experiencia habitual. Lo observado debe compararse con lo que reconoce que le ocurre en la vida cotidiana.",
+        key: "Registrar un episodio no garantiza que ese episodio sea representativo.",
+        prompt: "¿El paciente reconoció esta experiencia como habitual?"
       },
       {
-        title: "El operador registra el contexto",
+        title: "Relatar, observar, medir e interpretar no son lo mismo",
         text:
-          "El equipo registra señales. El operador debe documentar maniobras, posición, sensaciones, fuga, dolor, movimiento y problemas técnicos. Esa información permite reconstruir qué ocurrió.",
-        key: "El equipo registra la señal; el operador registra el contexto.",
-        prompt: "¿Qué evento clínico acompañó el cambio de la curva?"
+          "El paciente relata un síntoma; durante el examen puede observarse un evento; el instrumento registra medidas; y el profesional integra esos datos. Saltar directamente desde el relato o una curva hacia un diagnóstico produce conclusiones más fuertes que la evidencia.",
+        key: "Cada nivel aporta información distinta y exige una interpretación proporcional.",
+        prompt: "¿Esto fue relatado, observado, medido o interpretado?"
       },
       {
-        title: "Una buena urodinamia empieza con una pregunta",
+        title: "El equipo no conoce la pregunta clínica",
         text:
-          "No se solicita para ver qué aparece. La pregunta define qué fenómeno se busca, qué maniobras deben realizarse, qué variables importan y qué podría modificar una decisión clínica.",
-        key: "La pregunta debe existir antes de comenzar el estudio.",
-        prompt: "¿Qué resultado cambiaría una decisión clínica?"
-      },
-      {
-        title: "Transformar el síntoma",
-        text:
-          "El paciente relata una experiencia: «pierdo al toser» o «no alcanzo a llegar». El urodinamista la convierte en una relación observable entre evento, presión, sensación, flujo y fuga.",
-        key: "El síntoma plantea la pregunta; el examen intenta reproducir el mecanismo.",
-        prompt: "¿Cómo convertirías este relato en una pregunta verificable?"
-      },
-      {
-        title: "Cinco niveles de información",
-        text:
-          "Síntoma, signo, medición, hallazgo urodinámico y diagnóstico clínico se relacionan, pero no son equivalentes. Saltar entre niveles produce conclusiones más específicas que la evidencia.",
-        key: "La señal es un dato; su significado es una inferencia.",
-        prompt: "¿Estás describiendo un síntoma, un signo, una medición, un hallazgo o un diagnóstico?"
-      },
-      {
-        title: "Dos presiones antes de una resta",
-        text:
-          "El sistema registra una presión dentro de la vejiga y una estimación de la presión abdominal. La primera se denomina presión vesical (Pves); la segunda, presión abdominal (Pabd). Al restarlas se obtiene la presión detrusoriana (Pdet), que no proviene de un tercer sensor.",
-        key: "Primero entiende qué representa cada presión; después utiliza su abreviatura.",
-        prompt: "¿Qué dos presiones se miden y cuál se obtiene mediante una resta?"
-      },
-      {
-        title: "Qué no puede medir",
-        text:
-          "La máquina no conoce la pregunta clínica, la sensación exacta, la vergüenza, la inhibición, la representatividad ni la relevancia del hallazgo. Tampoco reconoce por sí sola un catéter desplazado.",
-        key: "La máquina no reemplaza la historia ni el juicio clínico.",
+          "La máquina no conoce la experiencia del paciente, la relevancia de un episodio, la vergüenza, la inhibición ni el efecto que una respuesta tendrá sobre una decisión. Registra datos; no comprende por sí sola el problema clínico.",
+        key: "El instrumento registra; el clínico pregunta, contextualiza e interpreta.",
         prompt: "¿Qué información esencial no está contenida en la curva?"
       },
       {
-        title: "Calidad antes de fisiología",
+        title: "La pregunta guía las condiciones del estudio",
         text:
-          "Antes de atribuir un cambio al paciente, revisa línea de base, transmisión, respuesta a la tos, continuidad, amortiguación, catéteres, actividad rectal, movimiento y eventos registrados.",
-        key: "La primera pregunta ante una curva extraña es si la señal es confiable.",
-        prompt: "¿Este segmento permite responder la pregunta con seguridad?"
+          "Si el problema ocurre al toser, al ponerse de pie, con urgencia o durante el vaciado, el estudio debe intentar observar esa situación de manera segura y documentada. Una pregunta vaga produce un examen difícil de interpretar.",
+        key: "Las condiciones deben responder al problema que motivó el estudio.",
+        prompt: "¿Qué situación cotidiana necesitamos intentar reproducir?"
       },
       {
-        title: "Tres explicaciones iniciales",
+        title: "El contexto forma parte de la respuesta",
         text:
-          "Un cambio puede ser fisiológico, representar una alteración funcional o deberse a un fenómeno técnico o contextual. La altura de la curva no permite distinguirlos por sí sola.",
-        key: "Primero clasifica la naturaleza del cambio; después ponle nombre.",
-        prompt: "¿Fisiología, alteración funcional o artefacto: qué evidencia sostiene cada opción?"
+          "Posición, volumen, maniobra, sensaciones y reconocimiento del episodio ayudan a comprender qué ocurrió. Los detalles técnicos se aprenderán después; aquí importa reconocer que ningún dato está separado de las condiciones en que se obtuvo.",
+        key: "Una respuesta sin condiciones puede parecer más general de lo que realmente es.",
+        prompt: "¿Bajo qué condiciones se obtuvo esta respuesta?"
       },
       {
-        title: "El trazado es una historia",
+        title: "Una respuesta positiva todavía necesita límites",
         text:
-          "El significado depende de la fase, el volumen, la sensación, la posición, la maniobra, la fuga, la orden de orinar, el flujo y lo que ocurrió inmediatamente antes y después.",
-        key: "Una curva aislada de su tiempo pierde buena parte de su significado.",
-        prompt: "¿Dónde está este cambio dentro del ciclo miccional?"
+          "Reproducir el síntoma ayuda a responder la pregunta, pero no explica automáticamente toda su frecuencia, gravedad, causa anatómica ni tratamiento. La observación debe conservar el alcance de la condición probada.",
+        key: "Observar un fenómeno no autoriza a explicar todo el problema.",
+        prompt: "¿Qué respondió el episodio y qué no permite afirmar?"
       },
       {
-        title: "No reproducir no es negar",
+        title: "Una respuesta negativa también tiene alcance limitado",
         text:
-          "Un síntoma puede no aparecer bajo las condiciones artificiales del examen. La conclusión rigurosa describe que no se demostró en ese estudio, sin invalidar la experiencia cotidiana del paciente.",
-        key: "No demostrar un fenómeno no equivale a demostrar que no existe.",
-        prompt: "¿Qué no se reprodujo y bajo qué condiciones?"
+          "Que el fenómeno no aparezca puede ser relevante, pero la conclusión debe referirse a las condiciones del estudio. No equivale por sí sola a negar la historia ni a demostrar una explicación diferente.",
+        key: "Una respuesta negativa delimita; no borra el problema clínico.",
+        prompt: "¿Qué puede decirse con seguridad cuando el fenómeno no apareció?"
       },
       {
-        title: "No demostrar no autoriza a inventar",
+        title: "La pregunta también puede llevar a no pedir el examen",
         text:
-          "La ausencia de hiperactividad, fuga o vaciado representativo tampoco demuestra automáticamente otra fisiopatología. El resultado delimita lo observado; no explica por sí solo el caso completo.",
-        key: "La ausencia de un hallazgo no prueba una explicación alternativa.",
-        prompt: "¿Qué hipótesis sigue abierta y cuál quedó realmente evaluada?"
+          "No todo síntoma necesita una urodinamia. Si la evaluación clínica ya responde lo necesario o si el resultado no cambiará una decisión, agregar un estudio funcional puede no aportar valor suficiente.",
+        key: "Formular la pregunta incluye decidir si la urodinamia es la herramienta adecuada.",
+        prompt: "¿Qué incertidumbre justifica realizar este estudio funcional?"
+      },
+      {
+        title: "Una respuesta incierta también debe reconocerse",
+        text:
+          "A veces el estudio no ofrece una respuesta suficiente: el episodio fue poco representativo, las condiciones no fueron adecuadas o la información no permite decidir entre alternativas. Declarar esa incertidumbre es más útil que forzar una conclusión.",
+        key: "Incierto no significa inútil; significa que la evidencia tiene un límite.",
+        prompt: "¿Qué impide responder con seguridad y qué pregunta queda abierta?"
       },
       {
         title: "No es una bola de cristal",
@@ -119,25 +119,25 @@ const chapters = {
         prompt: "¿Qué información externa necesitas para interpretar este hallazgo?"
       },
       {
-        title: "Cuatro elementos de una interpretación sólida",
+        title: "Cinco preguntas antes de mirar una curva",
         text:
-          "Pregunta clínica, fisiología, instrumento y contexto deben converger. Si falta uno, aumenta el riesgo de confundir señal, artefacto y significado clínico.",
-        key: "Pregunta + fisiología + instrumento + contexto.",
-        prompt: "¿Cuál de los cuatro elementos falta antes de concluir?"
+          "¿Qué relata el paciente? ¿Qué queremos aclarar? ¿Por qué la urodinamia puede ayudar? ¿Qué situación debemos intentar reproducir? ¿Qué decisión podría cambiar con la respuesta? Estas preguntas preparan el estudio antes de interpretar señales.",
+        key: "Una curva solo es útil cuando sabemos qué pregunta debe responder.",
+        prompt: "¿Puedes formular estas cinco respuestas antes de continuar?"
       },
       {
-        title: "Una rutina antes de etiquetar",
+        title: "La rutina es un mapa, no un prerrequisito",
         text:
-          "Lee siempre en el mismo orden: pregunta, fase, calidad, señal, evento, inferencia, límite y respuesta. La rutina evita saltar desde una curva llamativa directamente hacia un diagnóstico.",
-        key: "Ordenar el razonamiento reduce la sobreinterpretación.",
-        prompt: "¿En qué etapa del razonamiento estás y cuál viene después?"
+          "A lo largo del curso aprenderás a recorrer ocho pasos: pregunta, fase, calidad, señal, evento, inferencia, límite y respuesta. En este capítulo basta con comprender el comienzo y el final: qué queremos saber y qué podemos responder honestamente.",
+        key: "La ruta completa se aprenderá de manera progresiva, no toda de una vez.",
+        prompt: "¿Cuál es la pregunta inicial y qué debería contener una respuesta útil?"
       },
       {
         title: "La conclusión útil",
         text:
-          "Una buena conclusión responde la pregunta original, distingue lo observado de lo inferido y declara lo que el estudio no permite resolver. No enumera canales sin traducir su significado funcional.",
+          "Una buena conclusión responde la pregunta original, declara si el fenómeno se reprodujo, incorpora las condiciones relevantes y reconoce lo que el examen no permitió resolver. Los capítulos siguientes enseñarán cómo sostenerla con fases y señales confiables.",
         key: "La tecnología registra señales. La clínica decide qué significan.",
-        prompt: "¿Qué se observó, qué se infiere, qué se respondió y qué quedó abierto?"
+        prompt: "¿Qué se respondió y qué quedó todavía abierto?"
       }
     ]
   },
@@ -152,14 +152,14 @@ const chapters = {
     isThis: "Un sistema que adopta dos comportamientos recíprocos",
     labId: "accommodation",
     labDescription:
-      "Explora los dos programas funcionales, la acomodación y la relación entre bomba, salida y resistencia mediante analogías cualitativas.",
+      "Explora los dos programas funcionales y la capacidad de la vejiga para recibir volumen a baja presión y luego cambiar hacia un vaciado coordinado.",
     screens: [
       {
-        title: "Antes de buscar una alteración",
+        title: "Antes del examen viene la fisiología",
         text:
-          "Almacenar y vaciar parecen funciones simples, pero requieren coordinación entre vejiga, uretra, esfínter, piso pélvico, vías sensitivas, control autonómico, somático y centros superiores.",
-        key: "Antes de reconocer lo anormal, hay que comprender lo normal.",
-        prompt: "¿Qué debería estar haciendo el sistema en esta fase?"
+          "Antes de entrar en las curvas, la física o la matemática, hay que comprender la función. Para almacenar y vaciar se requieren integridad estructural y coordinación entre vejiga, uretra, esfínteres, piso pélvico, vías sensitivas, control autonómico, somático y centros superiores. Por cotidiano que parezca el acto de orinar, su organización es compleja.",
+        key: "La interpretación comienza por comprender cómo funciona normalmente el sistema urinario inferior.",
+        prompt: "¿Qué estructuras deben coordinarse para almacenar y vaciar?"
       },
       {
         title: "Un sistema, dos programas",
@@ -177,113 +177,111 @@ const chapters = {
         prompt: "¿Este comportamiento es apropiado para la fase actual?"
       },
       {
-        title: "Almacenamiento: cinco objetivos simultáneos",
+        title: "Almacenar es mucho más que contener orina",
         text:
-          "La vejiga debe recibir volumen a baja presión, sin contracciones involuntarias, con sensación progresiva, sin fuga y manteniendo la posibilidad de postergar la micción.",
-        key: "Almacenar no es solo contener orina: es contenerla de forma segura y útil.",
-        prompt: "¿Cuál de los cinco objetivos dejó de cumplirse?"
+          "Durante el almacenamiento, la vejiga aumenta su volumen con un cambio mínimo de presión; permanece relajada, la salida conserva continencia y la sensación progresa sin obligar a orinar de inmediato. El sistema permite reconocer el deseo y postergar conscientemente la micción hasta un momento apropiado.",
+        key: "El objetivo es almacenar un volumen útil, a baja presión, con continencia, sensación progresiva y control voluntario.",
+        prompt: "¿Qué debe mantener el sistema mientras aumenta el volumen?"
       },
       {
         title: "Acomodación: ganar volumen sin pagar presión",
         text:
-          "La compliance expresa la relación entre cambio de volumen y cambio de presión detrusoriana (Pdet). No es solo una fórmula: describe cuánto volumen acepta el reservorio antes de aumentar de forma desproporcionada su presión.",
-        key: "Una vejiga complaciente incorpora volumen con poco cambio de presión detrusoriana.",
-        prompt: "¿Cuánto volumen ganó y cuánto cambió la presión?",
+          "La pared vesical tiene la propiedad de distenderse y recibir orina sin que la presión aumente en la misma proporción. Esa capacidad permite que el reservorio gane volumen manteniendo un entorno de baja presión durante el llenado.",
+        key: "Acomodarse es aumentar volumen con un cambio pequeño de presión.",
+        prompt: "¿La vejiga puede recibir más volumen manteniendo baja la presión?",
         visualDemoId: "accommodation"
       },
       {
         title: "La salida también debe almacenar",
         text:
-          "Cuello vesical, uretra, esfínter estriado y piso pélvico deben mantener resistencia suficiente en reposo y ante tos, esfuerzo o cambio de posición.",
-        key: "La estabilidad del detrusor permite almacenar; la competencia de la salida permite contener.",
-        prompt: "¿La salida conserva continencia frente al aumento abdominal?"
+          "Mientras la vejiga recibe volumen, cuello vesical, uretra, esfínteres y piso pélvico mantienen una resistencia suficiente para conservar la continencia. La salida no es un conducto pasivo: participa activamente en el programa de almacenamiento.",
+        key: "La vejiga recibe volumen mientras la salida mantiene el cierre.",
+        prompt: "¿Qué estructuras sostienen la continencia durante el almacenamiento?"
       },
       {
-        title: "La sensación forma parte del almacenamiento",
+        title: "La sensación permite decidir, no solo reaccionar",
         text:
-          "La percepción debería progresar desde una conciencia inicial hasta un deseo más intenso. El deseo normal informa que sería apropiado orinar, pero todavía permite postergar la micción.",
-        key: "Sentir la vejiga no obliga automáticamente a vaciarla.",
-        prompt: "¿La sensación progresó y permitió postergar?"
+          "A medida que la vejiga se llena, la información aferente se integra como una percepción progresiva. La persona reconoce el deseo y puede diferir conscientemente la micción, una capacidad volitiva esencial para adaptar el vaciado al contexto social y al momento apropiado.",
+        key: "El deseo informa; el control voluntario permite decidir cuándo vaciar.",
+        prompt: "¿Cómo pasa una señal de llenado a convertirse en una decisión consciente?"
       },
       {
         title: "Sensación no es presión",
         text:
-          "Un paciente puede referir deseo intenso con Pdet estable, y una contracción puede aparecer con escasa percepción. La sensación se obtiene preguntando; ningún canal la mide directamente.",
-        key: "Lo que el paciente siente y lo que muestra Pdet son datos diferentes.",
-        prompt: "¿Cambió la experiencia, la presión o ambas?"
+          "La presión es una variable física; la sensación es una experiencia construida desde aferencias, integración neurológica y contexto. Pueden relacionarse durante el llenado, pero no son equivalentes. La sensación se conoce preguntando al paciente, no observando una curva.",
+        key: "La sensación pertenece a la experiencia del paciente; la presión pertenece a la medición física.",
+        prompt: "¿Esta información proviene del paciente o de un instrumento?"
       },
       {
-        title: "Continencia durante una tos",
+        title: "El control voluntario integra el contexto",
         text:
-          "La tos eleva Pabd y transmite presión hacia Pves. Si aparece fuga sin contracción detrusoriana, el fenómeno apunta al mecanismo de cierre; si la fuga acompaña un aumento real de Pdet, el mecanismo es distinto.",
-        key: "La misma pérdida visible puede originarse por relaciones funcionales diferentes.",
-        prompt: "¿Qué ocurrió con Pabd y Pdet inmediatamente antes de la fuga?"
+          "La información de llenado alcanza centros que permiten valorar seguridad, oportunidad y conveniencia. Mientras no se autoriza la micción, se mantiene el programa de almacenamiento; cuando el contexto es apropiado, puede iniciarse voluntariamente la transición hacia el vaciado.",
+        key: "La micción normal combina reflejos automáticos con control consciente.",
+        prompt: "¿Qué permite mantener o cambiar voluntariamente el programa activo?"
       },
       {
-        title: "Almacenamiento no significa inactividad",
+        title: "Almacenar es una coordinación activa",
         text:
-          "El sistema recibe aferencias, inhibe el reflejo miccional, mantiene la salida, integra contexto y conserva la posibilidad de iniciar voluntariamente el vaciado.",
-        key: "La vejiga informa; el sistema nervioso decide qué hacer con esa información.",
-        prompt: "¿El contexto permite o impide cambiar de programa?"
+          "Durante el llenado, la vejiga se acomoda, el detrusor permanece relajado, la salida conserva resistencia, las aferencias informan el volumen y el sistema nervioso mantiene la posibilidad de postergar o iniciar la micción.",
+        key: "La aparente quietud del almacenamiento requiere actividad coordinada de todo el sistema.",
+        prompt: "¿Qué funciones deben mantenerse simultáneamente mientras la vejiga se llena?"
       },
       {
         title: "La transición exige una secuencia",
         text:
-          "El individuo reconoce el deseo, autoriza la micción, reduce actividad esfinteriana y resistencia uretral, inicia la contracción, supera la presión de apertura y genera flujo.",
-        key: "Para transformar una contracción en flujo, la salida debe permitirlo.",
-        prompt: "¿Qué parte de la secuencia ocurrió primero?",
+          "El individuo reconoce el deseo, decide orinar, reduce la actividad de la salida e inicia el programa de vaciado. La relajación de la salida y la contracción vesical deben organizarse en el orden y el momento apropiados.",
+        key: "Vaciar no es simplemente dejar de almacenar: es cambiar coordinadamente de programa.",
+        prompt: "¿Qué cambios permiten pasar del almacenamiento al vaciado?",
         visualDemoId: "programSwitch"
       },
       {
-        title: "Presión suficiente, no necesariamente alta",
+        title: "La vejiga debe conservar capacidad contráctil",
         text:
-          "Especialmente en mujeres, una salida bien relajada puede permitir vaciamiento con mínima elevación de Pdet. La presión necesaria depende de la resistencia que debe vencerse.",
-        key: "Pdet baja no significa automáticamente mala contractilidad.",
-        prompt: "¿La presión observada fue suficiente para esa resistencia?",
-        visualDemoId: "flowResistance"
+          "La misma pared que se distendió durante el llenado debe luego comportarse como una bomba. El detrusor necesita iniciar y sostener una contracción capaz de generar la fuerza impulsora necesaria para el vaciado.",
+        key: "La vejiga normal debe poder distenderse al almacenar y contraerse al vaciar.",
+        prompt: "¿Qué propiedad muscular permite que el reservorio se convierta en bomba?"
       },
       {
-        title: "Vaciado: contracción útil y sostenida",
+        title: "La salida debe reducir su resistencia",
         text:
-          "El vaciado requiere inicio de contracción, relajación de salida, flujo y vaciamiento adecuado. La suficiencia depende de fuerza, duración, resistencia, volumen eliminado y residuo.",
-        key: "Pdet alta no equivale automáticamente a buena contractilidad.",
-        prompt: "¿La contracción produjo y mantuvo el flujo hasta completar el vaciamiento?"
+          "Para que la fuerza vesical produzca flujo, cuello vesical, uretra, esfínteres y piso pélvico deben abandonar el programa de cierre y ofrecer una vía de baja resistencia. Abrir la salida es una acción coordinada, no una ausencia pasiva de actividad.",
+        key: "La bomba impulsa; la salida debe permitir el paso.",
+        prompt: "¿Qué debe cambiar en el tracto de salida para que comience el flujo?"
       },
       {
-        title: "El flujo es el resultado",
+        title: "De la contracción al flujo",
         text:
-          "Un flujo bajo puede reflejar fuerza insuficiente, resistencia elevada, falta de relajación, volumen pequeño, prensa abdominal, inhibición o una combinación.",
-        key: "La uroflujometría muestra el resultado; presión-flujo intenta explicar cómo se produjo.",
-        prompt: "¿Qué fuerza y qué resistencia acompañan este flujo?",
-        visualDemoId: "flowResistance"
+          "La contracción del detrusor genera un gradiente de presión. Cuando la salida reduce adecuadamente su resistencia, ese gradiente moviliza la orina y produce flujo. La presión necesaria depende de la resistencia que debe vencerse.",
+        key: "El flujo resulta de una fuerza impulsora actuando a través de una salida que ofrece resistencia.",
+        prompt: "¿Cómo se relacionan contracción, gradiente de presión, resistencia y flujo?"
       },
       {
-        title: "El vaciado debe ser coordinado",
+        title: "El vaciado debe sostenerse y coordinarse",
         text:
-          "Una vejiga puede contraerse con fuerza y vaciar mal si la salida no cede. También puede existir salida relajada y vaciamiento insuficiente si la contracción no se inicia o no se sostiene.",
-        key: "Vejiga y salida se interpretan como relación, no como compartimentos independientes.",
-        prompt: "¿La bomba y la salida trabajan a favor del mismo objetivo?"
+          "La contracción vesical y la reducción de resistencia de la salida deben mantenerse el tiempo suficiente para producir un flujo eficaz. Bomba y conducto trabajan como partes de un mismo sistema orientado al vaciamiento.",
+        key: "La coordinación importa tanto como la capacidad de cada estructura por separado.",
+        prompt: "¿La vejiga y la salida trabajan al mismo tiempo a favor del vaciamiento?"
       },
       {
-        title: "Un ciclo fisiológico, no una curva perfecta",
+        title: "Vaciar es completar un objetivo funcional",
         text:
-          "Al almacenar esperamos volumen creciente, Pdet baja, sensibilidad progresiva y continencia. Al vaciar esperamos autorización, salida relajada, contracción suficiente, flujo y residuo clínicamente adecuado.",
-        key: "El esquema es una referencia funcional, no una plantilla rígida.",
-        prompt: "¿El sistema cumplió su objetivo de forma segura y coordinada?"
+          "El vaciado normal produce flujo, reduce el contenido vesical y termina cuando la contracción deja de ser necesaria. Luego el sistema recupera el programa de almacenamiento y la salida restablece su resistencia.",
+        key: "El ciclo se completa cuando el sistema vuelve de forma coordinada al almacenamiento.",
+        prompt: "¿Qué cambios permiten volver al almacenamiento cuando termina el vaciado?"
       },
       {
         title: "Normalidad no significa una cifra única",
         text:
-          "Volúmenes, presiones, tiempos y formas varían con edad, sexo, posición, privacidad, ansiedad, velocidad de llenado, hábitos, fármacos y anatomía de salida.",
-        key: "Una curva puede ser técnicamente correcta y no ser representativa.",
-        prompt: "¿Este comportamiento se parece al habitual del paciente?"
+          "Volúmenes, tiempos, sensaciones, presiones y forma del flujo pueden variar con edad, sexo, posición, privacidad, hábitos, hidratación, fármacos y características de la salida. La fisiología normal describe relaciones y objetivos, no una única cifra obligatoria.",
+        key: "Lo normal conserva el objetivo funcional dentro de una variabilidad esperable.",
+        prompt: "¿La variación conserva almacenamiento y vaciado seguros, coordinados y útiles?"
       },
       {
         title: "De la fisiología a la señal",
         text:
-          "El equipo registra presiones, volumen, flujo, eventos y a veces EMG o imágenes. Primero se identifica la fase, luego lo esperado, después lo observado y finalmente se compara antes de nombrar un hallazgo.",
-        key: "La fisiología es el fenómeno; el trazado es una representación indirecta.",
-        prompt: "¿En qué fase está el sistema y hace lo que debería hacer?"
+          "Una vez comprendidos los objetivos y la coordinación de cada fase, las curvas pueden leerse como una representación indirecta de esa función. El capítulo siguiente mostrará cómo ubicar en el tiempo almacenamiento, transición y vaciado antes de interpretar cada señal.",
+        key: "Primero se comprende la función; después se aprende cómo intenta representarla el trazado.",
+        prompt: "¿Qué fenómeno fisiológico intentará representar cada parte del próximo trazado?"
       }
     ]
   },
