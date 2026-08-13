@@ -1,5 +1,11 @@
 # Registro de cambios científicos
 
+## 2026-08-13 - Trazados fisiológicos visibles en la práctica del capítulo 2
+
+- Se restauró la visualización de los trazados sintéticos de almacenamiento, vaciado y acomodación en la práctica del capítulo 2.
+- El capítulo 1 conserva su presentación conceptual sin trazados, porque todavía no ha enseñado fases ni señales.
+- La corrección modifica únicamente la progresión visual: no cambia fisiología, perfiles de curva, respuestas correctas, umbrales ni interpretaciones clínicas.
+
 ## 2026-08-11 - Capítulo 2 centrado en fisiología normal
 
 - La primera lección pasa de `Antes de buscar una alteración` a `Antes del examen viene la fisiología` y explicita que la función debe comprenderse antes que las curvas, la física o la matemática.

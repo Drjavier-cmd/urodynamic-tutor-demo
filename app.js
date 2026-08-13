@@ -1,4 +1,4 @@
-const BUILD_REVISION = "20260811-physiology-first-v1";
+const BUILD_REVISION = "20260813-physiology-traces-v1";
 const competencyModel = window.UroDynamicCompetencyModel;
 const assessmentEngine = window.UroDynamicAssessmentEngine;
 const assessmentUIFactory = window.UroDynamicAssessmentUI;
@@ -3081,6 +3081,7 @@ function renderChapter() {
   const screen = chapter.screens[state.screen];
   const total = chapter.screens.length;
   const conceptFirst = ["thinking", "physiology"].includes(state.chapter);
+  const hidesSyntheticTrace = state.chapter === "thinking";
 
   els.chapterTitle.textContent = chapter.title;
   els.stageBlock.textContent = chapter.block;
@@ -3110,7 +3111,7 @@ function renderChapter() {
   els.prevScreen.disabled = state.screen === 0;
   els.nextScreen.disabled = state.screen === total - 1;
   els.openLab.hidden = state.screen !== total - 1;
-  document.querySelector(".practice-view")?.classList.toggle("concept-first", conceptFirst);
+  document.querySelector(".practice-view")?.classList.toggle("concept-first", hidesSyntheticTrace);
   const practiceTabSummary = document.querySelector('[data-view="practice"] small');
   if (practiceTabSummary) practiceTabSummary.textContent = conceptFirst ? "Aplicarlo a un caso" : "Aplicarlo al trazado";
   els.openPractice.innerHTML = conceptFirst

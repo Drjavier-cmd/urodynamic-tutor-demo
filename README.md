@@ -9,10 +9,11 @@ https://drjavier-cmd.github.io/urodynamic-tutor-demo/
 
 ## Revision Actual
 
-La revision `20260811-physiology-first-v1` incorpora:
+La revision `20260813-physiology-traces-v1` incorpora:
 
 - diez capitulos con lecciones, laboratorios, practica y evaluacion;
 - fisiologia normal antes de curvas, formulas y patologia;
+- trazados sinteticos de almacenamiento, vaciado y acomodacion visibles en la practica del capitulo 2;
 - dominio por ocho competencias;
 - pretest y postest estructurados;
 - caso final sintetico con revision humana;
