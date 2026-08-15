@@ -1,5 +1,11 @@
 # Registro de cambios científicos
 
+## 2026-08-15 - Trazados visibles en la práctica del capítulo 1
+
+- Se restauró la visualización de los cuatro trazados sintéticos del capítulo 1 junto con sus controles, reto e inspector.
+- Las preguntas conservan el foco aprobado del capítulo: relato clínico, utilidad, representatividad y límite; el trazado funciona como apoyo visual y no exige interpretar todavía Pves, Pabd o Pdet.
+- La corrección modifica únicamente la progresión visual: no cambia perfiles de curva, fisiología, respuestas correctas, umbrales ni interpretaciones clínicas.
+
 ## 2026-08-13 - Trazados fisiológicos visibles en la práctica del capítulo 2
 
 - Se restauró la visualización de los trazados sintéticos de almacenamiento, vaciado y acomodación en la práctica del capítulo 2.
