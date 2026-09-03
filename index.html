@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#0d777b" />
     <title>UroDynaMic Tutor - Curso interactivo</title>
     <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="styles.css?v=20260815-foundation-traces-v1" />
+    <link rel="stylesheet" href="styles.css?v=20260815-pilot-flow-v1" />
   </head>
   <body>
     <div class="app-shell">
@@ -100,6 +100,11 @@
             <small>Hipótesis / función / riesgo</small>
           </button>
           <p class="course-section-label">Recursos</p>
+          <button type="button" class="course-item" data-view="assessment">
+            <span>E</span>
+            <strong>Evaluación del curso</strong>
+            <small>Dominio global / caso final</small>
+          </button>
           <a class="course-item sample-link" href="vision-clinica.html">
             <span>V</span>
             <strong>Visión clínica</strong>
@@ -122,7 +127,6 @@
         <section class="course-cover view-panel" id="courseCover" data-view-panel="cover">
           <div class="cover-hero">
             <div class="cover-copy">
-              <p class="product-status-badge">Piloto docente · validación técnica interna completada</p>
               <p class="overline">Curso interactivo de razonamiento urodinámico</p>
               <h1>UroDynaMic Tutor</h1>
               <p class="cover-thesis">De una pregunta clínica a una interpretación funcional.</p>
@@ -178,12 +182,11 @@
 
         <header class="stage-header" id="stageHeader" hidden>
           <div>
-            <p class="product-status-inline">Piloto docente · validación técnica interna completada</p>
             <p class="overline" id="stageBlock">Bloque I · Fundamentos antes de interpretar curvas</p>
             <h2 id="chapterTitle">La pregunta antes del trazado</h2>
           </div>
           <div class="progress-box" aria-label="Dominio de competencias">
-            <span id="progressLabel">Dominio · sin evidencia</span>
+            <span id="progressLabel" hidden></span>
             <small id="progressDetail">Lección 1 de 18</small>
             <div class="progress-track"><div id="progressFill"></div></div>
             <button type="button" id="resetProgress" class="small-action">Reiniciar ruta</button>
@@ -199,13 +202,13 @@
             <span>2</span>
             <div><strong>Laboratorio</strong><small>Manipular el concepto</small></div>
           </button>
-          <button type="button" data-view="practice" aria-pressed="false">
+          <button type="button" data-view="questions" aria-pressed="false">
             <span>3</span>
-            <div><strong>Práctica</strong><small>Aplicarlo al trazado</small></div>
+            <div><strong>Preguntas</strong><small>Razonar con guía</small></div>
           </button>
-          <button type="button" data-view="assessment" aria-pressed="false">
+          <button type="button" data-view="practice" aria-pressed="false">
             <span>4</span>
-            <div><strong>Evaluación</strong><small>Demostrar dominio</small></div>
+            <div><strong>Práctica</strong><small>Aplicarlo al trazado</small></div>
           </button>
         </nav>
 
@@ -278,7 +281,22 @@
             <p id="labChapterDescription"></p>
           </header>
           <section class="visual-demo" id="visualDemo" aria-label="Laboratorio visual interactivo"></section>
-          <section class="challenge-lab" id="challengeLab" aria-label="Ejemplos interactivos guiados"></section>
+          <div class="lab-actions">
+            <button type="button" id="openQuestions" class="primary-action">
+              Continuar a preguntas guiadas <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="view-panel questions-workspace" data-view-panel="questions" hidden>
+          <header class="lab-intro">
+            <div>
+              <p class="overline">Preguntas guiadas del capítulo</p>
+              <h3>Explica tu razonamiento antes de interpretar el trazado</h3>
+            </div>
+            <p>Usa los datos disponibles, justifica tu lectura y reconoce sus límites.</p>
+          </header>
+          <section class="challenge-lab" id="challengeLab" aria-label="Preguntas interactivas guiadas"></section>
           <div class="lab-actions">
             <button type="button" id="openPractice" class="primary-action">
               Aplicar en un trazado <span aria-hidden="true">→</span>
@@ -382,6 +400,11 @@
               <div class="coach-feedback" id="coachFeedback">Elige una respuesta. El tutor busca razonamiento, no etiquetas.</div>
             </article>
           </section>
+          <div class="lab-actions practice-actions">
+            <button type="button" id="continueChapter" class="primary-action">
+              Continuar al capítulo siguiente <span aria-hidden="true">→</span>
+            </button>
+          </div>
         </div>
 
         <section class="view-panel assessment-workspace" id="assessmentView" data-view-panel="assessment" hidden>
@@ -413,13 +436,13 @@
       </main>
     </div>
 
-    <script src="course-content.js?v=20260815-foundation-traces-v1"></script>
-    <script src="practice-data.js?v=20260815-foundation-traces-v1"></script>
-    <script src="lab-data.js?v=20260815-foundation-traces-v1"></script>
-    <script src="challenge-data.js?v=20260815-foundation-traces-v1"></script>
-    <script src="competency-model.js?v=20260815-foundation-traces-v1"></script>
-    <script src="assessment-engine.js?v=20260815-foundation-traces-v1"></script>
-    <script src="assessment-ui.js?v=20260815-foundation-traces-v1"></script>
-    <script src="app.js?v=20260815-foundation-traces-v1"></script>
+    <script src="course-content.js?v=20260815-pilot-flow-v1"></script>
+    <script src="practice-data.js?v=20260815-pilot-flow-v1"></script>
+    <script src="lab-data.js?v=20260815-pilot-flow-v1"></script>
+    <script src="challenge-data.js?v=20260815-pilot-flow-v1"></script>
+    <script src="competency-model.js?v=20260815-pilot-flow-v1"></script>
+    <script src="assessment-engine.js?v=20260815-pilot-flow-v1"></script>
+    <script src="assessment-ui.js?v=20260815-pilot-flow-v1"></script>
+    <script src="app.js?v=20260815-pilot-flow-v1"></script>
   </body>
 </html>

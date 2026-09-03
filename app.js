@@ -1,4 +1,5 @@
-const BUILD_REVISION = "20260815-foundation-traces-v1";
+const BUILD_REVISION = "20260815-pilot-flow-v1";
+const LEARNING_VIEWS = ["cover", "lesson", "lab", "questions", "practice", "assessment"];
 const competencyModel = window.UroDynamicCompetencyModel;
 const assessmentEngine = window.UroDynamicAssessmentEngine;
 const assessmentUIFactory = window.UroDynamicAssessmentUI;
@@ -309,7 +310,9 @@ const els = {
   labChapterTitle: document.getElementById("labChapterTitle"),
   labChapterDescription: document.getElementById("labChapterDescription"),
   openLab: document.getElementById("openLab"),
+  openQuestions: document.getElementById("openQuestions"),
   openPractice: document.getElementById("openPractice"),
+  continueChapter: document.getElementById("continueChapter"),
   keyIdeaLabel: document.getElementById("keyIdeaLabel"),
   keyIdea: document.getElementById("keyIdea"),
   screenDots: document.getElementById("screenDots"),
@@ -400,10 +403,10 @@ function loadState() {
     return applyUrlState({
       chapter: saved.chapter,
       screen: Number.isInteger(saved.screen) ? Math.max(0, Math.min(saved.screen, chapters[saved.chapter].screens.length - 1)) : 0,
-      view: ["cover", "lesson", "lab", "practice", "assessment"].includes(saved.view) ? saved.view : "cover",
-      resumeView: ["lesson", "lab", "practice", "assessment"].includes(saved.resumeView)
+      view: LEARNING_VIEWS.includes(saved.view) ? saved.view : "cover",
+      resumeView: LEARNING_VIEWS.filter((view) => view !== "cover").includes(saved.resumeView)
         ? saved.resumeView
-        : (["lesson", "lab", "practice", "assessment"].includes(saved.view) ? saved.view : "lesson"),
+        : (LEARNING_VIEWS.filter((view) => view !== "cover").includes(saved.view) ? saved.view : "lesson"),
       scenario: savedScenario,
       theme: saved.theme === "dark" ? "dark" : "light",
       layers: {
@@ -466,7 +469,7 @@ function applyUrlState(baseState) {
     baseState.scenario = scenario;
   }
 
-  if (["cover", "lesson", "lab", "practice", "assessment"].includes(view)) {
+  if (LEARNING_VIEWS.includes(view)) {
     baseState.view = view;
     if (view !== "cover") baseState.resumeView = view;
   } else if (!chapter && !scenario && !params.has("screen")) {
@@ -1306,12 +1309,9 @@ function renderProgramSwitchDemo(demo) {
       </div>
       <div class="program-arrow"><span></span></div>
       <div class="urinary-program">
+        <div class="program-detrusor"><span>Detrusor</span><strong>${program.detrusor}</strong></div>
         <div class="program-bladder"><span>${program.system}</span></div>
         <div class="program-outlet"><i></i><span>Salida ${program.outlet}</span></div>
-      </div>
-      <div class="program-readouts">
-        <div><span>Detrusor</span><strong>${program.detrusor}</strong></div>
-        <div><span>Salida</span><strong>${program.outlet}</strong></div>
       </div>
     </div>
     <div class="demo-reading program-reading">
@@ -2998,6 +2998,13 @@ function renderTrace() {
 }
 
 function renderTraceChallenge() {
+  const challengeEnabled = state.chapter !== "physiology";
+  els.traceChallenge.hidden = !challengeEnabled;
+  if (!challengeEnabled) {
+    if (traceChallengeIsCurrent()) resetTraceChallengeState();
+    return;
+  }
+
   const scenario = activePracticeCase();
   const active = traceChallengeIsCurrent();
   const answered = active && state.traceChallenge.verdict !== null;
@@ -3116,6 +3123,11 @@ function renderChapter() {
   els.openPractice.innerHTML = conceptFirst
     ? 'Aplicar a un caso <span aria-hidden="true">→</span>'
     : 'Aplicar en un trazado <span aria-hidden="true">→</span>';
+  const chapterIds = Object.keys(chapters);
+  const finalChapter = chapterIds.indexOf(state.chapter) === chapterIds.length - 1;
+  els.continueChapter.innerHTML = finalChapter
+    ? 'Ir a la evaluación <span aria-hidden="true">→</span>'
+    : 'Continuar al capítulo siguiente <span aria-hidden="true">→</span>';
 
   const contextKey = `${state.chapter}:${state.screen}`;
   if (els.contextPanel.dataset.screenKey !== contextKey) {
@@ -3156,13 +3168,15 @@ function renderCover() {
 }
 
 function renderView() {
-  const view = ["cover", "lesson", "lab", "practice", "assessment"].includes(state.view) ? state.view : "cover";
+  const view = LEARNING_VIEWS.includes(state.view) ? state.view : "cover";
   state.view = view;
   const coverActive = view === "cover";
+  const chapterActive = ["lesson", "lab", "questions", "practice"].includes(view);
+  const globalAssessmentActive = view === "assessment";
 
   els.mainStage.classList.toggle("cover-mode", coverActive);
-  els.stageHeader.hidden = coverActive;
-  els.workspaceTabs.hidden = coverActive;
+  els.stageHeader.hidden = coverActive || globalAssessmentActive;
+  els.workspaceTabs.hidden = coverActive || globalAssessmentActive;
   els.openCover.classList.toggle("active", coverActive);
 
   document.querySelectorAll("[data-view]").forEach((button) => {
@@ -3176,14 +3190,15 @@ function renderView() {
   });
 
   document.querySelectorAll(".course-item[data-chapter]").forEach((button) => {
-    button.classList.toggle("active", !coverActive && button.dataset.chapter === state.chapter);
+    button.classList.toggle("active", chapterActive && button.dataset.chapter === state.chapter);
   });
 }
 
 function setView(view) {
-  if (!["cover", "lesson", "lab", "practice", "assessment"].includes(view)) return;
+  if (!LEARNING_VIEWS.includes(view)) return;
   state.view = view;
   if (view !== "cover") state.resumeView = view;
+  if (view === "assessment") closeCourseNav();
   renderView();
   if (view === "assessment") assessmentUI.render();
   saveState();
@@ -3354,9 +3369,10 @@ const assessmentUI = assessmentUIFactory.createAssessmentUI({
   save: saveState,
   navigateToRemediation,
   onMasteryChange(current) {
+    els.progressLabel.hidden = !current.attempted;
     els.progressLabel.textContent = current.attempted
       ? `Dominio con cobertura ${current.percent}% · ${current.level.label}`
-      : "Dominio · sin evidencia";
+      : "";
     els.progressFill.style.width = `${current.percent}%`;
   }
 });
@@ -3367,12 +3383,32 @@ function bindEvents() {
   });
 
   els.openLab.addEventListener("click", () => setView("lab"));
+  els.openQuestions.addEventListener("click", () => setView("questions"));
   els.openPractice.addEventListener("click", () => setView("practice"));
+  els.continueChapter.addEventListener("click", () => {
+    const chapterIds = Object.keys(chapters);
+    const currentIndex = chapterIds.indexOf(state.chapter);
+    if (currentIndex >= chapterIds.length - 1) {
+      setView("assessment");
+      return;
+    }
+    state.chapter = chapterIds[currentIndex + 1];
+    state.screen = 0;
+    state.scenario = chapterScenarioDefaults[state.chapter] || state.scenario;
+    state.view = "lesson";
+    state.resumeView = "lesson";
+    resetTraceChallengeState();
+    closeCourseNav();
+    render();
+  });
   els.openCover.addEventListener("click", () => {
     closeCourseNav();
     setView("cover");
   });
-  els.startCourse.addEventListener("click", () => setView(state.resumeView || "lesson"));
+  els.startCourse.addEventListener("click", () => {
+    setView(state.resumeView || "lesson");
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  });
   els.browseChapters.addEventListener("click", () => {
     els.sideRail.classList.add("nav-open");
     els.courseNavToggle.setAttribute("aria-expanded", "true");

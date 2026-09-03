@@ -14,11 +14,11 @@ const chapters = {
       "Convierte un relato clínico en una pregunta verificable y una respuesta prudente. Las fases, señales y controles técnicos se enseñarán en los capítulos siguientes.",
     screens: [
       {
-        title: "La historia comienza antes del equipo",
+        title: "La historia comienza antes del examen",
         text:
-          "El paciente consulta por una experiencia: pierde orina, siente urgencia, no logra vaciar o debe hacer esfuerzo. Esa historia define el problema; el examen solo puede aportar una observación funcional bajo condiciones controladas.",
-        key: "Primero comprende el problema del paciente; después decide qué puede aportar el estudio.",
-        prompt: "¿Qué experiencia concreta motivó esta evaluación?"
+          "El síntoma, o el conjunto de síntomas, no ocurre de manera aislada: está inserto en la historia del paciente, sus experiencias previas, su realidad cotidiana y su entorno. La urodinamia observa la función bajo condiciones controladas, pero no puede recrear por completo el contexto en que esos síntomas aparecen.",
+        key: "Lo primero es comprender qué afecta al paciente; luego, preguntarnos si la urodinamia puede aportar información útil.",
+        prompt: "¿Qué síntoma o conjunto de síntomas motivó esta evaluación?"
       },
       {
         title: "Una buena urodinamia empieza con una pregunta",

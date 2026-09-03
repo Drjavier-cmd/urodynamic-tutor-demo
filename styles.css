@@ -464,7 +464,8 @@ a.course-item {
   min-width: 0;
 }
 
-.lab-workspace {
+.lab-workspace,
+.questions-workspace {
   display: grid;
   gap: 16px;
   min-width: 0;
@@ -1121,7 +1122,7 @@ a.course-item {
 .program-diagram {
   min-height: 260px;
   display: grid;
-  grid-template-columns: minmax(180px, 0.8fr) 68px minmax(220px, 1.1fr) minmax(170px, 0.8fr);
+  grid-template-columns: minmax(180px, 0.8fr) 68px minmax(300px, 1.9fr);
   gap: 16px;
   align-items: center;
   border-top: 1px solid var(--line);
@@ -1169,6 +1170,27 @@ a.course-item {
   display: grid;
   justify-items: center;
   align-content: center;
+}
+
+.program-detrusor {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: var(--teal);
+}
+
+.program-detrusor span {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.program-detrusor strong {
+  color: var(--ink);
+  font-size: 18px;
+  text-transform: capitalize;
 }
 
 .program-bladder {
@@ -1230,24 +1252,6 @@ a.course-item {
   font-size: 12px;
   font-weight: 900;
   text-transform: uppercase;
-}
-
-.program-readouts {
-  display: grid;
-  gap: 10px;
-}
-
-.program-readouts > div {
-  border-bottom: 1px solid var(--line);
-  padding: 12px 0;
-}
-
-.program-readouts strong {
-  display: block;
-  margin-top: 5px;
-  color: var(--ink);
-  font-size: 18px;
-  text-transform: capitalize;
 }
 
 .program-reading {
