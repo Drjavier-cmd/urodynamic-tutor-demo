@@ -17,8 +17,8 @@
 
 | Capítulo | Pregunta | Fase | Calidad | Señal | Evento | Inferencia | Límite | Respuesta |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
-| Cómo pensar una urodinamia | X |  | X | X |  |  | X | X |
-| Fisiología normal |  | X |  | X | X |  |  |  |
+| La pregunta antes del trazado | X |  |  |  |  |  | X | X |
+| Fisiología normal |  | X |  |  | X | X |  |  |
 | Del ciclo al trazado |  | X |  | X | X | X |  |  |
 | Física de la presión |  |  | X | X |  |  |  |  |
 | Qué mide el equipo |  |  | X | X |  |  |  |  |
@@ -44,7 +44,9 @@ Cada pretest y postest debe incluir al menos dos reactivos de:
 - `Sin evidencia`: no existen intentos válidos.
 - `Inicial`: menos de 60% de respuestas correctas.
 - `En desarrollo`: entre 60% y 79%.
-- `Dominio`: 80% o más, con al menos dos evidencias.
+- El porcentaje global es el promedio de las ocho competencias; una competencia sin evidencia aporta 0%. Por eso una respuesta correcta aislada no puede mostrar 100% de dominio global.
+- La precisión sobre las respuestas realizadas se informa por separado y no se presenta como dominio.
+- `Dominio`: 80% o más en el cálculo global, con al menos dos evidencias en cada una de las ocho competencias.
 
 Los textos libres del caso final no se califican automáticamente como correctos.
 Se comparan con una rúbrica y requieren revisión humana para certificación.

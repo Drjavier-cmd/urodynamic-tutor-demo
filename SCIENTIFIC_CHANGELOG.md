@@ -1,5 +1,14 @@
 # Registro de cambios científicos
 
+## 2026-08-26 - Ajuste editorial del principio de entrada del capítulo 1
+
+- Por decisión explícita del autor, el título `La historia comienza antes del equipo` se reemplaza por `La historia comienza antes del examen`.
+- El principio rector `Primero comprende el problema del paciente; después decide qué puede aportar el estudio.` se reemplaza por `Lo primero es comprender qué afecta al paciente; luego, preguntarnos si la urodinamia puede aportar información útil.`
+- El párrafo que comenzaba con `El paciente consulta por una experiencia...` se reemplaza, con aprobación explícita del autor, por `El síntoma, o el conjunto de síntomas, no ocurre de manera aislada: está inserto en la historia del paciente, sus experiencias previas, su realidad cotidiana y su entorno. La urodinamia observa la función bajo condiciones controladas, pero no puede recrear por completo el contexto en que esos síntomas aparecen.`
+- La pregunta guía `¿Qué experiencia concreta motivó esta evaluación?` se reemplaza por `¿Qué síntoma o conjunto de síntomas motivó esta evaluación?`.
+- La modificación aclara la secuencia docente entre la afectación del paciente, su contexto y la utilidad potencial del examen; el resto del contenido del capítulo permanece intacto.
+- No se modificaron fisiología, anatomía, otras preguntas, respuestas, trazados, parámetros ni interpretaciones clínicas.
+
 ## 2026-08-15 - Trazados visibles en la práctica del capítulo 1
 
 - Se restauró la visualización de los cuatro trazados sintéticos del capítulo 1 junto con sus controles, reto e inspector.
@@ -86,3 +95,10 @@ Un cambio científico solo puede pasar a estado `Aprobado` cuando registra:
 5. fecha;
 6. aprobación del autor clínico;
 7. revisor, cuando corresponda.
+# 2026-08-15 · Flujo docente transversal
+
+- Se separan las preguntas guiadas del laboratorio como una etapa propia entre laboratorio y práctica.
+- Se agrega al final de la práctica una salida al capítulo siguiente; en el capítulo final conduce a la evaluación.
+- La evaluación global se retira de la barra de etapas de cada capítulo y queda como recurso independiente del curso.
+- No se modifican preguntas, respuestas, explicaciones ni interpretaciones clínicas.
+- Por decisión del autor, la práctica del capítulo 2 conserva trazados y preguntas del tutor, pero retira el reto de localización: almacenamiento, vaciado y acomodación se enseñan allí como relaciones fisiológicas globales, no como eventos puntuales que deban marcarse.

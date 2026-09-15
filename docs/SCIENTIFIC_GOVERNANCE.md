@@ -1,5 +1,9 @@
 # Gobernanza científica
 
+## Estado global del producto
+
+**Piloto docente con validación técnica interna completada.** Las pruebas automatizadas y la revisión visual multidispositivo están completas. La revisión científica externa y la prueba de usabilidad institucional continúan en curso. Esta denominación no equivale a aprobación institucional ni certificación clínica.
+
 ## Responsabilidades
 
 - Autor clínico: Dr. Javier Alejandro Muñoz Quintana.
