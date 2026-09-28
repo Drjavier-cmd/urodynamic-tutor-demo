@@ -539,23 +539,6 @@
             <div><dt>Revisor externo</dt><dd>${escapeHtml(governance.externalReviewer)}</dd></div>
           </dl>
           <p class="governance-beta-note">${escapeHtml(governance.reviewSummary)}</p>
-          <div class="governance-table-wrap">
-            <table>
-              <thead><tr><th>Capítulo</th><th>Estado</th><th>Fuente</th><th>Revisión</th></tr></thead>
-              <tbody>
-                ${Object.entries(governance.chapters)
-                  .map(([chapterId, metadata]) => `
-                    <tr>
-                      <td>${escapeHtml(courseContext().chapters[chapterId]?.title || chapterId)}</td>
-                      <td><span class="status-tag ${metadata.status.includes("pendiente") ? "pending" : ""}">${escapeHtml(metadata.status)}</span></td>
-                      <td>${escapeHtml(metadata.source)}</td>
-                      <td>${escapeHtml(metadata.reviewedAt || "Pendiente")}</td>
-                    </tr>
-                  `)
-                  .join("")}
-              </tbody>
-            </table>
-          </div>
           <div class="governance-links">
             <a href="SCIENTIFIC_CHANGELOG.md" target="_blank" rel="noopener">Registro de cambios científicos</a>
             <a href="docs/SCIENTIFIC_GOVERNANCE.md" target="_blank" rel="noopener">Política de gobernanza</a>
@@ -617,20 +600,6 @@
       );
     }
 
-    function renderChapterGovernance(chapterId) {
-      const metadata = model.scientificGovernance.chapters[chapterId];
-      if (!metadata) {
-        elements.chapterGovernance.innerHTML = "";
-        return;
-      }
-      elements.chapterGovernance.innerHTML = `
-        <span>Estado científico</span>
-        <strong>${escapeHtml(metadata.status)}</strong>
-        <small>Fuente: ${escapeHtml(metadata.source)} · ${metadata.reviewedAt ? `revisión ${escapeHtml(metadata.reviewedAt)}` : "sin aprobación clínica final"}</small>
-      `;
-      elements.chapterGovernance.classList.toggle("pending", metadata.status.includes("pendiente"));
-    }
-
     function render() {
       renderMastery();
       elements.tabs.forEach((button) => {
@@ -657,7 +626,6 @@
     return {
       render,
       renderMastery,
-      renderChapterGovernance,
       exportAnonymousResults
     };
   }

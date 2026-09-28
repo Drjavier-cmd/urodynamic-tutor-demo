@@ -304,7 +304,6 @@ const els = {
   chapterNumberLarge: document.getElementById("chapterNumberLarge"),
   screenText: document.getElementById("screenText"),
   lessonPrompt: document.getElementById("lessonPrompt"),
-  chapterGovernance: document.getElementById("chapterGovernance"),
   visualDemo: document.getElementById("visualDemo"),
   challengeLab: document.getElementById("challengeLab"),
   labChapterTitle: document.getElementById("labChapterTitle"),
@@ -3155,7 +3154,6 @@ function renderChapter() {
   });
 
   renderVisualDemo();
-  assessmentUI.renderChapterGovernance(state.chapter);
 }
 
 function renderCover() {
@@ -3362,8 +3360,7 @@ const assessmentUI = assessmentUIFactory.createAssessmentUI({
     masterySummary: els.masterySummary,
     competencyGrid: els.competencyGrid,
     content: els.assessmentContent,
-    tabs: els.assessmentTabs,
-    chapterGovernance: els.chapterGovernance
+    tabs: els.assessmentTabs
   },
   courseContext: courseAssessmentContext,
   save: saveState,
